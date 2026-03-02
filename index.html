@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>زينة | 20 🎀</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#ffb6d5,#ffd6ea);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+}
+
+.card{
+  background:white;
+  width:90%;
+  max-width:600px;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  position:relative;
+}
+
+h1{margin:10px 0;}
+
+button{
+  background:#ff4fa3;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:8px;
+}
+
+img{
+  width:160px;
+  height:160px;
+  object-fit:cover;
+  border-radius:20px;
+  margin:10px 0;
+}
+
+.gift{
+  display:none;
+  margin-top:15px;
+  font-weight:bold;
+  line-height:1.8;
+}
+
+.heart{
+  position:fixed;
+  animation:float 1.2s forwards;
+  pointer-events:none;
+}
+
+@keyframes float{
+  0%{transform:translate(-50%,-50%) scale(0.6);opacity:0;}
+  20%{opacity:1;}
+  100%{transform:translate(-50%,-140%) scale(1.3);opacity:0;}
+}
+
+.confetti{
+  position:fixed;
+  top:-20px;
+  transition:transform 1.8s ease,opacity 1.8s ease;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h1>🎂 زينة - 20 سنة 🎀</h1>
+
+  <img id="photo" src="photo1.png">
+
+  <div>
+    <button onclick="openGift()">افتح الهدية 🎁</button>
+    <button onclick="burst()">إعادة الحركات ✨</button>
+  </div>
+
+  <div class="gift" id="giftText"></div>
+</div>
+
+<script>
+
+const images = [
+  "photo1.png",
+  "photo2.png",
+  "photo3.png",
+  "photo4.png",
+  "photo5.png"
+];
+
+// تبديل الصور تلقائي
+let current = 0;
+setInterval(() => {
+  current = (current + 1) % images.length;
+  document.getElementById("photo").src = images[current];
+}, 3000);
+
+// نص التهنئة
+const message = `
+في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، 
+كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا 
+وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي 
+لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب 
+وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
+
+وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
+وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
+يا رب تكون سنة نضج أجمل، نجاح أكبر، وأحلام تتحقق قدام عيونك 🎂💖
+وتكون بداية عشريناتك بداية قوة وثقة وإنجازات تخليني أفتخر فيك أكثر وأكثر 💞
+وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
+`;
+
+// فتح الهدية
+function openGift(){
+  const box = document.getElementById("giftText");
+  box.style.display="block";
+  box.innerHTML="";
+  typeWriter(box, message, 20);
+  burst();
+}
+
+// كتابة حرف حرف
+function typeWriter(element, text, speed){
+  let i=0;
+  const interval=setInterval(()=>{
+    element.innerHTML += text[i];
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },speed);
+}
+
+// كونفيتي
+function burst(){
+  const symbols=["💗","✨","🎀","🌸","🎂"];
+  for(let i=0;i<30;i++){
+    const s=document.createElement("div");
+    s.className="confetti";
+    s.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+    s.style.left=Math.random()*100+"vw";
+    s.style.fontSize=(14+Math.random()*18)+"px";
+    document.body.appendChild(s);
+
+    requestAnimationFrame(()=>{
+      s.style.transform=`translate(${Math.random()*60-30}px,${window.innerHeight+120}px)`;
+      s.style.opacity=0;
+    });
+
+    setTimeout(()=>s.remove(),1800);
+  }
+}
+
+// قلوب عند الضغط
+document.getElementById("card").addEventListener("click",(e)=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerText="💗";
+  heart.style.left=e.clientX+"px";
+  heart.style.top=e.clientY+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),1200);
+});
+
+</script>
+
+</body>
+</html>
