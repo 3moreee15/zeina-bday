@@ -12,17 +12,18 @@
     --text:#3b2b2f;
   }
 
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial;
-    background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    overflow:hidden;
-    color:var(--text);
-  }
+body{
+  margin:0;
+  font-family: system-ui;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex;
+  justify-content:center;
+  align-items:flex-start; /* بدل center */
+  min-height:100vh;
+  overflow-x:hidden;      /* بس اخفي الأفقي */
+  overflow-y:auto;        /* اسمح بالسكرول */
+  padding:40px 0;         /* عشان يعطي مساحة فوق وتحت */
+}
 
   .sparkle{
     position:absolute; inset:-30px;
@@ -451,4 +452,5 @@
 </script>
 
 </body>
+
 </html>
