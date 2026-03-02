@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>زينة | 20 🎀</title>
+
+<style>
+  :root{
+    --bg1:#ffb6d5; --bg2:#ffd6ea;
+    --pink:#ff4fa3; --pink2:#ff7fc3;
+    --text:#3b2b2f;
+  }
+
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow:hidden;
+    color:var(--text);
+  }
+
+  .sparkle{
+    position:absolute; inset:-30px;
+    background-image:
+      radial-gradient(#fff8 1px, transparent 1px),
+      radial-gradient(#fff6 1px, transparent 1px);
+    background-size: 28px 28px, 44px 44px;
+    background-position: 0 0, 10px 18px;
+    animation: float 10s linear infinite;
+    pointer-events:none; opacity:.75;
+  }
+  @keyframes float{ from{transform:translateY(0)} to{transform:translateY(-40px)} }
+
+  .card{
+    width:92%;
+    max-width:640px;
+    background:rgba(255,255,255,0.92);
+    padding:18px;
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    position:relative;
+    backdrop-filter: blur(6px);
+  }
+
+  .badges{
+    display:flex;
+    gap:10px;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 12px; border-radius:999px;
+    background:linear-gradient(135deg, #fff, #ffe8f3);
+    border:1px solid #ffd1e7;
+    font-weight:900;
+  }
+
+  h1{ margin:10px 0 6px; font-size:26px; }
+  p.sub{ margin:0 0 14px; opacity:.88; line-height:1.8; }
+
+  .actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  button{
+    flex:1;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:white;
+    border:none;
+    padding:12px 14px;
+    border-radius:14px;
+    font-weight:900;
+    cursor:pointer;
+    font-size:15px;
+  }
+  button.secondary{
+    background:#fff;
+    color:var(--pink);
+    border:1px solid #ffd1e7;
+  }
+  button:active{ transform:scale(0.99); }
+
+  /* ===== السلايدر ===== */
+  .slider{
+    width:170px;
+    height:170px;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid #ffd1e7;
+    background:linear-gradient(135deg,#ffe4f1,#fff);
+    position:relative;
+    margin:12px auto 6px;
+    touch-action: pan-y; /* يخلي السحب أفقي بدون ما يخرب سحب الصفحة */
+  }
+
+  .slides{
+    display:flex;
+    width:100%;
+    height:100%;
+    transition:transform 600ms ease;
+  }
+  .slides img{
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    flex:0 0 170px;
+  }
+
+  .dots{
+    position:absolute;
+    left:50%;
+    bottom:8px;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    padding:6px 8px;
+    border-radius:999px;
+    background:#ffffffb0;
+    border:1px solid #ffd1e7;
+    backdrop-filter:blur(6px);
+  }
+  .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ffb7da;
+    opacity:.75;
+    cursor:pointer;
+    transition:transform .2s ease, opacity .2s ease, background .2s ease;
+  }
+  .dot.active{
+    background:#ff4fa3;
+    opacity:1;
+    transform:scale(1.25);
+  }
+
+  .hint{
+    font-size:13px;
+    opacity:.8;
+    margin:8px 0 0;
+    line-height:1.7;
+  }
+
+  .gift{
+    display:none;
+    margin-top:14px;
+    text-align:right;
+    background:#fff;
+    border:1px solid #ffd1e7;
+    border-radius:18px;
+    padding:14px;
+    line-height:2;
+    font-weight:800;
+    position:relative;
+  }
+  .ribbon{
+    position:absolute;
+    top:-10px;
+    left:18px;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:#fff;
+    padding:6px 10px;
+    border-radius:999px;
+    font-weight:900;
+    box-shadow:0 10px 18px rgba(255,79,163,.22);
+  }
+
+  .typed{
+    border-left: 2px solid var(--pink);
+    padding-left:6px;
+    animation: caret .9s steps(1) infinite;
+  }
+  @keyframes caret{ 50%{border-left-color:transparent} }
+
+  .heart{
+    position:fixed;
+    font-size:18px;
+    opacity:.9;
+    animation: pop 1.2s ease forwards;
+    pointer-events:none;
+    filter: drop-shadow(0 6px 10px rgba(255,79,163,.22));
+  }
+  @keyframes pop{
+    0%{transform:translate(-50%,-50%) scale(.6); opacity:0}
+    20%{opacity:1}
+    100%{transform:translate(-50%,-140%) scale(1.25); opacity:0}
+  }
+
+  .confetti{
+    position:fixed;
+    top:-20px;
+    transition: transform 1.7s ease, opacity 1.7s ease;
+    will-change: transform;
+    pointer-events:none;
+  }
+
+  .toast{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#ffffffd9;
+    border:1px solid #ffd1e7;
+    padding:10px 12px;
+    border-radius:999px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.12);
+    display:none;
+    font-weight:900;
+    z-index:9999;
+  }
+
+  .fileNote{
+    margin-top:6px;
+    font-size:12px;
+    opacity:.75;
+    line-height:1.7;
+  }
+</style>
+</head>
+
+<body>
+<div class="sparkle"></div>
+
+<div class="card" id="card">
+  <div class="badges">
+    <div class="badge">🎀 مفاجأة لزينة</div>
+    <div class="badge" id="dateBadge">📅 اليوم</div>
+  </div>
+
+  <h1>🎂 زينة - 20 سنة 🎀</h1>
+  <p class="sub">اضغطي “افتح الهدية” وشوفي الرسالة… واضغطي داخل البطاقة عشان تطلع قلوب 💗</p>
+
+  <!-- سلايدر الصور -->
+  <div class="slider" id="slider" aria-label="سلايدر صور">
+    <div class="slides" id="slides">
+      <img src="photo1.png" alt="صورة 1">
+      <img src="photo2.png" alt="صورة 2">
+      <img src="photo3.png" alt="صورة 3">
+      <img src="photo4.png" alt="صورة 4">
+      <img src="photo5.png" alt="صورة 5">
+    </div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="fileNote">
+    تأكد ترفع الصور بأسماء: photo1.png إلى photo5.png داخل نفس المستودع.
+  </div>
+
+  <div class="actions">
+    <button id="openGift">افتح الهدية 🎁</button>
+    <button class="secondary" id="replay">عيدي الحركات ✨</button>
+    <button class="secondary" id="copyLink">انسخ الرابط</button>
+  </div>
+
+  <div class="gift" id="giftBox">
+    <div class="ribbon">💖 مفاجأة</div>
+    <div id="giftText"></div>
+  </div>
+
+  <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨</p>
+</div>
+
+<div class="toast" id="toast">تم ✅</div>
+
+<script>
+  const $ = (id)=>document.getElementById(id);
+
+  // التاريخ
+  const now = new Date();
+  const fmt = new Intl.DateTimeFormat("ar-SA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+  $("dateBadge").textContent = "📅 " + fmt.format(now);
+
+  // رسالة التهنئة (نفس كلامك + إضافات بسيطة)
+  const message = `
+في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
+
+وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
+وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
+يا رب تكون سنة نضج أجمل، نجاح أكبر، وأحلام تتحقق قدام عيونك 🎂💖
+وتكون بداية عشريناتك بداية قوة وثقة وإنجازات تخليني أفتخر فيك أكثر وأكثر 💞
+وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
+`;
+
+  function showToast(text){
+    const t = $("toast");
+    t.textContent = text;
+    t.style.display = "block";
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>t.style.display="none", 1400);
+  }
+
+  // كتابة حرف-حرف داخل عنصر
+  function typeWriter(el, text, speed=14){
+    el.classList.add("typed");
+    el.textContent = "";
+    let i = 0;
+    clearInterval(typeWriter._t);
+    typeWriter._t = setInterval(()=>{
+      el.textContent += text[i] ?? "";
+      i++;
+      if(i > text.length){
+        clearInterval(typeWriter._t);
+        setTimeout(()=>el.classList.remove("typed"), 600);
+      }
+    }, speed);
+  }
+
+  // كونفيتي
+  function burst(){
+    const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
+    for(let i=0;i<32;i++){
+      const s=document.createElement("div");
+      s.className="confetti";
+      s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+      s.style.left=Math.random()*100+"vw";
+      s.style.fontSize=(14+Math.random()*18)+"px";
+      s.style.opacity=0.95;
+      document.body.appendChild(s);
+
+      requestAnimationFrame(()=>{
+        const x = (Math.random()*60 - 30);
+        const y = (window.innerHeight + 140);
+        s.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*240-120}deg)`;
+        s.style.opacity = 0;
+      });
+
+      setTimeout(()=>s.remove(), 1800);
+    }
+  }
+
+  // قلوب عند الضغط داخل البطاقة
+  $("card").addEventListener("click",(e)=>{
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.textContent="💗";
+    heart.style.left=e.clientX+"px";
+    heart.style.top=e.clientY+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1200);
+  });
+
+  // فتح الهدية
+  $("openGift").addEventListener("click", ()=>{
+    const box = $("giftBox");
+    box.style.display="block";
+    $("giftText").textContent="";
+    typeWriter($("giftText"), message, 12);
+    burst();
+    showToast("انفتحت الهدية 🎁");
+    box.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+
+  // إعادة الحركة
+  $("replay").addEventListener("click", ()=>{
+    burst();
+    showToast("يلا نعيد ✨");
+  });
+
+  // نسخ الرابط
+  $("copyLink").addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      showToast("تم نسخ الرابط ✅");
+    }catch{
+      prompt("انسخ الرابط:", location.href);
+    }
+  });
+
+  // ===== سلايدر احترافي =====
+  const slidesEl = $("slides");
+  const imgs = Array.from(slidesEl.querySelectorAll("img"));
+  const dotsEl = $("dots");
+  const slider = $("slider");
+
+  const W = 170; // عرض/طول السلايدر
+  let index = 0;
+  let autoTimer = null;
+
+  function buildDots(){
+    dotsEl.innerHTML = "";
+    imgs.forEach((_, i)=>{
+      const d = document.createElement("div");
+      d.className = "dot" + (i===0 ? " active" : "");
+      d.addEventListener("click", ()=> goTo(i, true));
+      dotsEl.appendChild(d);
+    });
+  }
+
+  function updateDots(){
+    const dots = Array.from(dotsEl.children);
+    dots.forEach((d,i)=> d.classList.toggle("active", i===index));
+  }
+
+  function goTo(i, userAction=false){
+    index = (i + imgs.length) % imgs.length;
+    slidesEl.style.transition = "transform 600ms ease";
+    slidesEl.style.transform = `translateX(${-index * W}px)`;
+    updateDots();
+    if(userAction) restartAuto();
+  }
+
+  function next(){ goTo(index + 1); }
+
+  function startAuto(){
+    autoTimer = setInterval(next, 2800);
+  }
+
+  function stopAuto(){
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+
+  function restartAuto(){
+    stopAuto();
+    startAuto();
+  }
+
+  buildDots();
+  startAuto();
+
+  // سحب بالجوال (Swipe)
+  let startX = 0;
+  let deltaX = 0;
+  let dragging = false;
+
+  slider.addEventListener("touchstart", (e)=>{
+    dragging = true;
+    startX = e.touches[0].clientX;
+    deltaX = 0;
+    stopAuto();
+    slidesEl.style.transition = "none";
+  }, {passive:true});
+
+  slider.addEventListener("touchmove", (e)=>{
+    if(!dragging) return;
+    deltaX = e.touches[0].clientX - startX;
+    slidesEl.style.transform = `translateX(${(-index * W) + deltaX}px)`;
+  }, {passive:true});
+
+  slider.addEventListener("touchend", ()=>{
+    if(!dragging) return;
+    dragging = false;
+
+    // إذا سحب أكثر من 45px بدّل
+    if(deltaX > 45) goTo(index - 1, true);
+    else if(deltaX < -45) goTo(index + 1, true);
+    else goTo(index, true);
+
+    deltaX = 0;
+  }, {passive:true});
+
+  // كمبيوتر: وقف الأوتو عند المرور
+  slider.addEventListener("mouseenter", stopAuto);
+  slider.addEventListener("mouseleave", startAuto);
+</script>
+
+</body>
+</html>
