@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>زينة | 20 🎀</title>
 
 <style>
@@ -10,20 +10,22 @@
     --bg1:#ffb6d5; --bg2:#ffd6ea;
     --pink:#ff4fa3; --pink2:#ff7fc3;
     --text:#3b2b2f;
+    --border:#ffd1e7;
   }
+  *{ box-sizing:border-box; }
 
   body{
     margin:0;
     font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial;
     background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
     min-height:100vh;
     overflow-x:hidden;
     overflow-y:auto;
-    padding:40px 0;
+    padding: clamp(18px, 4vh, 42px) 0;
     color:var(--text);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
   }
 
   .sparkle{
@@ -40,23 +42,20 @@
   @keyframes float{ from{transform:translateY(0)} to{transform:translateY(-40px)} }
 
   .card{
-    width:92%;
-    max-width:640px;
-    background:rgba(255,255,255,0.92);
-    padding:18px;
-    border-radius:22px;
+    width: min(92vw, 720px);
+    background:rgba(255,255,255,0.93);
+    padding: clamp(14px, 2.2vw, 22px);
+    border-radius: 22px;
     text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    box-shadow:0 16px 44px rgba(0,0,0,0.12);
     position:relative;
     backdrop-filter: blur(6px);
     z-index:1;
   }
 
   .badges{
-    display:flex;
-    gap:10px;
-    justify-content:space-between;
-    align-items:center;
+    display:flex; gap:10px;
+    justify-content:space-between; align-items:center;
     flex-wrap:wrap;
     margin-bottom:8px;
   }
@@ -64,93 +63,59 @@
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 12px; border-radius:999px;
     background:linear-gradient(135deg, #fff, #ffe8f3);
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     font-weight:900;
+    font-size: 13px;
   }
 
-  h1{ margin:10px 0 6px; font-size:26px; }
-  p.sub{ margin:0 0 14px; opacity:.88; line-height:1.8; }
+  h1{ margin:10px 0 6px; font-size: clamp(20px, 2.6vw, 28px); }
+  p.sub{
+    margin:0 0 14px;
+    opacity:.88;
+    line-height:1.8;
+    font-size: clamp(13px, 1.7vw, 15px);
+  }
 
-  .actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:10px;
-  }
-  button{
-    flex:1;
-    background:linear-gradient(135deg,var(--pink),var(--pink2));
-    color:white;
-    border:none;
-    padding:12px 14px;
-    border-radius:14px;
-    font-weight:900;
-    cursor:pointer;
-    font-size:15px;
-  }
-  button.secondary{
-    background:#fff;
-    color:var(--pink);
-    border:1px solid #ffd1e7;
-  }
-  button:active{ transform:scale(0.99); }
-
-  /* ===== Fade Slider ===== */
+  /* Fade Slider */
   .fadeSlider{
-    width:180px;
-    height:180px;
+    width: min(72vw, 210px);
+    aspect-ratio: 1 / 1;
     border-radius:22px;
     overflow:hidden;
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     background:linear-gradient(135deg,#ffe4f1,#fff);
     position:relative;
     margin:12px auto 6px;
     touch-action: pan-y;
   }
-
   .fadeSlide{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
+    position:absolute; inset:0;
+    width:100%; height:100%;
     object-fit:cover;
     opacity:0;
     transform:scale(1.02);
     transition: opacity 700ms ease, transform 900ms ease;
     will-change: opacity, transform;
   }
-  .fadeSlide.active{
-    opacity:1;
-    transform:scale(1);
-  }
+  .fadeSlide.active{ opacity:1; transform:scale(1); }
 
   .dots{
     position:absolute;
-    left:50%;
-    bottom:8px;
+    left:50%; bottom:8px;
     transform:translateX(-50%);
-    display:flex;
-    gap:6px;
+    display:flex; gap:6px;
     padding:6px 8px;
     border-radius:999px;
     background:#ffffffb0;
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     backdrop-filter:blur(6px);
   }
   .dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#ffb7da;
-    opacity:.75;
-    cursor:pointer;
+    width:7px; height:7px; border-radius:50%;
+    background:#ffb7da; opacity:.75; cursor:pointer;
     transition:transform .2s ease, opacity .2s ease, background .2s ease;
   }
-  .dot.active{
-    background:#ff4fa3;
-    opacity:1;
-    transform:scale(1.25);
-  }
+  .dot.active{ background:var(--pink); opacity:1; transform:scale(1.25); }
 
   .fileNote{
     margin-top:6px;
@@ -159,67 +124,139 @@
     line-height:1.7;
   }
 
-  /* ===== Quiz Box ===== */
+  .actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+
+  .btn{
+    flex:1;
+    border:none;
+    padding:12px 14px;
+    border-radius:14px;
+    font-weight:900;
+    cursor:pointer;
+    font-size:15px;
+    transition: transform .12s ease;
+  }
+  .btn.primary{
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:white;
+  }
+  .btn.secondary{
+    background:#fff;
+    color:var(--pink);
+    border:1px solid var(--border);
+  }
+  .btn:active{ transform:scale(0.99); }
+
+  /* Quiz */
   .quiz{
     margin-top:14px;
     text-align:center;
     background:#fff;
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     border-radius:18px;
     padding:14px;
     position:relative;
+    overflow:hidden;
   }
   .quizTag{
     position:absolute;
-    top:-10px;
-    left:18px;
+    top:-10px; left:18px;
     background:linear-gradient(135deg,var(--pink),var(--pink2));
     color:#fff;
     padding:6px 10px;
     border-radius:999px;
     font-weight:900;
     box-shadow:0 10px 18px rgba(255,79,163,.22);
+    font-size:12px;
   }
   .qText{
     font-weight:950;
     line-height:1.9;
     margin:8px 0 10px;
-    font-size:16px;
+    font-size: clamp(15px, 2vw, 18px);
   }
   .qSmall{
     font-size:12px;
     opacity:.75;
-    margin:0 0 10px;
+    margin:0 0 12px;
   }
   .qBtn{
-    width:min(260px, 90%);
+    width:min(320px, 92%);
     margin:0 auto;
   }
 
-  /* ===== Gift ===== */
+  /* area for moving button */
+  .moveArea{
+    position:relative;
+    height:74px;
+    margin-top:2px;
+  }
+  .movingBtn{
+    position:absolute;
+    left:50%;
+    top:10px;
+    transform:translateX(-50%);
+    width:min(320px, 92%);
+  }
+
+  /* heart */
+  .heartBtn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:min(320px, 92%);
+    padding:12px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:linear-gradient(135deg, #fff, #ffe8f3);
+    font-weight:950;
+    cursor:pointer;
+    user-select:none;
+    transition: transform .12s ease, filter .2s ease;
+    margin:0 auto;
+  }
+  .heartBtn:active{ transform:scale(0.98); }
+  .heartIcon{
+    width:34px; height:34px;
+    border-radius:999px;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    display:grid; place-items:center;
+    box-shadow:0 10px 18px rgba(255,79,163,.25);
+    color:#fff;
+    font-size:18px;
+  }
+
+  /* Gift */
   .gift{
     display:none;
     margin-top:14px;
     text-align:right;
     background:#fff;
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     border-radius:18px;
     padding:14px;
     line-height:2;
     font-weight:800;
     position:relative;
     white-space:pre-wrap;
+    font-size: clamp(13px, 1.8vw, 15px);
   }
   .ribbon{
     position:absolute;
-    top:-10px;
-    left:18px;
+    top:-10px; left:18px;
     background:linear-gradient(135deg,var(--pink),var(--pink2));
     color:#fff;
     padding:6px 10px;
     border-radius:999px;
     font-weight:900;
     box-shadow:0 10px 18px rgba(255,79,163,.22);
+    font-size:12px;
   }
 
   .typed{
@@ -229,6 +266,17 @@
   }
   @keyframes caret{ 50%{border-left-color:transparent} }
 
+  /* funny shake */
+  @keyframes shake{
+    0%,100%{ transform: translateX(-50%) translateY(0); }
+    20%{ transform: translateX(-50%) translateY(0) translateX(-6px); }
+    40%{ transform: translateX(-50%) translateY(0) translateX(6px); }
+    60%{ transform: translateX(-50%) translateY(0) translateX(-5px); }
+    80%{ transform: translateX(-50%) translateY(0) translateX(5px); }
+  }
+  .shake{ animation: shake 360ms ease; }
+
+  /* Effects */
   .heart{
     position:fixed;
     font-size:18px;
@@ -243,7 +291,6 @@
     20%{opacity:1}
     100%{transform:translate(-50%,-140%) scale(1.25); opacity:0}
   }
-
   .confetti{
     position:fixed;
     top:-20px;
@@ -252,14 +299,12 @@
     pointer-events:none;
     z-index:6;
   }
-
   .toast{
     position:fixed;
-    bottom:16px;
-    left:50%;
+    bottom:16px; left:50%;
     transform:translateX(-50%);
     background:#ffffffd9;
-    border:1px solid #ffd1e7;
+    border:1px solid var(--border);
     padding:10px 12px;
     border-radius:999px;
     box-shadow:0 10px 24px rgba(0,0,0,0.12);
@@ -271,7 +316,7 @@
   .hint{
     font-size:13px;
     opacity:.8;
-    margin:8px 0 0;
+    margin:10px 0 0;
     line-height:1.7;
   }
 </style>
@@ -287,9 +332,8 @@
   </div>
 
   <h1>🎂 زينة - 20 سنة 🎀</h1>
-  <p class="sub">بدال ما تطلع الرسالة مرة وحدة… جاوبي “اي” كم مرة لين توصلين للمفاجأة 😄✨</p>
+  <p class="sub">جاوبي خطوة خطوة 💞…وبكل صدق 🤨</p>
 
-  <!-- Fade Slider -->
   <div class="fadeSlider" id="fadeSlider" aria-label="سلايدر صور (تلاشي)">
     <img class="fadeSlide active" src="photo1.png" alt="صورة 1">
     <img class="fadeSlide" src="photo2.png" alt="صورة 2">
@@ -299,24 +343,23 @@
     <div class="dots" id="dots"></div>
   </div>
 
-  <div class="fileNote">
-    ملاحظة هاد الموقع صنع بكل حب لـ احلى بنت بالعالم
-  </div>
+  <div class="fileNote">    ملاحظة هاد الموقع صنع بكل حب لـ احلى بنت بالعالم </div>
 
   <div class="actions">
-    <button class="secondary" id="replay">عيدي الحركات ✨</button>
-    <button class="secondary" id="copyLink">انسخي الرابط</button>
+    <button class="btn secondary" id="replay">عيدي الحركات ✨</button>
+    <button class="btn secondary" id="copyLink">انسخي الرابط</button>
   </div>
 
-  <!-- Quiz Steps -->
   <div class="quiz" id="quizBox">
-    <div class="quizTag">🎯 خطوة خطوة</div>
-    <div class="qText" id="qText">جاهزة للمفاجأة؟ 😌🎀</div>
-    <div class="qSmall" id="qSmall">اضغطي “اي” عشان نكمل…</div>
-    <button class="qBtn" id="qBtn">اي ✅</button>
+    <div class="quizTag">💞 أسئلة</div>
+    <div class="qText" id="qText">انتي زينة؟</div>
+    <div class="qSmall" id="qSmall">اضغطي الزر عشان نكمل…</div>
+
+    <div id="answerArea">
+      <button class="btn primary qBtn" id="qBtn">اي زينة</button>
+    </div>
   </div>
 
-  <!-- Gift -->
   <div class="gift" id="giftBox">
     <div class="ribbon">💖 تهنئة</div>
     <div id="giftText"></div>
@@ -335,7 +378,7 @@
   const fmt = new Intl.DateTimeFormat("ar-SA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
   $("dateBadge").textContent = "📅 " + fmt.format(now);
 
-  // الرسالة (نفس كلامك + إضافات بسيطة)
+  // الرسالة
   const message = `
 في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
 
@@ -354,7 +397,36 @@
     showToast._t = setTimeout(()=>t.style.display="none", 1400);
   }
 
-  // كتابة حرف-حرف
+  // === Beep لطيف بدون ملفات (يشتغل بعد تفاعل المستخدم) ===
+  let audioCtx = null;
+  function beep(type = "escape"){
+    try{
+      if(!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if(audioCtx.state === "suspended") audioCtx.resume();
+
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+
+      o.type = "sine";
+      o.frequency.value = (type === "escape") ? 880 : 660;
+
+      const t = audioCtx.currentTime;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+
+      o.connect(g);
+      g.connect(audioCtx.destination);
+
+      o.start(t);
+      o.stop(t + 0.13);
+    }catch(e){
+      // تجاهل لو الصوت ممنوع
+    }
+  }
+
   function typeWriter(el, text, speed=14){
     el.classList.add("typed");
     el.textContent = "";
@@ -370,10 +442,9 @@
     }, speed);
   }
 
-  // كونفيتي
   function burst(){
     const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
-    for(let i=0;i<32;i++){
+    for(let i=0;i<30;i++){
       const s=document.createElement("div");
       s.className="confetti";
       s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
@@ -393,7 +464,7 @@
     }
   }
 
-  // قلوب عند الضغط
+  // قلوب عند الضغط داخل البطاقة
   $("card").addEventListener("click",(e)=>{
     const heart=document.createElement("div");
     heart.className="heart";
@@ -414,43 +485,133 @@
       await navigator.clipboard.writeText(location.href);
       showToast("تم نسخ الرابط ✅");
     }catch{
-      prompt("انسخ الرابط:", location.href);
+      prompt("انسخي الرابط:", location.href);
     }
   });
 
-  // ===== الأسئلة المتدرجة =====
-  const questions = [
-    "جاهزة للمفاجأة؟ 😌🎀",
-    "وعد… ما تستعجلين؟ 😂✨",
-    "تحبي المفاجآت ولا المفاجآت تحبك؟ 😄💗",
-    "جاهزة نقول: عيد ميلاد سعيد؟ 🎂🌸",
-    "آخر سؤال… نفتح الرسالة؟ 🎁💞"
+  // ===== الأسئلة + زر يهرب =====
+  const steps = [
+    { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
+    { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
+    { q: "🔪 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
+    { q: "شو هااااا بتحبي عمر ولا لا 😾؟", btn: { type:"escape", text:"ما بعرف" } },
+    { q: "لو بتحبي عمر اضغطي على القلب 💗", btn: { type:"heart" } }
   ];
 
-  let qIndex = 0;
+  let stepIndex = 0;
+  let escapeTries = 0;
+
   const qText = $("qText");
   const qSmall = $("qSmall");
-  const qBtn  = $("qBtn");
+  const answerArea = $("answerArea");
 
-  qBtn.addEventListener("click", ()=>{
-    burst();
-    qIndex++;
+  function renderStep(){
+    const s = steps[stepIndex];
+    qText.textContent = s.q;
 
-    if(qIndex < questions.length){
-      qText.textContent = questions[qIndex];
-      qSmall.textContent = "اي ✅ … كملي";
+    if(s.btn.type === "normal"){
+      qSmall.textContent = "اضغطي الزر عشان نكمل…";
+      answerArea.innerHTML = `<button class="btn primary qBtn" id="qBtn">${s.btn.text}</button>`;
+      $("qBtn").addEventListener("click", ()=>{
+        burst();
+        stepIndex++;
+        renderStep();
+      });
       return;
     }
 
-    // بعد آخر سؤال: أظهر التهنئة
-    $("quizBox").style.display = "none";
-    const box = $("giftBox");
-    box.style.display = "block";
-    $("giftText").textContent = "";
-    typeWriter($("giftText"), message, 12);
-    showToast("وصلتي للمفاجأة 🎁");
-    box.scrollIntoView({behavior:"smooth", block:"start"});
-  });
+    if(s.btn.type === "escape"){
+      qSmall.textContent = "اضغطيه إذا تقدري 😼 (الزر بيهرب!)";
+      answerArea.innerHTML = `
+        <div class="moveArea" id="moveArea">
+          <button class="btn primary movingBtn" id="escapeBtn">${s.btn.text}</button>
+        </div>
+      `;
+      escapeTries = 0;
+
+      const moveArea = $("moveArea");
+      const escapeBtn = $("escapeBtn");
+
+      function randomMove(){
+        const area = moveArea.getBoundingClientRect();
+        const btn  = escapeBtn.getBoundingClientRect();
+
+        const maxX = Math.max(0, area.width - btn.width);
+        const maxY = Math.max(0, area.height - btn.height);
+
+        const x = Math.floor(Math.random() * maxX);
+        const y = Math.floor(Math.random() * maxY);
+
+        escapeBtn.style.left = x + "px";
+        escapeBtn.style.top  = y + "px";
+        escapeBtn.style.transform = "none";
+      }
+
+      function doEscape(){
+        escapeTries++;
+        beep("escape");    // ✅ بيب عند الهروب
+        burst();
+
+        escapeBtn.classList.remove("shake");
+        void escapeBtn.offsetWidth;
+        escapeBtn.classList.add("shake");
+
+        randomMove();
+
+        if(escapeTries >= 6){
+          qSmall.textContent = "خلاص خلاص… استسلمت 🫢 اضغطيه مرّة أخيرة";
+          escapeBtn.textContent = "طيب… كملي 😼";
+          escapeBtn.onclick = ()=>{
+            burst();
+            stepIndex++;
+            renderStep();
+          };
+        }
+      }
+
+      // كمبيوتر
+      escapeBtn.addEventListener("mouseenter", doEscape);
+
+      // جوال
+      escapeBtn.addEventListener("touchstart", (e)=>{
+        e.preventDefault();
+        doEscape();
+      }, {passive:false});
+
+      // لو ضغط بالغلط
+      escapeBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        doEscape();
+      });
+
+      setTimeout(randomMove, 200);
+      return;
+    }
+
+    if(s.btn.type === "heart"){
+      qSmall.textContent = "هذا آخر شي… اضغطي القلب عشان تطلع المفاجاة ✨";
+      answerArea.innerHTML = `
+        <div class="heartBtn" id="heartBtn" role="button" aria-label="زر قلب">
+          <span class="heartIcon">💗</span>
+          <span>اضغطي على القلب</span>
+        </div>
+      `;
+      $("heartBtn").addEventListener("click", ()=>{
+        beep("heart");     // ✅ بيب أخف عند القلب
+        burst();
+        $("quizBox").style.display = "none";
+        const box = $("giftBox");
+        box.style.display = "block";
+        $("giftText").textContent = "";
+        typeWriter($("giftText"), message, 12);
+        showToast("وصلتي للتهنئة 💖");
+        box.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+      return;
+    }
+  }
+
+  renderStep();
 
   // ===== Fade Slider Logic =====
   const slider = $("fadeSlider");
@@ -487,7 +648,6 @@
   }
 
   function next(){ show(idx + 1); }
-
   function startAuto(){ timer = setInterval(next, 2800); }
   function stopAuto(){ clearInterval(timer); timer = null; }
   function restartAuto(){ stopAuto(); startAuto(); }
