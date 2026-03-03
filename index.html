@@ -1627,9 +1627,20 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.strokeStyle=lg; ctx.lineWidth=1.5; ctx.stroke();
 
         // العمر
-        const now2=new Date(), b2=new Date("2008-04-28T00:00:00");
-        let yrs2=now2.getFullYear()-b2.getFullYear();
-        if(now2<new Date(now2.getFullYear(),b2.getMonth(),b2.getDate())) yrs2--;
+        // حساب العمر بالهجري عشان يطابق ساعة العمر
+        const now2 = new Date();
+        const fmtH = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+          year:"numeric", month:"numeric", day:"numeric"
+        });
+        const partsH = fmtH.formatToParts(now2);
+        const pH = {};
+        partsH.forEach(x => pH[x.type] = parseInt(x.value));
+        const BIRTH_H2 = { y:1427, m:9, d:27 };
+        let yrs2 = pH.year - BIRTH_H2.y;
+        let mo2  = pH.month - BIRTH_H2.m;
+        let d2   = pH.day   - BIRTH_H2.d;
+        if(d2  < 0){ mo2--; }
+        if(mo2 < 0){ yrs2--; }
 
         ctx.font="bold 88px 'Segoe UI', system-ui, Arial";
         ctx.fillStyle="#ff4fa3";
