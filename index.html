@@ -3,7 +3,33 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>زينة | 20 🎀</title>
+
+<script>
+/* ✅ Fix for some Android browsers/WebViews that ignore meta viewport and render at ~980px */
+(function(){
+  try{
+    const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const smallScreen = Math.min(screen.width, screen.height) <= 500;
+    // If CSS viewport is suspiciously wide on a small touch device, force viewport meta and reload once
+    if(isTouch && smallScreen && window.innerWidth >= 800){
+      const key = "__vpfix_done__";
+      if(!sessionStorage.getItem(key)){
+        sessionStorage.setItem(key, "1");
+        let meta = document.querySelector('meta[name="viewport"]');
+        if(!meta){
+          meta = document.createElement("meta");
+          meta.name = "viewport";
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute("content","width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover");
+        // Reload to apply viewport in stubborn WebViews
+        location.reload();
+      }
+    }
+  }catch(e){}
+})();
+</script>
+<title>حلا | 18 🎀</title>
 <link rel="icon" type="image/png" href="icon.png">
 
 <style>
@@ -29,11 +55,8 @@
     overflow-x:hidden;
     overflow-y:auto;
     color:var(--text);
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-
-    padding: clamp(18px, 4vh, 42px) 0;
+    /* (mobile) no flex layout to avoid side shift */
+padding: clamp(18px, 4vh, 42px) 0;
     padding-bottom: calc(18px + env(safe-area-inset-bottom));
     padding-top: calc(18px + env(safe-area-inset-top));
   }
@@ -97,8 +120,7 @@
 
   /* ===== الكارد ===== */
   .card{
-    width: 92%;
-    max-width: 720px;
+    width: min(92vw, 720px);
     background: var(--glass);
     padding: clamp(14px, 2.2vw, 22px);
     border-radius: 22px;
@@ -184,7 +206,7 @@
 
   /* ===== Slider ===== */
   .fadeSlider{
-    width: min(210px, 72%);
+    width: min(72vw, 210px);
     aspect-ratio: 1 / 1;
     border-radius:22px;
     overflow:hidden;
@@ -397,8 +419,7 @@
     position:fixed; left:50%;
     bottom: calc(10px + env(safe-area-inset-bottom));
     transform: translateX(-50%) translateY(120%);
-    width: 92%;
-    max-width: 520px;
+    width: min(92vw, 520px);
     background: rgba(255,255,255,.88);
     border: 1px solid rgba(255,255,255,.55);
     border-radius: 22px;
@@ -453,9 +474,8 @@
   @media (max-width: 520px){
     .btn{ font-size:16px; padding:14px 16px; border-radius:16px; }
     .pillBtn{ padding:12px 14px; }
-    .card{ width: 94%;
-    max-width: 720px; }
-    .fadeSlider{ width: min(240px, 82%); }
+    .card{ width: min(94vw, 720px); }
+    .fadeSlider{ width: min(82vw, 240px); }
     .qText{ font-size: 17px; }
   }
 
@@ -493,112 +513,6 @@
     border-color: rgba(255,255,255,.10);
   }
   body.dark .sheetTitle{ opacity:1; }
-
-  /* =========================
-     ✅ إضافات جديدة مجمعة
-     ========================= */
-
-  /* 1) ترتيب الطبقات: الخلفيات تحت، المحتوى فوق */
-  #particles, .bgGrid, .bgNoise, .aurora, .sparkle, .waveWrap{
-    z-index: 0 !important;
-    pointer-events: none !important;
-    transform: translateZ(0);
-    will-change: transform;
-  }
-  .card{
-    z-index: 5 !important;
-    isolation: isolate;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  .quiz, .gift, .topControls, .toast{
-    position: relative;
-    z-index: 6 !important;
-  }
-
-  /* 2) تخفيف عام للمؤثرات (لابتوب + جوال) */
-  #particles{ opacity: .45 !important; }
-  .aurora{ opacity: .40 !important; filter: blur(30px) saturate(1.05) !important; }
-  .sparkle{ opacity: .35 !important; }
-  .bgGrid{ opacity: .18 !important; }
-  .bgNoise{ opacity: .10 !important; }
-  .waveWrap{ opacity: .55 !important; }
-
-  /* 3) Fix flicker على الجوال: نلغي البلور (الزجاج) لأنه يسبب وميض */
-  @media (hover: none) and (pointer: coarse){
-    .card{
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background: rgba(255,255,255,.94) !important;
-    }
-    .card::before{ display:none !important; } /* لمعان */
-  }
-
-  /* 4) زر القلب بالداكن + Glow وردي */
-  body.dark .heartBtn{
-    background: rgba(20, 14, 22, .78) !important;
-    border-color: rgba(255,255,255,.14) !important;
-    color: #f7eaf1 !important;
-    box-shadow:
-      0 12px 28px rgba(0,0,0,.35),
-      0 0 0 1px rgba(255,79,163,.18),
-      0 0 22px rgba(255,79,163,.35); /* ✅ glow */
-  }
-  body.dark .heartBtn:hover{
-    box-shadow:
-      0 16px 34px rgba(0,0,0,.38),
-      0 0 0 1px rgba(255,79,163,.22),
-      0 0 30px rgba(255,79,163,.45); /* glow أقوى */
-  }
-  body.dark .heartIcon{
-    box-shadow:
-      0 10px 18px rgba(0,0,0,.35),
-      0 0 18px rgba(255,79,163,.35); /* glow للأيقونة */
-  }
-
-  /* نصوص الأسئلة في الدارك */
-  body.dark .quiz .qText,
-  body.dark .quiz .qSmall{
-    color:#f7eaf1 !important;
-    opacity:1;
-  }
-  body.dark .quiz .qSmall{ opacity:.85; }
-
-  /* =========================
-     ✅ Glass 10% (خفيف جدًا)
-     ========================= */
-  :root{
-    --glass: rgba(255,255,255,.99);
-  }
-  .card{
-    background: rgba(255,255,255,.90) !important;  /* 10% شفافية */
-    backdrop-filter: blur(1px) !important;
-    -webkit-backdrop-filter: blur(1px) !important;
-    border: 1px solid rgba(255,255,255,.80) !important;
-  }
-  .card::before{ opacity: .08 !important; }
-
-  .pillBtn{
-    background: rgba(255,255,255,.92) !important;
-    backdrop-filter: blur(1px) !important;
-    -webkit-backdrop-filter: blur(1px) !important;
-  }
-
-  .sheet{
-    background: rgba(255,255,255,.92) !important;
-    backdrop-filter: blur(1px) !important;
-    -webkit-backdrop-filter: blur(1px) !important;
-  }
-
-  .toast{ background: rgba(255,255,255,.92) !important; }
-
-  body.dark .card{
-    background: rgba(20,14,22,.90) !important;     /* 10% شفافية */
-    backdrop-filter: blur(1px) !important;
-    -webkit-backdrop-filter: blur(1px) !important;
-  }
-
 /* تأثير الضغط على زر القلب */
 .heartBtn.activePress{
   animation: heartFlash 1.4s ease;
@@ -611,7 +525,7 @@
   }
   40%{
     transform: scale(1.06);
-    background: linear-gradient(135deg, #ff4fa3, #ff7fc3);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
     box-shadow: 0 0 25px rgba(255,79,163,.6);
   }
@@ -621,74 +535,29 @@
   }
 }
 
-/* ✅ تثبيت عرض الصفحة لمنع تحرّك المحتوى يمين/يسار عند تبديل الوضع */
-html{ scrollbar-gutter: stable; }
-body{ overflow-y: scroll; }
-
-/* ✅ خلي نص أزرار الأعلى واضح في الوضع الداكن */
-body.dark .pillBtn{
-  color:#f7eaf1 !important;
-}
-body.dark .pillBtn:active{
-  color:#ffffff !important;
-}
-
-/* ✅ Mobile Lite Mode: يمنع وميض/اختفاء كروم أندرويد */
-@media (hover: none) and (pointer: coarse){
-  /* وقف الطبقات الثقيلة */
-  #particles,
-  .aurora,
-  .sparkle,
-  .bgNoise{
-    display:none !important;
-  }
-
-  /* خفّف الشبكة والموجة */
-  .bgGrid{ opacity:.10 !important; }
-  .waveWrap{ opacity:.45 !important; }
-
-  /* خفف الظلال عشان الأداء */
-  .card{ box-shadow: 0 14px 40px rgba(0,0,0,.12) !important; }
-
-  /* امنع الـ GPU flicker */
-  .card, .quiz, .gift{
-    transform: none !important;
-    will-change: auto !important;
+/* ✅ نخلي التوسيط Flex بس على الشاشات الكبيرة */
+@media (min-width: 768px){
+  body{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
   }
 }
 
-/* ✅ إصلاح أزرار الأعلى في الوضع الداكن (النص كان يختفي لأن الخلفية فاتحة) */
-body.dark .pillBtn{
-  background: rgba(20,14,22,.78) !important;
-  color: #f7eaf1 !important;
-  border-color: rgba(255,255,255,.14) !important;
-  box-shadow:
-    0 10px 22px rgba(0,0,0,.35),
-    0 0 18px rgba(255,79,163,.16);
+/* ✅ إصلاح تمركز الكارد على الجوال (حتى لو المتصفح على وضع سطح المكتب) */
+.card{
+  margin-inline: auto !important;
 }
-body.dark .topControls{ mix-blend-mode: normal !important; }
-body.dark .pillBtn *{ color: inherit !important; }
 
-/* ✅ منع "قفزة" المحتوى بالجوال عند تبديل الوضع (sticky + reflow) */
+/* على أجهزة اللمس: خليك عرض كامل + ألغي أي Flex ممكن يتفعل */
 @media (hover: none) and (pointer: coarse){
-  .topControls{ position: relative !important; top:auto !important; }
-  .pillBtn{ transition: none !important; }
-}
-
-/* ✅ تثبيت القياسات ومنع اهتزاز العرض عند تبديل الوضع */
-html{ scrollbar-gutter: stable both-edges; }
-body{ overflow-y: scroll; }
-
-/* ✅ منع أي اهتزاز/تحرك لحظي عند تبديل الوضع (تجميد انتقالات/تحويلات لمدة بسيطة) */
-body.themeSwitching *{
-  transition: none !important;
-}
-body.themeSwitching .card,
-body.themeSwitching .quiz,
-body.themeSwitching .gift,
-body.themeSwitching .topControls{
-  transform: none !important;
-  animation: none !important;
+  body{
+    display:block !important;
+  }
+  .card{
+    width: 100% !important;
+    max-width: 720px !important;
+  }
 }
 
 </style>
@@ -720,12 +589,12 @@ body.themeSwitching .topControls{
     </div>
 
     <div class="badges">
-      <div class="badge">🎀 مفاجأة لزينة</div>
+      <div class="badge">🎀 مفاجأة لحلا</div>
       <div class="badge" id="dateBadge">📅 اليوم</div>
     </div>
 
     <h1 class="title">
-      <span>🎂 زينة - 20 سنة 🎀</span>
+      <span>🎂 حلا - 18 سنة 🎀</span>
       <span class="iconWrapper">
         <img src="icon.png" class="titleIcon" alt="icon">
       </span>
@@ -751,11 +620,11 @@ body.themeSwitching .topControls{
 
     <div class="quiz" id="quizBox">
       <div class="quizTag">💞 أسئلة</div>
-      <div class="qText" id="qText">انتي زينة؟</div>
+      <div class="qText" id="qText">انتي حلا؟</div>
       <div class="qSmall" id="qSmall">اضغطي الزر عشان نكمل…</div>
 
       <div id="answerArea">
-        <button class="btn primary qBtn" id="qBtn">اي زينة</button>
+        <button class="btn primary qBtn" id="qBtn">اي حلا</button>
       </div>
     </div>
 
@@ -806,16 +675,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== الرسالة =====
   const message = `
-في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
+في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ١٨ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
 
 وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
 وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
 يا رب تكون سنة نضج أجمل، نجاح أكبر، وأحلام تتحقق قدام عيونك 🎂💖
-وتكون بداية عشريناتك بداية قوة وثقة وإنجازات تخليني أفتخر فيك أكثر وأكثر 💞
 وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
 `;
 
-  // ===== صوت =====
+  // ===== صوت (مع resume مضمون) =====
   let soundOn = true;
   let audioCtx = null;
 
@@ -827,7 +695,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if(audioCtx.state === "suspended") audioCtx.resume();
     }catch(e){}
   }
-
   function beep(type="escape"){
     if(!soundOn) return;
     ensureAudio();
@@ -890,28 +757,17 @@ document.addEventListener("DOMContentLoaded", () => {
       soundOn = !soundOn;
       toggleSound.textContent = soundOn ? "🔊 الصوت" : "🔇 كتم";
       showToast(soundOn ? "الصوت شغال 🔊" : "تم الكتم 🔇");
-      sfx("ok");
+      beep("heart");
     });
   }
 
   const toggleTheme = $("toggleTheme");
   if(toggleTheme){
     toggleTheme.addEventListener("click", ()=>{
-      const y = window.scrollY;
-      // freeze layout to prevent tiny jumps on some browsers
-      document.body.classList.add("themeSwitching");
-      (document.activeElement && document.activeElement.blur) ? document.activeElement.blur() : null;
-
-      document.body.classList.toggle("dark");
-      showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
-
-      // restore scroll + unfreeze after repaint
-      requestAnimationFrame(()=>{
-        window.scrollTo(0, y);
-        setTimeout(()=>document.body.classList.remove("themeSwitching"), 220);
-      });
+  document.body.classList.toggle("dark");
+  showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
 });
-  }
+}
 
   // ===== Typewriter =====
   function typeWriter(el, text, speed=14){
@@ -932,13 +788,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Confetti =====
   function burst(){
-    const symbols=["💗","✨","🎀","🌸","🎂","💞"];
-    for(let i=0;i<20;i++){  // ✅ خففنا العدد
+    const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
+    for(let i=0;i<28;i++){
       const s=document.createElement("div");
       s.className="confetti";
       s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
       s.style.left=Math.random()*100+"vw";
-      s.style.fontSize=(14+Math.random()*16)+"px";
+      s.style.fontSize=(14+Math.random()*18)+"px";
       s.style.opacity=0.95;
       document.body.appendChild(s);
 
@@ -953,7 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== قلوب الكارد =====
+  // ===== قلوب الكارد (تصحيح مهم: تجاهل الأزرار والشيت) =====
   if(card){
     card.addEventListener("click",(e)=>{
       if (e.target && e.target.closest("button, .sheet, .sheetOverlay")) return;
@@ -969,25 +825,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== أزرار actions =====
-  $("replay")?.addEventListener("click", ()=>{
-    burst();
-    showToast("يلا نعيد ✨");
-  });
+  const replay = $("replay");
+  if(replay){
+    replay.addEventListener("click", ()=>{
+      burst();
+      showToast("يلا نعيد ✨");
+    });
+  }
 
-  $("copyLink")?.addEventListener("click", async ()=>{
-    try{
-      await navigator.clipboard.writeText(location.href);
-      showToast("تم نسخ الرابط ✅");
-    }catch{
-      prompt("انسخي الرابط:", location.href);
-    }
-  });
+  const copyLink = $("copyLink");
+  if(copyLink){
+    copyLink.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        showToast("تم نسخ الرابط ✅");
+      }catch{
+        prompt("انسخي الرابط:", location.href);
+      }
+    });
+  }
 
-  // ===== Quiz (سؤال عمر كتابي فقط) =====
+  // ===== Quiz =====
   const steps = [
-    { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
+    { q: "🤨 انتي حلا؟", btn: { type:"normal", text:"اي حلا" } },
     { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
-    { q: "😶 يا زينة كم عمرك؟", btn: { type:"age" } },
+    { q: "😶 يا حلا كم عمرك؟", btn: { type:"age" } },
     { q: "🔥 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
     { q: "😾 شو هااااا بتحبي عمر ولا لا؟", btn: { type:"escape", text:"ما بعرف" } },
     { q: "لو بتحبي عمر اضغطي على القلب 💗", btn: { type:"heart" } }
@@ -1006,98 +868,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const s = steps[stepIndex];
     qText.textContent = s.q;
 
-    // زر عادي
     if(s.btn.type === "normal"){
       qSmall.textContent = "اضغطي الزر عشان نكمل…";
       answerArea.innerHTML = `<button class="btn primary qBtn" id="qBtn">${s.btn.text}</button>`;
-      $("qBtn")?.addEventListener("click", ()=>{
-        burst();
-        stepIndex++;
-        renderStep();
-      });
-      return;
-    }
-
-    // ✅ العمر: بدون تلميح + رسالة 5 ثواني
-    if(s.btn.type === "age"){
-      const normalizeDigits = (str)=> (str||"").trim().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
-      let successLocked = false;
-
-      qSmall.textContent = ""; // ✅ بدون أي تلميح
-
-      answerArea.innerHTML = `
-        <div style="display:grid; gap:10px; justify-items:center;">
-          <input id="ageInput"
-                 inputmode="numeric"
-                 placeholder=""
-                 aria-label="اكتبي عمرك"
-                 style="
-                   width:min(320px,92%);
-                   padding:12px 14px;
-                   border-radius:14px;
-                   border:1px solid var(--border);
-                   font-weight:900;
-                   text-align:center;
-                   outline:none;
-                   background:#fff;">
-          <button class="btn primary qBtn" id="ageBtn">تم ✅</button>
-          <div id="ageMsg"
-               style="font-weight:900; opacity:0; transform:translateY(6px); transition:.25s ease; text-align:center;">
-          </div>
-        </div>
-      `;
-
-      const ageInput = $("ageInput");
-      const ageBtn   = $("ageBtn");
-      const ageMsg   = $("ageMsg");
-
-      function showMsg(text, ok=false){
-        if(!ageMsg) return;
-
-        ageMsg.textContent = text;
-        ageMsg.style.opacity = "1";
-        ageMsg.style.transform = "translateY(0)";
-        ageMsg.style.color = ok ? "var(--accent)" : "#b00020";
-
-        clearTimeout(showMsg._t);
-        showMsg._t = setTimeout(()=>{
-          ageMsg.style.opacity = "0";
-          ageMsg.style.transform = "translateY(6px)";
-        }, 5000);
-      }
-
-      function checkAge(){
-        if(successLocked) return;
-
-        const val = normalizeDigits(ageInput?.value || "");
-        if(val === "20"){
-          successLocked = true;
-          ageBtn.disabled = true;
-          ageBtn.style.opacity = "0.7";
-          sfx("ok");
+      const qBtn = $("qBtn");
+      if(qBtn){
+        qBtn.addEventListener("click", ()=>{
           burst();
-          showMsg("اوووه ماشاءالله القمر كبر اليووووم 😭💗", true);
-
-          setTimeout(()=>{
-            stepIndex++;
-            renderStep();
-          }, 5000);
-        }else{
-          sfx("no");
-          showMsg("العمر غير صحيح حاولي مره اخرى يا شطورة 🫰🏻", false);
-          ageInput?.focus();
-          try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){}
-        }
+          stepIndex++;
+          renderStep();
+        });
       }
-
-      ageBtn?.addEventListener("click", checkAge);
-      ageInput?.addEventListener("keydown", (e)=>{ if(e.key === "Enter") checkAge(); });
-
-      setTimeout(()=> ageInput?.focus(), 60);
       return;
     }
 
-    // زر يهرب
     if(s.btn.type === "escape"){
       qSmall.textContent = "اضغطيه إذا تقدري 😼 (الزر بيهرب!)";
       answerArea.innerHTML = `
@@ -1127,8 +911,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function doEscape(){
         escapeTries++;
-        sfx("no");
-          burst();
+        beep("escape");
+        burst();
 
         escapeBtn.classList.remove("shake");
         void escapeBtn.offsetWidth;
@@ -1155,7 +939,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // القلب
     if(s.btn.type === "heart"){
       qSmall.textContent = "هذا آخر شي… اضغطي القلب عشان تطلع المفاجأة ✨";
       answerArea.innerHTML = `
@@ -1164,26 +947,23 @@ document.addEventListener("DOMContentLoaded", () => {
           <span>اضغطي على القلب</span>
         </div>
       `;
-      $("heartBtn")?.addEventListener("click", (e)=>{
-        const btn = e.currentTarget;
-
-        // شغل التأثير
-        btn.classList.add("activePress");
-        setTimeout(()=>{ btn.classList.remove("activePress"); }, 1400);
-
-beep("heart");
-        burst();
-        const quizBox = $("quizBox");
-        const giftBox = $("giftBox");
-        const giftText = $("giftText");
-        setTimeout(()=>{
-          if(quizBox) quizBox.style.display = "none";
-          if(giftBox) giftBox.style.display = "block";
-          if(giftText) typeWriter(giftText, message, 12);
-          showToast("وصلتي للتهنئة 💖");
-          giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
-        }, 1200);
+      const heartBtn = $("heartBtn");
+      if(heartBtn){
+        heartBtn.addEventListener("click", ()=>{
+          beep("heart");
+          burst();
+          const quizBox = $("quizBox");
+          const giftBox = $("giftBox");
+          const giftText = $("giftText");
+          setTimeout(()=>{
+    if(quizBox) quizBox.style.display = "none";
+    if(giftBox) giftBox.style.display = "block";
+    if(giftText) typeWriter(giftText, message, 12);
+    showToast("وصلتي للتهنئة 💖");
+    giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 1200);
 });
+      }
       return;
     }
   }
@@ -1265,9 +1045,9 @@ beep("heart");
       const y = (e.clientY - r.top) / r.height - 0.5;
       const rx = (-y * 6).toFixed(2);
       const ry = (x * 8).toFixed(2);
-      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
-    card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)"; });
+    card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg)"; });
   }
 
   const els = document.querySelectorAll(".badges, .title, .sub, .fadeSlider, .actions, .quiz, .gift, .hint");
@@ -1277,21 +1057,20 @@ beep("heart");
   }, {threshold: 0.12});
   els.forEach(el=> io.observe(el));
 
-  // ===== فقاعات (خففناها) =====
+  // ===== فقاعات =====
   (function bubbles(){
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // ✅ وقف الفقاعات على الجوال
-    const icons = ["✨","💗","🎀"];
+    const icons = ["✨","💗","🎀","⭐️","🌸"];
     setInterval(()=>{
       const b = document.createElement("div");
       b.className = "bubble";
       b.textContent = icons[(Math.random()*icons.length)|0];
       b.style.left = Math.random()*100 + "vw";
       b.style.setProperty("--drift", (Math.random()*120 - 60) + "px");
-      b.style.animationDuration = (7 + Math.random()*5).toFixed(2) + "s";
-      b.style.fontSize = (14 + Math.random()*16).toFixed(0) + "px";
+      b.style.animationDuration = (7 + Math.random()*6).toFixed(2) + "s";
+      b.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
       document.body.appendChild(b);
-      setTimeout(()=> b.remove(), 9000);
-    }, 1400); // ✅ كان 650
+      setTimeout(()=> b.remove(), 14000);
+    }, 650);
   })();
 
   // ===== Themes =====
@@ -1318,6 +1097,7 @@ beep("heart");
     showToast("تم اختيار ثيم: " + t.name + " ✅");
   }
 
+  // Bottom sheet
   const overlay = $("sheetOverlay");
   const sheet   = $("themeSheet");
   const openBtn = $("openThemes");
@@ -1341,6 +1121,7 @@ beep("heart");
   closeBtn?.addEventListener("click", closeSheet);
   overlay?.addEventListener("click", closeSheet);
 
+  // drag down close
   if(sheet){
     let startY=0, curY=0, dragging=false;
     sheet.addEventListener("touchstart", (e)=>{ dragging=true; startY=e.touches[0].clientY; curY=0; }, {passive:true});
@@ -1356,6 +1137,7 @@ beep("heart");
     }, {passive:true});
   }
 
+  // build themes grid
   if(themeGrid){
     themeGrid.innerHTML = "";
     THEMES.forEach(t=>{
@@ -1375,10 +1157,8 @@ beep("heart");
     if(found) applyTheme(found);
   }
 
-  // ===== Particles (خففنا العدد) =====
+  // ===== Particles =====
   (function particles(){
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // ✅ وقف particles على الجوال
-
     const c = $("particles");
     if(!c) return;
     const ctx = c.getContext("2d", { alpha:true });
@@ -1395,14 +1175,14 @@ beep("heart");
     window.addEventListener("resize", resize);
     resize();
 
-    const shapes = ["✨","💗","🎀"]; // ✅ أقل
-    const N = window.innerWidth < 700 ? 16 : 22; // ✅ أقل من 34
+    const shapes = ["✨","💗","⭐️","🎀","🌸"];
+    const N = 34;
     const ps = Array.from({length:N}, ()=>({
       x: Math.random()*w,
       y: Math.random()*h,
-      r: (10 + Math.random()*16) * dpr,
-      s: (0.25 + Math.random()*0.6) * dpr,
-      a: 0.38 + Math.random()*0.28,
+      r: (10 + Math.random()*18) * dpr,
+      s: (0.25 + Math.random()*0.7) * dpr,
+      a: 0.45 + Math.random()*0.35,
       t: shapes[(Math.random()*shapes.length)|0],
       drift: (Math.random()*0.6 - 0.3) * dpr
     }));
@@ -1419,8 +1199,8 @@ beep("heart");
         p.y -= p.s;
         p.x += p.drift;
 
-        const px = p.x + mx * 12 * dpr;
-        const py = p.y + my * 8 * dpr;
+        const px = p.x + mx * 16 * dpr;
+        const py = p.y + my * 10 * dpr;
 
         if(p.y < -60*dpr){ p.y = h + 60*dpr; p.x = Math.random()*w; }
         if(p.x < -60*dpr) p.x = w + 60*dpr;
