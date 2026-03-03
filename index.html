@@ -3,33 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<script>
-/* ✅ Fix for some Android browsers/WebViews that ignore meta viewport and render at ~980px */
-(function(){
-  try{
-    const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
-    const smallScreen = Math.min(screen.width, screen.height) <= 500;
-    // If CSS viewport is suspiciously wide on a small touch device, force viewport meta and reload once
-    if(isTouch && smallScreen && window.innerWidth >= 800){
-      const key = "__vpfix_done__";
-      if(!sessionStorage.getItem(key)){
-        sessionStorage.setItem(key, "1");
-        let meta = document.querySelector('meta[name="viewport"]');
-        if(!meta){
-          meta = document.createElement("meta");
-          meta.name = "viewport";
-          document.head.appendChild(meta);
-        }
-        meta.setAttribute("content","width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover");
-        // Reload to apply viewport in stubborn WebViews
-        location.reload();
-      }
-    }
-  }catch(e){}
-})();
-</script>
-<title>حلا | 18 🎀</title>
+<title>زينة | 20 🎀</title>
 <link rel="icon" type="image/png" href="icon.png">
 
 <style>
@@ -55,8 +29,11 @@
     overflow-x:hidden;
     overflow-y:auto;
     color:var(--text);
-    /* (mobile) no flex layout to avoid side shift */
-padding: clamp(18px, 4vh, 42px) 0;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+
+    padding: clamp(18px, 4vh, 42px) 0;
     padding-bottom: calc(18px + env(safe-area-inset-bottom));
     padding-top: calc(18px + env(safe-area-inset-top));
   }
@@ -90,8 +67,7 @@ padding: clamp(18px, 4vh, 42px) 0;
       radial-gradient(circle at 80% 20%, rgba(255,190,220,.35), transparent 48%),
       radial-gradient(circle at 30% 85%, rgba(255,255,255,.28), transparent 45%),
       radial-gradient(circle at 85% 80%, rgba(255,120,200,.28), transparent 48%);
-    filter: blur(26px) saturate(1.1);
-    animation: auroraMove 14s ease-in-out infinite alternate;
+    animation: auroraMove 18s ease-in-out infinite alternate;
   }
   @keyframes auroraMove{
     0%{ transform: translate3d(-2%, 0%, 0) scale(1.02) rotate(-2deg); }
@@ -99,13 +75,13 @@ padding: clamp(18px, 4vh, 42px) 0;
   }
 
   .sparkle{
-    position:fixed; inset:-30px; z-index:0; pointer-events:none; opacity:.6;
+    position:fixed; inset:-30px; z-index:0; pointer-events:none; opacity:.5;
     background-image:
       radial-gradient(#fff8 1px, transparent 1px),
       radial-gradient(#fff6 1px, transparent 1px);
     background-size: 28px 28px, 44px 44px;
     background-position: 0 0, 10px 18px;
-    animation: float 10s linear infinite;
+    animation: float 14s linear infinite;
   }
   @keyframes float{ from{transform:translateY(0)} to{transform:translateY(-40px)} }
 
@@ -127,7 +103,6 @@ padding: clamp(18px, 4vh, 42px) 0;
     text-align:center;
     box-shadow: var(--shadow);
     position:relative;
-    backdrop-filter: blur(10px);
     z-index:2;
     border: 1px solid rgba(255,255,255,.55);
     transform-style: preserve-3d;
@@ -141,7 +116,7 @@ padding: clamp(18px, 4vh, 42px) 0;
     border-radius: 24px;
     background: linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
     transform: translateX(-120%);
-    animation: shine 6.5s ease-in-out infinite;
+    animation: shine 8s ease-in-out infinite;
     pointer-events:none;
   }
   @keyframes shine{
@@ -162,7 +137,6 @@ padding: clamp(18px, 4vh, 42px) 0;
   .pillBtn{
     border:1px solid var(--border);
     background: rgba(255,255,255,.80);
-    backdrop-filter: blur(10px);
     border-radius: 999px;
     padding: 10px 12px;
     font-weight: 950;
@@ -194,7 +168,7 @@ padding: clamp(18px, 4vh, 42px) 0;
     display:flex; align-items:center; justify-content:center;
     animation: glowPulse 2.5s ease-in-out infinite;
   }
-  .titleIcon{ width:34px; height:34px; border-radius:50%; animation: slowSpin 8s linear infinite; }
+  .titleIcon{ width:34px; height:34px; border-radius:50%; animation: slowSpin 10s linear infinite; }
   @keyframes slowSpin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
   @keyframes glowPulse{
     0%{ box-shadow:0 0 8px rgba(255,79,163,0.4); }
@@ -232,7 +206,6 @@ padding: clamp(18px, 4vh, 42px) 0;
     padding:6px 8px; border-radius:999px;
     background:#ffffffb0;
     border:1px solid var(--border);
-    backdrop-filter:blur(6px);
   }
   .dot{ width:7px; height:7px; border-radius:50%; background:#ffb7da; opacity:.75; cursor:pointer; transition:transform .2s ease, opacity .2s ease, background .2s ease; }
   .dot.active{ background:var(--accent); opacity:1; transform:scale(1.25); }
@@ -277,7 +250,7 @@ padding: clamp(18px, 4vh, 42px) 0;
   .qBtn{ width:min(320px, 92%); margin:0 auto; }
 
   .moveArea{ position:relative; height:74px; margin-top:2px; }
-  .movingBtn{ position:absolute; left:50%; top:10px; transform:translateX(-50%); width:min(320px, 92%); }
+  .movingBtn{ position:absolute; left:50%; top:10px; width:min(320px, 92%); transition: left 0.35s cubic-bezier(.2,.9,.2,1), top 0.35s cubic-bezier(.2,.9,.2,1); }
 
   .heartBtn{
     display:inline-flex; align-items:center; justify-content:center; gap:10px;
@@ -299,6 +272,42 @@ padding: clamp(18px, 4vh, 42px) 0;
     display:grid; place-items:center;
     box-shadow:0 10px 18px rgba(255,79,163,.25);
     color:#fff; font-size:18px;
+  }
+
+  .heartBtn{
+    transition: transform .12s ease, background .4s ease, border-color .4s ease, color .4s ease;
+  }
+  .heartBtn.pressed{
+    transform: scale(.97);
+    background: linear-gradient(135deg, var(--accent), var(--accent2)) !important;
+    border-color: var(--accent) !important;
+    color: #fff !important;
+  }
+  .heartBtn.pressed .heartIcon{
+    background: rgba(255,255,255,.25) !important;
+    box-shadow: none !important;
+  }
+
+  /* input age */
+  .ageWrap{
+    width:min(320px, 92%);
+    margin:0 auto;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .ageInput{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    font-weight: 950;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    background: #fff;
   }
 
   /* ===== Gift ===== */
@@ -377,6 +386,128 @@ padding: clamp(18px, 4vh, 42px) 0;
 
   .hint{ font-size:13px; opacity:.8; margin:10px 0 0; line-height:1.7; }
 
+  /* ===== ساعة العمر ===== */
+  .ageClock{
+    margin: 12px 0 0;
+    background: linear-gradient(135deg, #fff0f7, #fff);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px 16px 12px;
+    text-align: center;
+    box-shadow: var(--shadow2);
+  }
+  .ageClockTitle{
+    font-size: 13px; font-weight: 900; opacity: .75; margin-bottom: 8px;
+  }
+  .ageClockGrid{
+    display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+  }
+  .ageUnit{
+    display: flex; flex-direction: column; align-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border-radius: 12px;
+    padding: 8px 10px 6px;
+    min-width: 52px;
+    box-shadow: 0 6px 16px rgba(255,79,163,.22);
+  }
+  .ageNum{
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 950;
+    line-height: 1;
+  }
+  .ageLabel{
+    font-size: 10px;
+    opacity: .88;
+    margin-top: 3px;
+  }
+
+  /* ===== بطاقة المشاركة ===== */
+  .shareBtn{
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-weight: 950;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: var(--shadow2);
+    transition: transform .12s ease;
+  }
+  .shareBtn:active{ transform: scale(.98); }
+
+  /* canvas مخفي للتوليد */
+  #shareCanvas{ display: none; }
+
+  /* ===== GIF راقصة ===== */
+  .giftGifs{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin: 10px 0 6px;
+  }
+  .giftGif{
+    width: clamp(70px, 18vw, 110px);
+    height: clamp(70px, 18vw, 110px);
+    object-fit: contain;
+    border-radius: 16px;
+    animation: gifBounce 1.2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 6px 14px rgba(255,79,163,.30));
+  }
+  .giftGif:nth-child(2){
+    animation-delay: 0.3s;
+    animation-direction: alternate-reverse;
+  }
+  @keyframes gifBounce{
+    from{ transform: translateY(0) rotate(-3deg) scale(1); }
+    to  { transform: translateY(-10px) rotate(3deg) scale(1.06); }
+  }
+
+  /* ===== ساعة العمر ===== */
+
+  /* canvas مخفي للتوليد */
+  #shareCanvas{ display: none; }
+
+  /* ===== GIF راقصة ===== */
+  .danceWrap{
+    display:flex; justify-content:center; gap:16px;
+    margin: 14px 0 6px;
+  }
+  .danceGif{
+    width: clamp(70px, 18vw, 110px);
+    height: clamp(70px, 18vw, 110px);
+    object-fit: contain;
+    border-radius: 16px;
+    animation: gifBounce 1.8s ease-in-out infinite;
+    filter: drop-shadow(0 6px 14px rgba(255,79,163,.30));
+  }
+  .danceGif:nth-child(2){
+    animation-delay: 0.9s;
+  }
+  @keyframes gifBounce{
+    0%,100%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-8px) scale(1.04); }
+  }
+
+  /* ===== مطر القلوب ===== */
+  .rainHeart{
+    position:fixed;
+    top:-60px;
+    pointer-events:none;
+    z-index:9990;
+    animation: rainFall linear forwards;
+    user-select:none;
+  }
+  @keyframes rainFall{
+    0%  { transform: translateY(0)   rotate(0deg)   scale(0.7); opacity:0; }
+    8%  { opacity: 1; }
+    90% { opacity: 1; }
+    100%{ transform: translateY(110vh) rotate(var(--r)) scale(1.1); opacity:0; }
+  }
+
   .bubble{
     position:fixed; bottom:-40px;
     font-size:16px; opacity:.65;
@@ -409,7 +540,6 @@ padding: clamp(18px, 4vh, 42px) 0;
   .sheetOverlay{
     position:fixed; inset:0; z-index:9997;
     background: rgba(0,0,0,.28);
-    backdrop-filter: blur(6px);
     opacity:0; pointer-events:none;
     transition: opacity .22s ease;
   }
@@ -500,9 +630,33 @@ padding: clamp(18px, 4vh, 42px) 0;
     border-color: rgba(255,255,255,.12);
     color: #f7eaf1;
   }
+  body.dark .quiz *,
+  body.dark .gift *,
+  body.dark .badge *,
+  body.dark .title,
+  body.dark .title *,
+  body.dark p.sub,
+  body.dark .fileNote,
+  body.dark .hint,
+  body.dark .qText,
+  body.dark .qSmall,
+  body.dark #giftText {
+    color: #f7eaf1 !important;
+  }
+  body.dark .btn.primary{
+    color: #fff !important;
+  }
   body.dark .btn.secondary{
     background: rgba(20, 14, 22, .72);
     color: #ffd0ea;
+  }
+  body.dark .heartBtn{
+    background: rgba(20, 14, 22, .72);
+    color: #f7eaf1;
+    border-color: rgba(255,255,255,.15);
+  }
+  body.dark .ageInput{
+    color: #f7eaf1;
   }
   body.dark .sheet{
     background: rgba(25, 18, 28, .86);
@@ -513,53 +667,43 @@ padding: clamp(18px, 4vh, 42px) 0;
     border-color: rgba(255,255,255,.10);
   }
   body.dark .sheetTitle{ opacity:1; }
-/* تأثير الضغط على زر القلب */
-.heartBtn.activePress{
-  animation: heartFlash 1.4s ease;
-}
-@keyframes heartFlash{
-  0%{
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(255,79,163,0);
-    background: linear-gradient(135deg, #fff, #ffe8f3);
-  }
-  40%{
-    transform: scale(1.06);
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #fff;
-    box-shadow: 0 0 25px rgba(255,79,163,.6);
-  }
-  100%{
-    transform: scale(1);
-    background: linear-gradient(135deg, #fff, #ffe8f3);
-  }
-}
 
-/* ✅ نخلي التوسيط Flex بس على الشاشات الكبيرة */
-@media (min-width: 768px){
-  body{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
+  body.dark .ageInput{
+    background: rgba(20, 14, 22, .72);
+    color: #f7eaf1;
+    border-color: rgba(255,255,255,.12);
   }
-}
 
-/* ✅ إصلاح تمركز الكارد على الجوال (حتى لو المتصفح على وضع سطح المكتب) */
-.card{
-  margin-inline: auto !important;
-}
-
-/* على أجهزة اللمس: خليك عرض كامل + ألغي أي Flex ممكن يتفعل */
-@media (hover: none) and (pointer: coarse){
-  body{
-    display:block !important;
+  /* ساعة العمر + زر التوليد في الدارك */
+  body.dark .ageClock{
+    background: rgba(20, 14, 22, .72);
+    border-color: rgba(255,255,255,.12);
   }
-  .card{
-    width: 100% !important;
-    max-width: 720px !important;
+  body.dark .ageClockTitle{
+    color: #f7eaf1 !important;
   }
-}
-
+  body.dark .ageUnit{
+    box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  }
+  body.dark .shareBtn{
+    box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  }
+  /* أي نص داخل الكارد لم يُغطَّ */
+  body.dark .card,
+  body.dark .card p,
+  body.dark .card span,
+  body.dark .card div:not(.heartIcon):not(.ageUnit):not(.themeSwatch) {
+    color: #f7eaf1;
+  }
+  /* نصوص الأزرار تبقى واضحة */
+  body.dark .btn.primary,
+  body.dark .heartBtn.pressed {
+    color: #fff !important;
+  }
+  body.dark .ageUnit .ageNum,
+  body.dark .ageUnit .ageLabel {
+    color: #fff !important;
+  }
 </style>
 </head>
 
@@ -589,12 +733,14 @@ padding: clamp(18px, 4vh, 42px) 0;
     </div>
 
     <div class="badges">
-      <div class="badge">🎀 مفاجأة لحلا</div>
+      <div class="badge">🎀 مفاجأة لزينة</div>
       <div class="badge" id="dateBadge">📅 اليوم</div>
     </div>
 
+
+
     <h1 class="title">
-      <span>🎂 حلا - 18 سنة 🎀</span>
+      <span>🎂 زينة - 20 سنة 🎀</span>
       <span class="iconWrapper">
         <img src="icon.png" class="titleIcon" alt="icon">
       </span>
@@ -630,10 +776,33 @@ padding: clamp(18px, 4vh, 42px) 0;
 
     <div class="gift" id="giftBox">
       <div class="ribbon">💖 تهنئة</div>
+      <div class="giftGifs">
+        <img class="giftGif" src="dance1.gif" alt="راقصة 1">
+        <img class="giftGif" src="dance2.gif" alt="راقصة 2">
+      </div>
       <div id="giftText"></div>
     </div>
 
     <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨ واضغطي داخل البطاقة تطلع قلوب 💗</p>
+
+    <!-- ساعة العمر -->
+    <div class="ageClock" style="opacity:1;transform:none">
+      <div class="ageClockTitle">⏱️ عمر زينة بالضبط من لحظة ميلادها</div>
+      <div class="ageClockGrid" id="ageClockGrid">
+        <div class="ageUnit"><div class="ageNum" id="ac-y">0</div><div class="ageLabel">سنة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="ac-mo">0</div><div class="ageLabel">شهر</div></div>
+        <div class="ageUnit"><div class="ageNum" id="ac-d">0</div><div class="ageLabel">يوم</div></div>
+        <div class="ageUnit"><div class="ageNum" id="ac-h">0</div><div class="ageLabel">ساعة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="ac-m">0</div><div class="ageLabel">دقيقة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="ac-s">0</div><div class="ageLabel">ثانية</div></div>
+      </div>
+    </div>
+
+    <!-- زر توليد الصورة -->
+    <button class="shareBtn" id="shareBtn">📸 ولّدي صورة التهنئة وشاركيها</button>
+    <canvas id="shareCanvas"></canvas>
+
+
   </div>
 
   <div class="toast" id="toast">تم ✅</div>
@@ -657,12 +826,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const card = $("card");
   const toast = $("toast");
 
-  function showToast(text){
+  function showToast(text, dur=1400){
     if(!toast) return;
     toast.textContent = text;
     toast.style.display = "block";
     clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=>toast.style.display="none", 1400);
+    showToast._t = setTimeout(()=>toast.style.display="none", dur);
   }
 
   // ===== التاريخ =====
@@ -675,7 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== الرسالة =====
   const message = `
-في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ١٨ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
+في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
 
 وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
 وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
@@ -683,7 +852,7 @@ document.addEventListener("DOMContentLoaded", () => {
 وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
 `;
 
-  // ===== صوت (مع resume مضمون) =====
+  // ===== صوت =====
   let soundOn = true;
   let audioCtx = null;
 
@@ -695,6 +864,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if(audioCtx.state === "suspended") audioCtx.resume();
     }catch(e){}
   }
+
   function beep(type="escape"){
     if(!soundOn) return;
     ensureAudio();
@@ -716,35 +886,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }catch(e){}
   }
 
-  function sfx(kind="ok"){
+  // صوت طراطيع احتفالية 🎉
+  function playPartyPop(){
     if(!soundOn) return;
     ensureAudio();
     try{
       const t = audioCtx.currentTime;
+      // نوتات الاحتفال بترتيب صاعد
+      const notes = [523, 659, 784, 1047, 1319, 1047, 784, 1319, 1568];
+      const delays = [0, 0.07, 0.14, 0.21, 0.30, 0.38, 0.45, 0.54, 0.63];
 
-      const o1 = audioCtx.createOscillator();
-      const g1 = audioCtx.createGain();
-      o1.type = "sine";
-      o1.frequency.setValueAtTime(kind==="ok" ? 620 : 220, t);
+      notes.forEach((freq, i)=>{
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = i % 2 === 0 ? "sine" : "triangle";
+        o.frequency.value = freq;
 
-      const o2 = audioCtx.createOscillator();
-      const g2 = audioCtx.createGain();
-      o2.type = "sine";
-      o2.frequency.setValueAtTime(kind==="ok" ? 880 : 180, t);
+        const start = t + delays[i];
+        g.gain.setValueAtTime(0.0001, start);
+        g.gain.exponentialRampToValueAtTime(0.22, start + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, start + 0.11);
 
-      g1.gain.setValueAtTime(0.0001, t);
-      g1.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
-      g1.gain.exponentialRampToValueAtTime(0.0001, t + (kind==="ok" ? 0.18 : 0.22));
+        o.connect(g);
+        g.connect(audioCtx.destination);
+        o.start(start);
+        o.stop(start + 0.13);
+      });
 
-      g2.gain.setValueAtTime(0.0001, t + 0.03);
-      g2.gain.exponentialRampToValueAtTime(0.14, t + 0.05);
-      g2.gain.exponentialRampToValueAtTime(0.0001, t + (kind==="ok" ? 0.22 : 0.26));
+      // طرطشة نهائية — نغمة عالية قصيرة
+      setTimeout(()=>{
+        try{
+          const o2 = audioCtx.createOscillator();
+          const g2 = audioCtx.createGain();
+          o2.type = "sine";
+          o2.frequency.setValueAtTime(1800, audioCtx.currentTime);
+          o2.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.18);
+          g2.gain.setValueAtTime(0.18, audioCtx.currentTime);
+          g2.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.18);
+          o2.connect(g2);
+          g2.connect(audioCtx.destination);
+          o2.start();
+          o2.stop(audioCtx.currentTime + 0.19);
+        }catch(e){}
+      }, 700);
 
-      o1.connect(g1); g1.connect(audioCtx.destination);
-      o2.connect(g2); g2.connect(audioCtx.destination);
-
-      o1.start(t); o1.stop(t + 0.25);
-      o2.start(t); o2.stop(t + 0.30);
     }catch(e){}
   }
 
@@ -764,10 +949,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleTheme = $("toggleTheme");
   if(toggleTheme){
     toggleTheme.addEventListener("click", ()=>{
-  document.body.classList.toggle("dark");
-  showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
-});
-}
+      document.body.classList.toggle("dark");
+      showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
+    });
+  }
 
   // ===== Typewriter =====
   function typeWriter(el, text, speed=14){
@@ -786,10 +971,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, speed);
   }
 
-  // ===== Confetti =====
+  // ===== Confetti (مخففة) =====
   function burst(){
     const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
-    for(let i=0;i<28;i++){
+    // قللنا العدد من 16 إلى 9 لتخفيف الأداء
+    for(let i=0;i<9;i++){
       const s=document.createElement("div");
       s.className="confetti";
       s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
@@ -809,7 +995,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== قلوب الكارد (تصحيح مهم: تجاهل الأزرار والشيت) =====
+  // ===== قلوب الكارد =====
   if(card){
     card.addEventListener("click",(e)=>{
       if (e.target && e.target.closest("button, .sheet, .sheetOverlay")) return;
@@ -835,23 +1021,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const copyLink = $("copyLink");
   if(copyLink){
-    copyLink.addEventListener("click", async ()=>{
+    copyLink.addEventListener("click", ()=>{
+      // طريقة شغالة دائماً حتى بدون HTTPS
       try{
-        await navigator.clipboard.writeText(location.href);
+        const ta = document.createElement("textarea");
+        ta.value = location.href;
+        ta.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
         showToast("تم نسخ الرابط ✅");
-      }catch{
-        prompt("انسخي الرابط:", location.href);
+      }catch(e){
+        // fallback أخير
+        if(navigator.clipboard){
+          navigator.clipboard.writeText(location.href)
+            .then(()=> showToast("تم نسخ الرابط ✅"))
+            .catch(()=> prompt("انسخي الرابط:", location.href));
+        } else {
+          prompt("انسخي الرابط:", location.href);
+        }
       }
     });
   }
 
   // ===== Quiz =====
   const steps = [
-    { q: "🤨 انتي حلا؟", btn: { type:"normal", text:"اي حلا" } },
+    { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
     { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
-    { q: "😶 يا حلا كم عمرك؟", btn: { type:"age" } },
-    { q: "🔥 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
-    { q: "😾 شو هااااا بتحبي عمر ولا لا؟", btn: { type:"escape", text:"ما بعرف" } },
+
+    { q: " كم عمرك يا زينة؟", btn: { type:"age" } },
+
+    { q: "🔥 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااااااا؟" } },
+    { q: "😾 شووووو هاااااا بتحبي عمر ولا لا؟", btn: { type:"escape", text:"ما بعرف" } },
     { q: "لو بتحبي عمر اضغطي على القلب 💗", btn: { type:"heart" } }
   ];
 
@@ -861,6 +1063,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const qText = $("qText");
   const qSmall = $("qSmall");
   const answerArea = $("answerArea");
+
+  // ===== مطر القلوب =====
+  function heartRain(){
+    const symbols = ["💗","💖","💞","💓","❤️","🩷","💕"];
+    const count = 55;
+    for(let i = 0; i < count; i++){
+      setTimeout(()=>{
+        const el = document.createElement("div");
+        el.className = "rainHeart";
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const size = 18 + Math.random() * 28;
+        const left = Math.random() * 100;
+        const dur  = 1.4 + Math.random() * 1.8;
+        const rot  = (Math.random() * 60 - 30) + "deg";
+        el.style.cssText = `
+          left:${left}vw;
+          font-size:${size}px;
+          animation-duration:${dur}s;
+          --r:${rot};
+        `;
+        document.body.appendChild(el);
+        setTimeout(()=> el.remove(), dur * 1000 + 100);
+      }, i * 38);
+    }
+  }
 
   function renderStep(){
     if(!qText || !qSmall || !answerArea) return;
@@ -882,6 +1109,48 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Age step
+    if(s.btn.type === "age"){
+      qSmall.textContent = "";
+      answerArea.innerHTML = `
+        <div class="ageWrap">
+          <input class="ageInput" id="ageInput" inputmode="numeric" placeholder="">
+          <button class="btn primary qBtn" id="ageOk">تأكيد</button>
+        </div>
+      `;
+
+      const ageInput = $("ageInput");
+      const ageOk = $("ageOk");
+
+      const normalizeDigits = (str) => (str || "")
+        .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+        .trim();
+
+      function checkAge(){
+        const v = normalizeDigits(ageInput?.value);
+        if(v === "20"){
+          burst();
+          // ✅ مدة رسالة النجاح: 5 ثواني
+          showToast("اووووووه القمر عرف حاله شطوووووووورة 🫰🏻💞", 5000);
+          stepIndex++;
+          renderStep();
+        }else{
+          beep("escape");
+          // ✅ مدة رسالة الخطأ: 5 ثواني
+          showToast("خطأ احد بينسى عمره؟😼", 5000);
+          if(ageInput){
+            ageInput.value = "";
+            ageInput.focus();
+          }
+        }
+      }
+
+      ageOk?.addEventListener("click", checkAge);
+      ageInput?.addEventListener("keydown", (e)=>{ if(e.key === "Enter") checkAge(); });
+      setTimeout(()=> ageInput?.focus(), 50);
+      return;
+    }
+
     if(s.btn.type === "escape"){
       qSmall.textContent = "اضغطيه إذا تقدري 😼 (الزر بيهرب!)";
       answerArea.innerHTML = `
@@ -895,18 +1164,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const escapeBtn = $("escapeBtn");
       if(!moveArea || !escapeBtn) return;
 
+      // ضع الزر في وسط moveArea في البداية
+      escapeBtn.style.transition = "none";
+      escapeBtn.style.left = "50%";
+      escapeBtn.style.transform = "translateX(-50%)";
+      escapeBtn.style.top = "10px";
+
       function randomMove(){
         const area = moveArea.getBoundingClientRect();
-        const btn  = escapeBtn.getBoundingClientRect();
-        const maxX = Math.max(0, area.width - btn.width);
-        const maxY = Math.max(0, area.height - btn.height);
+        const btnW = escapeBtn.offsetWidth || 180;
+        const btnH = escapeBtn.offsetHeight || 46;
+        const maxX = Math.max(10, area.width - btnW - 10);
+        const maxY = Math.max(0, area.height - btnH);
 
-        const x = Math.floor(Math.random() * maxX);
+        const x = Math.floor(10 + Math.random() * (maxX - 10));
         const y = Math.floor(Math.random() * maxY);
 
+        // شغّل الـ transition قبل تغيير الموضع
+        escapeBtn.style.transition = "left 0.38s cubic-bezier(.2,.9,.2,1), top 0.38s cubic-bezier(.2,.9,.2,1), transform 0.38s cubic-bezier(.2,.9,.2,1)";
+        escapeBtn.style.transform = "none";
         escapeBtn.style.left = x + "px";
         escapeBtn.style.top  = y + "px";
-        escapeBtn.style.transform = "none";
       }
 
       function doEscape(){
@@ -914,26 +1192,30 @@ document.addEventListener("DOMContentLoaded", () => {
         beep("escape");
         burst();
 
-        escapeBtn.classList.remove("shake");
-        void escapeBtn.offsetWidth;
-        escapeBtn.classList.add("shake");
-
         randomMove();
 
-        if(escapeTries >= 6){
+        if(escapeTries >= 2){
           qSmall.textContent = "خلاص خلاص… استسلمت 🫢 اضغطيه مرّة أخيرة";
           escapeBtn.textContent = "طيب… كملي 😼";
-          escapeBtn.onclick = ()=>{
+          // نوقف كل المستمعين ونكمل فوراً على أول ضغطة
+          escapeBtn.removeEventListener("mouseenter", doEscape);
+          escapeBtn.ontouchstart = null;
+          escapeBtn.onclick = null;
+          // نضيف مستمع نظيف بدون preventDefault يمنع التشغيل
+          const goNext = (e)=>{
+            e.stopImmediatePropagation();
             burst();
             stepIndex++;
             renderStep();
           };
+          escapeBtn.addEventListener("click", goNext, {once:true});
+          escapeBtn.addEventListener("touchend", goNext, {once:true, passive:true});
         }
       }
 
       escapeBtn.addEventListener("mouseenter", doEscape);
       escapeBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); doEscape(); }, {passive:false});
-      escapeBtn.addEventListener("click", (e)=>{ e.preventDefault(); doEscape(); });
+      // click مو للهروب — بس للاستسلام (يتحكم فيه onclick فوق)
 
       setTimeout(randomMove, 200);
       return;
@@ -951,22 +1233,29 @@ document.addEventListener("DOMContentLoaded", () => {
       if(heartBtn){
         heartBtn.addEventListener("click", ()=>{
           beep("heart");
-          burst();
-          const quizBox = $("quizBox");
-          const giftBox = $("giftBox");
-          const giftText = $("giftText");
+          playPartyPop();
+          heartBtn.classList.add("pressed");
+          showToast("لحظة... 💗");
+
+          // مطر قلوب يغطي الشاشة كلها
+          heartRain();
+
           setTimeout(()=>{
-    if(quizBox) quizBox.style.display = "none";
-    if(giftBox) giftBox.style.display = "block";
-    if(giftText) typeWriter(giftText, message, 12);
-    showToast("وصلتي للتهنئة 💖");
-    giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
-  }, 1200);
-});
+            const quizBox = $("quizBox");
+            const giftBox = $("giftBox");
+            const giftText = $("giftText");
+            if(quizBox) quizBox.style.display = "none";
+            if(giftBox) giftBox.style.display = "block";
+            if(giftText) typeWriter(giftText, message, 3);
+            showToast("وصلتي للتهنئة 💖");
+            giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
+          }, 1800);
+        });
       }
       return;
     }
   }
+
   renderStep();
 
   // ===== Slider =====
@@ -1050,16 +1339,17 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg)"; });
   }
 
-  const els = document.querySelectorAll(".badges, .title, .sub, .fadeSlider, .actions, .quiz, .gift, .hint");
+  const els = document.querySelectorAll(".badges, .title, .sub, .fadeSlider, .actions, .quiz, .gift, .hint, .ageClock, .shareBtn");
   els.forEach(el=> el.classList.add("reveal"));
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add("show"); });
   }, {threshold: 0.12});
   els.forEach(el=> io.observe(el));
 
-  // ===== فقاعات =====
+  // ===== فقاعات (مخففة) =====
   (function bubbles(){
     const icons = ["✨","💗","🎀","⭐️","🌸"];
+    // زدنا الفاصل الزمني من 1400 إلى 2500 لتخفيف الأداء
     setInterval(()=>{
       const b = document.createElement("div");
       b.className = "bubble";
@@ -1070,7 +1360,7 @@ document.addEventListener("DOMContentLoaded", () => {
       b.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
       document.body.appendChild(b);
       setTimeout(()=> b.remove(), 14000);
-    }, 650);
+    }, 2500);
   })();
 
   // ===== Themes =====
@@ -1097,7 +1387,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("تم اختيار ثيم: " + t.name + " ✅");
   }
 
-  // Bottom sheet
   const overlay = $("sheetOverlay");
   const sheet   = $("themeSheet");
   const openBtn = $("openThemes");
@@ -1121,7 +1410,6 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtn?.addEventListener("click", closeSheet);
   overlay?.addEventListener("click", closeSheet);
 
-  // drag down close
   if(sheet){
     let startY=0, curY=0, dragging=false;
     sheet.addEventListener("touchstart", (e)=>{ dragging=true; startY=e.touches[0].clientY; curY=0; }, {passive:true});
@@ -1137,7 +1425,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, {passive:true});
   }
 
-  // build themes grid
   if(themeGrid){
     themeGrid.innerHTML = "";
     THEMES.forEach(t=>{
@@ -1157,7 +1444,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(found) applyTheme(found);
   }
 
-  // ===== Particles =====
+  // ===== Particles (مخففة) =====
   (function particles(){
     const c = $("particles");
     if(!c) return;
@@ -1166,7 +1453,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let w=0,h=0,dpr=1;
     function resize(){
-      dpr = window.devicePixelRatio || 1;
+      // نحد الـ dpr بـ 1.5 لتخفيف الحمل على الشاشات عالية الدقة
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = c.width = Math.floor(window.innerWidth * dpr);
       h = c.height = Math.floor(window.innerHeight * dpr);
       c.style.width = window.innerWidth + "px";
@@ -1176,7 +1464,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resize();
 
     const shapes = ["✨","💗","⭐️","🎀","🌸"];
-    const N = 34;
+    // قللنا عدد الجسيمات من 18 إلى 10
+    const N = 10;
     const ps = Array.from({length:N}, ()=>({
       x: Math.random()*w,
       y: Math.random()*h,
@@ -1187,20 +1476,12 @@ document.addEventListener("DOMContentLoaded", () => {
       drift: (Math.random()*0.6 - 0.3) * dpr
     }));
 
-    let mx = 0, my = 0;
-    window.addEventListener("mousemove", (e)=>{
-      mx = (e.clientX / window.innerWidth  - 0.5) * 2;
-      my = (e.clientY / window.innerHeight - 0.5) * 2;
-    }, {passive:true});
-
+    // أزلنا تأثير تتبع الماوس لتخفيف الحسابات
     function draw(){
       ctx.clearRect(0,0,w,h);
       for(const p of ps){
         p.y -= p.s;
         p.x += p.drift;
-
-        const px = p.x + mx * 16 * dpr;
-        const py = p.y + my * 10 * dpr;
 
         if(p.y < -60*dpr){ p.y = h + 60*dpr; p.x = Math.random()*w; }
         if(p.x < -60*dpr) p.x = w + 60*dpr;
@@ -1210,13 +1491,197 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.font = `${p.r}px system-ui, Arial`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(p.t, px, py);
+        ctx.fillText(p.t, p.x, p.y);
       }
       ctx.globalAlpha = 1;
       requestAnimationFrame(draw);
     }
     draw();
   })();
+
+  // ===== ساعة العمر =====
+  // ===== ساعة العمر (بالتقويم الهجري) =====
+  (function ageClock(){
+    // تاريخ ميلاد زينة: 27 رمضان 1427 هـ
+    const BIRTH_H = { y:1427, m:9, d:27 };
+
+    function getHijriNow(){
+      const now = new Date();
+      const fmt = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+        year:"numeric", month:"numeric", day:"numeric"
+      });
+      const parts = fmt.formatToParts(now);
+      const p = {};
+      parts.forEach(x => p[x.type] = parseInt(x.value));
+      return { y:p.year, m:p.month, d:p.day, _date:now };
+    }
+
+    function pad(n){ return String(Math.max(0,n)).padStart(2,"0"); }
+
+    function tick(){
+      const hNow = getHijriNow();
+      const now  = hNow._date;
+
+      let years  = hNow.y - BIRTH_H.y;
+      let months = hNow.m - BIRTH_H.m;
+      let days   = hNow.d - BIRTH_H.d;
+
+      if(days   < 0){ months--; days += 30; }
+      if(months < 0){ years--;  months += 12; }
+
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const todayMs = now - startOfDay;
+      const HR=3600000, MIN=60000, S=1000;
+      const hours = Math.floor(todayMs / HR);
+      const mins  = Math.floor((todayMs % HR)  / MIN);
+      const secs  = Math.floor((todayMs % MIN) / S);
+
+      const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=pad(v); };
+      set("ac-y",  years);
+      set("ac-mo", months);
+      set("ac-d",  days);
+      set("ac-h",  hours);
+      set("ac-m",  mins);
+      set("ac-s",  secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+
+  // ===== توليد صورة التهنئة =====
+  const shareBtn = document.getElementById("shareBtn");
+  if(shareBtn){
+    shareBtn.addEventListener("click", ()=>{
+      showToast("جاري تجهيز الصورة... 🎨");
+
+      // نستخدم setTimeout عشان الـ toast يظهر أول
+      setTimeout(()=>{
+        const canvas = document.getElementById("shareCanvas");
+        if(!canvas){ showToast("خطأ: ما لقيت الكانفاس"); return; }
+
+        const W = 900, H = 520;
+        canvas.width  = W * 2; // دقة عالية
+        canvas.height = H * 2;
+        canvas.style.width  = W + "px";
+        canvas.style.height = H + "px";
+        const ctx = canvas.getContext("2d");
+        ctx.scale(2, 2); // للوضوح
+
+        // ===== خلفية =====
+        const grad = ctx.createLinearGradient(0, 0, W, H);
+        grad.addColorStop(0,   "#ffb6d5");
+        grad.addColorStop(0.5, "#ffd6ea");
+        grad.addColorStop(1,   "#ffb6d5");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        // دوائر خلفية
+        [[80,80,110,.18],[820,420,130,.15],[450,30,80,.12],[750,80,60,.10]].forEach(([x,y,r,a])=>{
+          ctx.beginPath();
+          ctx.arc(x,y,r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(255,255,255,${a})`;
+          ctx.fill();
+        });
+
+        // ===== كارد أبيض =====
+        const cx=50,cy=50,cw=W-100,ch=H-100,cr=24;
+        ctx.beginPath();
+        ctx.moveTo(cx+cr,cy); ctx.lineTo(cx+cw-cr,cy);
+        ctx.quadraticCurveTo(cx+cw,cy,cx+cw,cy+cr);
+        ctx.lineTo(cx+cw,cy+ch-cr);
+        ctx.quadraticCurveTo(cx+cw,cy+ch,cx+cw-cr,cy+ch);
+        ctx.lineTo(cx+cr,cy+ch);
+        ctx.quadraticCurveTo(cx,cy+ch,cx,cy+ch-cr);
+        ctx.lineTo(cx,cy+cr);
+        ctx.quadraticCurveTo(cx,cy,cx+cr,cy);
+        ctx.closePath();
+        ctx.fillStyle="rgba(255,255,255,0.90)";
+        ctx.shadowColor="rgba(255,79,163,.25)";
+        ctx.shadowBlur=28;
+        ctx.fill();
+        ctx.shadowBlur=0;
+
+        // ===== النصوص =====
+        ctx.textAlign="center";
+        ctx.textBaseline="middle";
+        ctx.direction="rtl";
+
+        // عنوان رئيسي
+        ctx.font="bold 42px 'Segoe UI', system-ui, Arial";
+        ctx.fillStyle="#ff4fa3";
+        ctx.fillText("🎂 عيد ميلاد زينة 🎀", W/2, 145);
+
+        // نجمات
+        ctx.font="22px system-ui";
+        ctx.fillText("✨ ✨ ✨ ✨ ✨", W/2, 185);
+
+        // خط فاصل
+        const lg = ctx.createLinearGradient(cx+40,0,cx+cw-40,0);
+        lg.addColorStop(0,"transparent");
+        lg.addColorStop(0.5,"#ffd1e7");
+        lg.addColorStop(1,"transparent");
+        ctx.beginPath();
+        ctx.moveTo(cx+40,210); ctx.lineTo(cx+cw-40,210);
+        ctx.strokeStyle=lg; ctx.lineWidth=1.5; ctx.stroke();
+
+        // العمر
+        const now2=new Date(), b2=new Date("2008-04-28T00:00:00");
+        let yrs2=now2.getFullYear()-b2.getFullYear();
+        if(now2<new Date(now2.getFullYear(),b2.getMonth(),b2.getDate())) yrs2--;
+
+        ctx.font="bold 88px 'Segoe UI', system-ui, Arial";
+        ctx.fillStyle="#ff4fa3";
+        ctx.fillText(yrs2, W/2 - 30, 305);
+
+        ctx.font="bold 40px system-ui";
+        ctx.fillStyle="#ff4fa3";
+        ctx.fillText("🎉", W/2 + 60, 300);
+
+        ctx.font="bold 20px 'Segoe UI', system-ui, Arial";
+        ctx.fillStyle="#3b2b2f";
+        ctx.fillText("سنة من الجمال والتألق", W/2, 365);
+
+        // خط فاصل ثاني
+        ctx.beginPath();
+        ctx.moveTo(cx+40,390); ctx.lineTo(cx+cw-40,390);
+        ctx.strokeStyle=lg; ctx.lineWidth=1.5; ctx.stroke();
+
+        // رسالة
+        ctx.font="18px 'Segoe UI', system-ui, Arial";
+        ctx.fillStyle="#888";
+        ctx.fillText("كل عام وانتِ قمري الذي أكتفي به 💞", W/2, 418);
+
+        // إيموجيات أسفل
+        ctx.font="26px system-ui";
+        ["💗","✨","🌸","💞","🎀","💖"].forEach((e,i)=>{
+          ctx.fillText(e, 105 + i*132, 460);
+        });
+
+        // ===== تحميل =====
+        try{
+          const link=document.createElement("a");
+          link.download="zeina-birthday-20.png";
+          link.href=canvas.toDataURL("image/png",1.0);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showToast("تم تحميل صورة التهنئة 📸✅", 3000);
+        }catch(err){
+          // fallback: افتح في تاب جديد
+          try{
+            const url=canvas.toDataURL("image/png");
+            window.open(url,"_blank");
+            showToast("افتحت في تاب جديد — اضغطي عليها حفظ 📸");
+          }catch(e2){
+            showToast("⚠️ افتحي الموقع من Chrome أو Edge");
+          }
+        }
+      }, 80);
+    });
+  }
+
 });
 </script>
 </body>
