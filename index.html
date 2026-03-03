@@ -745,7 +745,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== Quiz (مع سؤال عمر كتابي فقط) =====
+  // ===== Quiz (مع سؤال عمر كتابي فقط + بدون تلميح + رسالة 5 ثواني) =====
   const steps = [
     { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
     { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
@@ -783,16 +783,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ✅ العمر (إدخال المستخدم)
+    // ✅ العمر (بدون تلميح) + رسالة 5 ثواني
     if(s.btn.type === "age"){
       const normalizeDigits = (str)=> (str||"").trim().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+      let successLocked = false;
 
-      qSmall.textContent = "اكتبي عمرك (20 أو ٢٠) عشان نكمل ✨";
+      qSmall.textContent = "…";
+
       answerArea.innerHTML = `
         <div style="display:grid; gap:10px; justify-items:center;">
           <input id="ageInput"
                  inputmode="numeric"
-                 placeholder="مثلاً: 20"
+                 placeholder=""
+                 aria-label="اكتبي عمرك"
                  style="
                    width:min(320px,92%);
                    padding:12px 14px;
@@ -815,22 +818,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function showMsg(text, ok=false){
         if(!ageMsg) return;
+
         ageMsg.textContent = text;
         ageMsg.style.opacity = "1";
         ageMsg.style.transform = "translateY(0)";
         ageMsg.style.color = ok ? "var(--accent)" : "#b00020";
+
+        clearTimeout(showMsg._t);
+        showMsg._t = setTimeout(()=>{
+          ageMsg.style.opacity = "0";
+          ageMsg.style.transform = "translateY(6px)";
+        }, 5000);
       }
 
       function checkAge(){
+        if(successLocked) return;
+
         const val = normalizeDigits(ageInput?.value || "");
         if(val === "20"){
+          successLocked = true;
+          ageBtn.disabled = true;
+          ageBtn.style.opacity = "0.7";
           beep("heart");
           burst();
           showMsg("اوووه ماشاءالله القمر كبر اليووووم 😭💗", true);
+
           setTimeout(()=>{
             stepIndex++;
             renderStep();
-          }, 900);
+          }, 5000);
         }else{
           beep("escape");
           showMsg("العمر غير صحيح حاولي مره اخرى يا شطورة 🫰🏻", false);
