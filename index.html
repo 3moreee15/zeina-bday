@@ -668,6 +668,26 @@
     transition: transform .12s ease;
   }
   .themeBtn:active{ transform: scale(.98); }
+  .themeBtn.selected{
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px rgba(255,79,163,.20), 0 10px 22px rgba(0,0,0,.08);
+  }
+  .themeCheck{
+    display: none;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(255,79,163,.35);
+  }
+  .themeBtn.selected .themeCheck{ display: flex; }
+  .themeBtn{ position: relative; }
   .themeSwatch{ height:34px; border-radius:12px; margin-bottom:8px; border:1px solid rgba(255,255,255,.45); }
   .themeName{ font-weight:950; font-size:13px; }
 
@@ -1534,6 +1554,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localStorage.setItem("theme_id", t.id);
     showToast("تم اختيار ثيم: " + t.name + " ✅");
+
+    // علّم الثيم المحدد
+    document.querySelectorAll(".themeBtn").forEach(b => b.classList.remove("selected"));
+    const activeBtn = document.querySelector(`.themeBtn[data-id="${t.id}"]`);
+    if(activeBtn) activeBtn.classList.add("selected");
   }
 
   const overlay = $("sheetOverlay");
@@ -1580,7 +1605,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.className = "themeBtn";
       btn.type = "button";
+      btn.dataset.id = t.id;
       btn.innerHTML = `
+        <div class="themeCheck">✓</div>
         <div class="themeSwatch" style="background: linear-gradient(135deg, ${t.bg1}, ${t.bg2});"></div>
         <div class="themeName">${t.name}</div>
       `;
