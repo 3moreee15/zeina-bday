@@ -561,6 +561,63 @@
     opacity:1;
   }
   body.dark .quiz .qSmall{ opacity:.85; }
+
+  /* =========================
+     ✅ Glass 10% (خفيف جدًا)
+     ========================= */
+  :root{
+    --glass: rgba(255,255,255,.99);
+  }
+  .card{
+    background: rgba(255,255,255,.90) !important;  /* 10% شفافية */
+    backdrop-filter: blur(1px) !important;
+    -webkit-backdrop-filter: blur(1px) !important;
+    border: 1px solid rgba(255,255,255,.80) !important;
+  }
+  .card::before{ opacity: .08 !important; }
+
+  .pillBtn{
+    background: rgba(255,255,255,.92) !important;
+    backdrop-filter: blur(1px) !important;
+    -webkit-backdrop-filter: blur(1px) !important;
+  }
+
+  .sheet{
+    background: rgba(255,255,255,.92) !important;
+    backdrop-filter: blur(1px) !important;
+    -webkit-backdrop-filter: blur(1px) !important;
+  }
+
+  .toast{ background: rgba(255,255,255,.92) !important; }
+
+  body.dark .card{
+    background: rgba(20,14,22,.90) !important;     /* 10% شفافية */
+    backdrop-filter: blur(1px) !important;
+    -webkit-backdrop-filter: blur(1px) !important;
+  }
+
+/* تأثير الضغط على زر القلب */
+.heartBtn.activePress{
+  animation: heartFlash 1.4s ease;
+}
+@keyframes heartFlash{
+  0%{
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255,79,163,0);
+    background: linear-gradient(135deg, #fff, #ffe8f3);
+  }
+  40%{
+    transform: scale(1.06);
+    background: linear-gradient(135deg, #ff4fa3, #ff7fc3);
+    color: #fff;
+    box-shadow: 0 0 25px rgba(255,79,163,.6);
+  }
+  100%{
+    transform: scale(1);
+    background: linear-gradient(135deg, #fff, #ffe8f3);
+  }
+}
+
 </style>
 </head>
 
@@ -717,7 +774,38 @@ document.addEventListener("DOMContentLoaded", () => {
       o.start(t);
       o.stop(t + 0.13);
     }catch(e){}
-  }
+
+  function sfx(kind="ok"){
+    if(!soundOn) return;
+    ensureAudio();
+    try{
+      const t = audioCtx.currentTime;
+
+      const o1 = audioCtx.createOscillator();
+      const g1 = audioCtx.createGain();
+      o1.type = "sine";
+      o1.frequency.setValueAtTime(kind==="ok" ? 620 : 220, t);
+
+      const o2 = audioCtx.createOscillator();
+      const g2 = audioCtx.createGain();
+      o2.type = "sine";
+      o2.frequency.setValueAtTime(kind==="ok" ? 880 : 180, t);
+
+      g1.gain.setValueAtTime(0.0001, t);
+      g1.gain.exponentialRampToValueAtTime(0.18, t + 0.02);
+      g1.gain.exponentialRampToValueAtTime(0.0001, t + (kind==="ok" ? 0.18 : 0.22));
+
+      g2.gain.setValueAtTime(0.0001, t + 0.03);
+      g2.gain.exponentialRampToValueAtTime(0.14, t + 0.05);
+      g2.gain.exponentialRampToValueAtTime(0.0001, t + (kind==="ok" ? 0.22 : 0.26));
+
+      o1.connect(g1); g1.connect(audioCtx.destination);
+      o2.connect(g2); g2.connect(audioCtx.destination);
+
+      o1.start(t); o1.stop(t + 0.25);
+      o2.start(t); o2.stop(t + 0.30);
+    }catch(e){}
+  }  }
 
   window.addEventListener("pointerdown", ensureAudio, {once:true, passive:true});
 
@@ -728,7 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
       soundOn = !soundOn;
       toggleSound.textContent = soundOn ? "🔊 الصوت" : "🔇 كتم";
       showToast(soundOn ? "الصوت شغال 🔊" : "تم الكتم 🔇");
-      beep("heart");
+      sfx("ok");
     });
   }
 
@@ -901,7 +989,7 @@ document.addEventListener("DOMContentLoaded", () => {
           successLocked = true;
           ageBtn.disabled = true;
           ageBtn.style.opacity = "0.7";
-          beep("heart");
+          sfx(\"ok\");
           burst();
           showMsg("اوووه ماشاءالله القمر كبر اليووووم 😭💗", true);
 
@@ -910,7 +998,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderStep();
           }, 5000);
         }else{
-          beep("escape");
+          sfx(\"no\");
           showMsg("العمر غير صحيح حاولي مره اخرى يا شطورة 🫰🏻", false);
           ageInput?.focus();
           try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){}
@@ -954,8 +1042,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function doEscape(){
         escapeTries++;
-        beep("escape");
-        burst();
+        sfx(\"no\");
+          burst();
 
         escapeBtn.classList.remove("shake");
         void escapeBtn.offsetWidth;
@@ -991,18 +1079,26 @@ document.addEventListener("DOMContentLoaded", () => {
           <span>اضغطي على القلب</span>
         </div>
       `;
-      $("heartBtn")?.addEventListener("click", ()=>{
-        beep("heart");
+      $("heartBtn")?.addEventListener("click", (e)=>{
+        const btn = e.currentTarget;
+
+        // شغل التأثير
+        btn.classList.add("activePress");
+        setTimeout(()=>{ btn.classList.remove("activePress"); }, 1400);
+
+beep("heart");
         burst();
         const quizBox = $("quizBox");
         const giftBox = $("giftBox");
         const giftText = $("giftText");
-        if(quizBox) quizBox.style.display = "none";
-        if(giftBox) giftBox.style.display = "block";
-        if(giftText) typeWriter(giftText, message, 12);
-        showToast("وصلتي للتهنئة 💖");
-        giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
-      });
+        setTimeout(()=>{
+          if(quizBox) quizBox.style.display = "none";
+          if(giftBox) giftBox.style.display = "block";
+          if(giftText) typeWriter(giftText, message, 12);
+          showToast("وصلتي للتهنئة 💖");
+          giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
+        }, 1200);
+});
       return;
     }
   }
