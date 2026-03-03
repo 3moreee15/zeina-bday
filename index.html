@@ -4,18 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>زينة | 20 🎀</title>
-
-<!-- (اختياري) أيقونة التبويب أعلى المتصفح -->
 <link rel="icon" type="image/png" href="icon.png">
 
 <style>
   :root{
     --bg1:#ffb6d5; --bg2:#ffd6ea;
-    --pink:#ff4fa3; --pink2:#ff7fc3;
-    --text:#3b2b2f;
+    --accent:#ff4fa3; --accent2:#ff7fc3;
     --border:#ffd1e7;
+    --text:#3b2b2f;
+
+    --glass: rgba(255,255,255,.86);
+    --shadow: 0 18px 55px rgba(0,0,0,.14);
+    --shadow2: 0 12px 30px rgba(255,79,163,.20);
   }
+
   *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
 
   body{
     margin:0;
@@ -24,44 +28,130 @@
     min-height:100vh;
     overflow-x:hidden;
     overflow-y:auto;
-    padding: clamp(18px, 4vh, 42px) 0;
     color:var(--text);
     display:flex;
     justify-content:center;
     align-items:flex-start;
+
+    padding: clamp(18px, 4vh, 42px) 0;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    padding-top: calc(18px + env(safe-area-inset-top));
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+  }
+
+  /* ===== خلفيات ===== */
+  #particles{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.9; }
+
+  .bgGrid{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.35;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.10) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mix-blend-mode: overlay;
+  }
+
+  .bgNoise{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.18;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
+  .aurora{
+    position:fixed; inset:-20%; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,79,163,.35), transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(255,190,220,.35), transparent 48%),
+      radial-gradient(circle at 30% 85%, rgba(255,255,255,.28), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(255,120,200,.28), transparent 48%);
+    filter: blur(26px) saturate(1.1);
+    animation: auroraMove 14s ease-in-out infinite alternate;
+  }
+  @keyframes auroraMove{
+    0%{ transform: translate3d(-2%, 0%, 0) scale(1.02) rotate(-2deg); }
+    100%{ transform: translate3d(2%, -1%, 0) scale(1.06) rotate(2deg); }
   }
 
   .sparkle{
-    position:fixed; inset:-30px;
+    position:fixed; inset:-30px; z-index:0; pointer-events:none; opacity:.6;
     background-image:
       radial-gradient(#fff8 1px, transparent 1px),
       radial-gradient(#fff6 1px, transparent 1px);
     background-size: 28px 28px, 44px 44px;
     background-position: 0 0, 10px 18px;
     animation: float 10s linear infinite;
-    pointer-events:none; opacity:.75;
-    z-index:0;
   }
   @keyframes float{ from{transform:translateY(0)} to{transform:translateY(-40px)} }
 
+  .waveWrap{
+    position:fixed; left:0; right:0; bottom:-2px;
+    height:180px; z-index:0; pointer-events:none; opacity:.9;
+  }
+  .waveWrap svg{
+    width:100%; height:100%; display:block;
+    filter: drop-shadow(0 -14px 32px rgba(255,79,163,.20));
+  }
+
+  /* ===== الكارد ===== */
   .card{
     width: min(92vw, 720px);
-    background:rgba(255,255,255,0.93);
+    background: var(--glass);
     padding: clamp(14px, 2.2vw, 22px);
     border-radius: 22px;
     text-align:center;
-    box-shadow:0 16px 44px rgba(0,0,0,0.12);
+    box-shadow: var(--shadow);
     position:relative;
-    backdrop-filter: blur(6px);
-    z-index:1;
+    backdrop-filter: blur(10px);
+    z-index:2;
+    border: 1px solid rgba(255,255,255,.55);
+    transform-style: preserve-3d;
+    transition: transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .badges{
-    display:flex; gap:10px;
-    justify-content:space-between; align-items:center;
-    flex-wrap:wrap;
-    margin-bottom:8px;
+  .card::before{
+    content:"";
+    position:absolute; inset:-2px;
+    border-radius: 24px;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
+    transform: translateX(-120%);
+    animation: shine 6.5s ease-in-out infinite;
+    pointer-events:none;
   }
+  @keyframes shine{
+    0%,65%{ transform: translateX(-120%); opacity:.0; }
+    75%{ opacity:.55; }
+    100%{ transform: translateX(120%); opacity:0; }
+  }
+
+  .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.show{ opacity:1; transform: translateY(0); }
+
+  /* ===== Controls ===== */
+  .topControls{
+    position: sticky; top: 10px;
+    display:flex; gap:10px; justify-content:center;
+    z-index:3; margin-bottom: 10px;
+  }
+  .pillBtn{
+    border:1px solid var(--border);
+    background: rgba(255,255,255,.80);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    padding: 10px 12px;
+    font-weight: 950;
+    cursor:pointer;
+    box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    transition: transform .12s ease;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pillBtn:active{ transform: scale(.98); }
+
+  .badges{ display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
   .badge{
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 12px; border-radius:999px;
@@ -71,48 +161,27 @@
     font-size: 13px;
   }
 
-  /* ✅ العنوان مع صورة + Glow + دوران */
   .title{
     margin:10px 0 6px;
     font-size: clamp(20px, 2.6vw, 28px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
+    display:flex; align-items:center; justify-content:center; gap:12px;
   }
   .iconWrapper{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:40px;
-    height:40px;
-    border-radius:50%;
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
     animation: glowPulse 2.5s ease-in-out infinite;
   }
-  .titleIcon{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    animation: slowSpin 8s linear infinite;
-  }
-  @keyframes slowSpin{
-    from{ transform:rotate(0deg); }
-    to{ transform:rotate(360deg); }
-  }
+  .titleIcon{ width:34px; height:34px; border-radius:50%; animation: slowSpin 8s linear infinite; }
+  @keyframes slowSpin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
   @keyframes glowPulse{
     0%{ box-shadow:0 0 8px rgba(255,79,163,0.4); }
     50%{ box-shadow:0 0 18px rgba(255,79,163,0.85); }
     100%{ box-shadow:0 0 8px rgba(255,79,163,0.4); }
   }
 
-  p.sub{
-    margin:0 0 14px;
-    opacity:.88;
-    line-height:1.8;
-    font-size: clamp(13px, 1.7vw, 15px);
-  }
+  p.sub{ margin:0 0 14px; opacity:.88; line-height:1.8; font-size: clamp(13px, 1.7vw, 15px); }
 
-  /* Fade Slider */
+  /* ===== Slider ===== */
   .fadeSlider{
     width: min(72vw, 210px);
     aspect-ratio: 1 / 1;
@@ -131,122 +200,64 @@
     opacity:0;
     transform:scale(1.02);
     transition: opacity 700ms ease, transform 900ms ease;
-    will-change: opacity, transform;
   }
   .fadeSlide.active{ opacity:1; transform:scale(1); }
 
   .dots{
-    position:absolute;
-    left:50%; bottom:8px;
-    transform:translateX(-50%);
+    position:absolute; left:50%; bottom:8px; transform:translateX(-50%);
     display:flex; gap:6px;
-    padding:6px 8px;
-    border-radius:999px;
+    padding:6px 8px; border-radius:999px;
     background:#ffffffb0;
     border:1px solid var(--border);
     backdrop-filter:blur(6px);
   }
-  .dot{
-    width:7px; height:7px; border-radius:50%;
-    background:#ffb7da; opacity:.75; cursor:pointer;
-    transition:transform .2s ease, opacity .2s ease, background .2s ease;
-  }
-  .dot.active{ background:var(--pink); opacity:1; transform:scale(1.25); }
+  .dot{ width:7px; height:7px; border-radius:50%; background:#ffb7da; opacity:.75; cursor:pointer; transition:transform .2s ease, opacity .2s ease, background .2s ease; }
+  .dot.active{ background:var(--accent); opacity:1; transform:scale(1.25); }
 
-  .fileNote{
-    margin-top:6px;
-    font-size:12px;
-    opacity:.75;
-    line-height:1.7;
-  }
+  .fileNote{ margin-top:6px; font-size:12px; opacity:.75; line-height:1.7; }
 
-  .actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:10px;
-  }
-
+  .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
   .btn{
-    flex:1;
-    border:none;
-    padding:12px 14px;
-    border-radius:14px;
-    font-weight:900;
-    cursor:pointer;
-    font-size:15px;
+    flex:1; border:none;
+    padding:12px 14px; border-radius:14px;
+    font-weight:900; cursor:pointer; font-size:15px;
     transition: transform .12s ease;
+    user-select:none; -webkit-tap-highlight-color: transparent;
   }
-  .btn.primary{
-    background:linear-gradient(135deg,var(--pink),var(--pink2));
-    color:white;
-  }
-  .btn.secondary{
-    background:#fff;
-    color:var(--pink);
-    border:1px solid var(--border);
-  }
+  .btn.primary{ background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; }
+  .btn.secondary{ background:#fff; color:var(--accent); border:1px solid var(--border); }
   .btn:active{ transform:scale(0.99); }
 
-  /* ✅ Quiz (تم الإصلاح) */
+  /* ===== Quiz ===== */
   .quiz{
     margin-top:14px;
     text-align:center;
     background:#fff;
     border:1px solid var(--border);
     border-radius:18px;
-    padding:44px 14px 14px; /* بدل 14px فقط */
+    padding:44px 14px 14px;
     position:relative;
     overflow:hidden;
+    box-shadow: var(--shadow2);
   }
   .quizTag{
-    position:absolute;
-    top:12px;          /* بدل -10px */
-    left:14px;         /* مرتب أكثر */
-    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    position:absolute; top:12px; left:14px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
     color:#fff;
-    padding:6px 10px;
-    border-radius:999px;
+    padding:6px 10px; border-radius:999px;
     font-weight:900;
     box-shadow:0 10px 18px rgba(255,79,163,.22);
     font-size:12px;
   }
-  .qText{
-    font-weight:950;
-    line-height:1.9;
-    margin:8px 0 10px;
-    font-size: clamp(15px, 2vw, 18px);
-  }
-  .qSmall{
-    font-size:12px;
-    opacity:.75;
-    margin:0 0 12px;
-  }
-  .qBtn{
-    width:min(320px, 92%);
-    margin:0 auto;
-  }
+  .qText{ font-weight:950; line-height:1.9; margin:8px 0 10px; font-size: clamp(15px, 2vw, 18px); }
+  .qSmall{ font-size:12px; opacity:.75; margin:0 0 12px; }
+  .qBtn{ width:min(320px, 92%); margin:0 auto; }
 
-  /* area for moving button */
-  .moveArea{
-    position:relative;
-    height:74px;
-    margin-top:2px;
-  }
-  .movingBtn{
-    position:absolute;
-    left:50%;
-    top:10px;
-    transform:translateX(-50%);
-    width:min(320px, 92%);
-  }
+  .moveArea{ position:relative; height:74px; margin-top:2px; }
+  .movingBtn{ position:absolute; left:50%; top:10px; transform:translateX(-50%); width:min(320px, 92%); }
 
-  /* heart */
   .heartBtn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
     width:min(320px, 92%);
     padding:12px 14px;
     border-radius:999px;
@@ -254,22 +265,20 @@
     background:linear-gradient(135deg, #fff, #ffe8f3);
     font-weight:950;
     cursor:pointer;
-    user-select:none;
-    transition: transform .12s ease, filter .2s ease;
+    transition: transform .12s ease;
     margin:0 auto;
   }
   .heartBtn:active{ transform:scale(0.98); }
   .heartIcon{
     width:34px; height:34px;
     border-radius:999px;
-    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
     display:grid; place-items:center;
     box-shadow:0 10px 18px rgba(255,79,163,.25);
-    color:#fff;
-    font-size:18px;
+    color:#fff; font-size:18px;
   }
 
-  /* Gift */
+  /* ===== Gift ===== */
   .gift{
     display:none;
     margin-top:14px;
@@ -283,27 +292,21 @@
     position:relative;
     white-space:pre-wrap;
     font-size: clamp(13px, 1.8vw, 15px);
+    box-shadow: var(--shadow2);
   }
   .ribbon{
-    position:absolute;
-    top:-10px; left:18px;
-    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    position:absolute; top:-10px; left:18px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
     color:#fff;
-    padding:6px 10px;
-    border-radius:999px;
+    padding:6px 10px; border-radius:999px;
     font-weight:900;
     box-shadow:0 10px 18px rgba(255,79,163,.22);
     font-size:12px;
   }
 
-  .typed{
-    border-left: 2px solid var(--pink);
-    padding-left:6px;
-    animation: caret .9s steps(1) infinite;
-  }
+  .typed{ border-left: 2px solid var(--accent); padding-left:6px; animation: caret .9s steps(1) infinite; }
   @keyframes caret{ 50%{border-left-color:transparent} }
 
-  /* funny shake */
   @keyframes shake{
     0%,100%{ transform: translateX(-50%) translateY(0); }
     20%{ transform: translateX(-50%) translateY(0) translateX(-6px); }
@@ -313,7 +316,6 @@
   }
   .shake{ animation: shake 360ms ease; }
 
-  /* Effects */
   .heart{
     position:fixed;
     font-size:18px;
@@ -321,7 +323,7 @@
     animation: pop 1.2s ease forwards;
     pointer-events:none;
     filter: drop-shadow(0 6px 10px rgba(255,79,163,.22));
-    z-index:5;
+    z-index:6;
   }
   @keyframes pop{
     0%{transform:translate(-50%,-50%) scale(.6); opacity:0}
@@ -332,10 +334,10 @@
     position:fixed;
     top:-20px;
     transition: transform 1.7s ease, opacity 1.7s ease;
-    will-change: transform;
     pointer-events:none;
-    z-index:6;
+    z-index:7;
   }
+
   .toast{
     position:fixed;
     bottom:16px; left:50%;
@@ -350,79 +352,258 @@
     z-index:9999;
   }
 
-  .hint{
-    font-size:13px;
-    opacity:.8;
-    margin:10px 0 0;
-    line-height:1.7;
+  .hint{ font-size:13px; opacity:.8; margin:10px 0 0; line-height:1.7; }
+
+  .bubble{
+    position:fixed; bottom:-40px;
+    font-size:16px; opacity:.65;
+    animation: bubbleUp linear forwards;
+    pointer-events:none;
+    z-index:0;
   }
+  @keyframes bubbleUp{
+    from{ transform: translateY(0) translateX(0) scale(.8); opacity:.0; }
+    15%{ opacity:.75; }
+    to{ transform: translateY(-115vh) translateX(var(--drift)) scale(1.2); opacity:0; }
+  }
+
+  /* ===== ثيمات (FAB + Sheet) ===== */
+  .fabTheme{
+    position:fixed; right:14px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index:9996;
+    border:none; border-radius:999px;
+    padding:12px 14px;
+    font-weight:950;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#fff;
+    box-shadow: 0 14px 30px rgba(0,0,0,.18);
+    cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (min-width: 900px){ .fabTheme{ display:none; } }
+
+  .sheetOverlay{
+    position:fixed; inset:0; z-index:9997;
+    background: rgba(0,0,0,.28);
+    backdrop-filter: blur(6px);
+    opacity:0; pointer-events:none;
+    transition: opacity .22s ease;
+  }
+  .sheetOverlay.show{ opacity:1; pointer-events:auto; }
+
+  .sheet{
+    position:fixed; left:50%;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    transform: translateX(-50%) translateY(120%);
+    width: min(92vw, 520px);
+    background: rgba(255,255,255,.88);
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 22px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.18);
+    transition: transform .28s cubic-bezier(.2,.9,.2,1);
+    z-index:9998;
+    overflow:hidden;
+  }
+  .sheet.show{ transform: translateX(-50%) translateY(0); }
+
+  .sheetHandle{
+    width:42px; height:5px; border-radius:999px;
+    background: rgba(0,0,0,.12);
+    margin:10px auto 0;
+  }
+  .sheetHeader{
+    padding: 12px 14px 8px;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+  }
+  .sheetTitle{ font-weight:950; font-size:14px; opacity:.9; }
+  .sheetClose{
+    border:1px solid var(--border);
+    background: rgba(255,255,255,.8);
+    border-radius:999px;
+    padding:8px 10px;
+    font-weight:900;
+    cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .themeGrid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:10px;
+    padding: 10px 14px 14px;
+  }
+  .themeBtn{
+    border:1px solid rgba(0,0,0,.06);
+    background: rgba(255,255,255,.75);
+    border-radius:16px;
+    padding:10px;
+    cursor:pointer;
+    text-align:center;
+    box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    transition: transform .12s ease;
+  }
+  .themeBtn:active{ transform: scale(.98); }
+  .themeSwatch{ height:34px; border-radius:12px; margin-bottom:8px; border:1px solid rgba(255,255,255,.45); }
+  .themeName{ font-weight:950; font-size:13px; }
+
+  /* ===== تحسين الجوال ===== */
+  @media (max-width: 520px){
+    .btn{ font-size:16px; padding:14px 16px; border-radius:16px; }
+    .pillBtn{ padding:12px 14px; }
+    .card{ width: min(94vw, 720px); }
+    .fadeSlider{ width: min(82vw, 240px); }
+    .qText{ font-size: 17px; }
+  }
+
+  /* ===== Dark mode ===== */
+  body.dark{
+    --text: #f7eaf1;
+    --glass: rgba(30, 20, 30, .74);
+  }
+  body.dark .sparkle{ opacity:.25; }
+  body.dark .aurora{ opacity:.55; }
+  body.dark #particles{ opacity:.55; }
+  body.dark .bgGrid{ opacity:.18; }
+  body.dark .bgNoise{ opacity:.12; }
+  body.dark .waveWrap{ opacity:.55; }
+
+  body.dark .badge,
+  body.dark .quiz,
+  body.dark .gift,
+  body.dark .toast,
+  body.dark .pillBtn{
+    background: rgba(20, 14, 22, .72);
+    border-color: rgba(255,255,255,.12);
+    color: #f7eaf1;
+  }
+  body.dark .btn.secondary{
+    background: rgba(20, 14, 22, .72);
+    color: #ffd0ea;
+  }
+  body.dark .sheet{
+    background: rgba(25, 18, 28, .86);
+    border-color: rgba(255,255,255,.12);
+  }
+  body.dark .themeBtn{
+    background: rgba(20, 14, 22, .72);
+    border-color: rgba(255,255,255,.10);
+  }
+  body.dark .sheetTitle{ opacity:1; }
 </style>
 </head>
 
 <body>
-<div class="sparkle"></div>
+  <canvas id="particles"></canvas>
+  <div class="bgGrid"></div>
+  <div class="bgNoise"></div>
+  <div class="aurora"></div>
+  <div class="sparkle"></div>
 
-<div class="card" id="card">
-  <div class="badges">
-    <div class="badge">🎀 مفاجأة لزينة</div>
-    <div class="badge" id="dateBadge">📅 اليوم</div>
+  <div class="waveWrap" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="rgba(255,255,255,0.55)"
+        d="M0,224L60,213.3C120,203,240,181,360,176C480,171,600,181,720,192C840,203,960,213,1080,197.3C1200,181,1320,139,1380,117.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+      </path>
+      <path fill="rgba(255,79,163,0.12)"
+        d="M0,256L80,250.7C160,245,320,235,480,234.7C640,235,800,245,960,224C1120,203,1280,149,1360,122.7L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+      </path>
+    </svg>
   </div>
 
-  <!-- ✅ عنوان مع أيقونة -->
-  <h1 class="title">
-    <span>🎂 زينة - 20 سنة 🎀</span>
-    <span class="iconWrapper">
-      <img src="icon.png" class="titleIcon" alt="icon">
-    </span>
-  </h1>
-
-  <p class="sub">جاوبي خطوة خطوة 💞…وبكل صدق 🤨</p>
-
-  <div class="fadeSlider" id="fadeSlider" aria-label="سلايدر صور (تلاشي)">
-    <img class="fadeSlide active" src="photo1.png" alt="صورة 1">
-    <img class="fadeSlide" src="photo2.png" alt="صورة 2">
-    <img class="fadeSlide" src="photo3.png" alt="صورة 3">
-    <img class="fadeSlide" src="photo4.png" alt="صورة 4">
-    <img class="fadeSlide" src="photo5.png" alt="صورة 5">
-    <div class="dots" id="dots"></div>
-  </div>
-
-  <div class="fileNote">    ملاحظة هاد الموقع صنع بكل حب لـ احلى بنت بالعالم </div>
-
-  <div class="actions">
-    <button class="btn secondary" id="replay">عيدي الحركات ✨</button>
-    <button class="btn secondary" id="copyLink">انسخي الرابط</button>
-  </div>
-
-  <div class="quiz" id="quizBox">
-    <div class="quizTag">💞 أسئلة</div>
-    <div class="qText" id="qText">انتي زينة؟</div>
-    <div class="qSmall" id="qSmall">اضغطي الزر عشان نكمل…</div>
-
-    <div id="answerArea">
-      <button class="btn primary qBtn" id="qBtn">اي زينة</button>
+  <div class="card" id="card">
+    <div class="topControls">
+      <button class="pillBtn" id="toggleTheme">🌙 الوضع</button>
+      <button class="pillBtn" id="toggleSound">🔊 الصوت</button>
+      <button class="pillBtn" id="openThemesTop">🎨 ثيمات</button>
     </div>
+
+    <div class="badges">
+      <div class="badge">🎀 مفاجأة لزينة</div>
+      <div class="badge" id="dateBadge">📅 اليوم</div>
+    </div>
+
+    <h1 class="title">
+      <span>🎂 زينة - 20 سنة 🎀</span>
+      <span class="iconWrapper">
+        <img src="icon.png" class="titleIcon" alt="icon">
+      </span>
+    </h1>
+
+    <p class="sub">جاوبي خطوة خطوة 💞…وبكل صدق 🤨</p>
+
+    <div class="fadeSlider" id="fadeSlider" aria-label="سلايدر صور (تلاشي)">
+      <img class="fadeSlide active" src="photo1.png" alt="صورة 1">
+      <img class="fadeSlide" src="photo2.png" alt="صورة 2">
+      <img class="fadeSlide" src="photo3.png" alt="صورة 3">
+      <img class="fadeSlide" src="photo4.png" alt="صورة 4">
+      <img class="fadeSlide" src="photo5.png" alt="صورة 5">
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="fileNote">ملاحظة هاد الموقع صنع بكل حب لـ احلى بنت بالعالم</div>
+
+    <div class="actions">
+      <button class="btn secondary" id="replay">عيدي الحركات ✨</button>
+      <button class="btn secondary" id="copyLink">انسخي الرابط</button>
+    </div>
+
+    <div class="quiz" id="quizBox">
+      <div class="quizTag">💞 أسئلة</div>
+      <div class="qText" id="qText">انتي زينة؟</div>
+      <div class="qSmall" id="qSmall">اضغطي الزر عشان نكمل…</div>
+
+      <div id="answerArea">
+        <button class="btn primary qBtn" id="qBtn">اي زينة</button>
+      </div>
+    </div>
+
+    <div class="gift" id="giftBox">
+      <div class="ribbon">💖 تهنئة</div>
+      <div id="giftText"></div>
+    </div>
+
+    <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨ واضغطي داخل البطاقة تطلع قلوب 💗</p>
   </div>
 
-  <div class="gift" id="giftBox">
-    <div class="ribbon">💖 تهنئة</div>
-    <div id="giftText"></div>
+  <div class="toast" id="toast">تم ✅</div>
+
+  <button class="fabTheme" id="openThemes">🎨 ثيمات</button>
+
+  <div class="sheetOverlay" id="sheetOverlay"></div>
+  <div class="sheet" id="themeSheet" role="dialog" aria-modal="true" aria-label="اختيار الثيم">
+    <div class="sheetHandle"></div>
+    <div class="sheetHeader">
+      <div class="sheetTitle">اختار الثيم اللي يعجبك ✨</div>
+      <button class="sheetClose" id="closeThemes">إغلاق</button>
+    </div>
+    <div class="themeGrid" id="themeGrid"></div>
   </div>
-
-  <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨ واضغطي داخل البطاقة تطلع قلوب 💗</p>
-</div>
-
-<div class="toast" id="toast">تم ✅</div>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const $ = (id)=>document.getElementById(id);
 
-  // التاريخ
-  const now = new Date();
-  const fmt = new Intl.DateTimeFormat("ar-SA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
-  $("dateBadge").textContent = "📅 " + fmt.format(now);
+  const card = $("card");
+  const toast = $("toast");
 
-  // الرسالة
+  function showToast(text){
+    if(!toast) return;
+    toast.textContent = text;
+    toast.style.display = "block";
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>toast.style.display="none", 1400);
+  }
+
+  // ===== التاريخ =====
+  const dateBadge = $("dateBadge");
+  if(dateBadge){
+    const now = new Date();
+    const fmt = new Intl.DateTimeFormat("ar-SA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+    dateBadge.textContent = "📅 " + fmt.format(now);
+  }
+
+  // ===== الرسالة =====
   const message = `
 في مثل هذا اليوم ابدع الله في خلق هذه الجميلة، كلُ عامٍ وانتِ قمري الذي اكتفي به، كلُ عامٍ وانتِ ضوء حياتي، سأحبك إلى الأبد دائما وابدا وأتمنى لك ايام سعيدة جدا وهذا هو يومك لذلك يجب ان تستغليه اشد الاستغلال واحبك عسولتي وحبوبتي ودلوعتي لازم تستغلي هاد اليوم اشد الاستغلال بما انك كملتي ٢٠ سنة وان شاء الله تكون سنة خير عليك يارب وانا ناشب لك ناشب لك بكل سنة ترا ان شاء الله وراح أكون معك بكل سنينك ان شاء الله 🫡💞
 
@@ -433,26 +614,25 @@
 وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
 `;
 
-  function showToast(text){
-    const t = $("toast");
-    t.textContent = text;
-    t.style.display = "block";
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=>t.style.display="none", 1400);
-  }
-
-  // === Beep لطيف بدون ملفات (يشتغل بعد تفاعل المستخدم) ===
+  // ===== صوت (مع resume مضمون) =====
+  let soundOn = true;
   let audioCtx = null;
-  function beep(type = "escape"){
+
+  function ensureAudio(){
     try{
       if(!audioCtx){
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
       if(audioCtx.state === "suspended") audioCtx.resume();
+    }catch(e){}
+  }
 
+  function beep(type="escape"){
+    if(!soundOn) return;
+    ensureAudio();
+    try{
       const o = audioCtx.createOscillator();
       const g = audioCtx.createGain();
-
       o.type = "sine";
       o.frequency.value = (type === "escape") ? 880 : 660;
 
@@ -463,13 +643,35 @@
 
       o.connect(g);
       g.connect(audioCtx.destination);
-
       o.start(t);
       o.stop(t + 0.13);
     }catch(e){}
   }
 
+  window.addEventListener("pointerdown", ensureAudio, {once:true, passive:true});
+
+  // ===== أزرار التحكم =====
+  const toggleSound = $("toggleSound");
+  if(toggleSound){
+    toggleSound.addEventListener("click", ()=>{
+      soundOn = !soundOn;
+      toggleSound.textContent = soundOn ? "🔊 الصوت" : "🔇 كتم";
+      showToast(soundOn ? "الصوت شغال 🔊" : "تم الكتم 🔇");
+      beep("heart");
+    });
+  }
+
+  const toggleTheme = $("toggleTheme");
+  if(toggleTheme){
+    toggleTheme.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark");
+      showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
+    });
+  }
+
+  // ===== Typewriter =====
   function typeWriter(el, text, speed=14){
+    if(!el) return;
     el.classList.add("typed");
     el.textContent = "";
     let i = 0;
@@ -484,9 +686,10 @@
     }, speed);
   }
 
+  // ===== Confetti =====
   function burst(){
     const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
-    for(let i=0;i<30;i++){
+    for(let i=0;i<28;i++){
       const s=document.createElement("div");
       s.className="confetti";
       s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
@@ -506,37 +709,52 @@
     }
   }
 
-  // قلوب عند الضغط داخل البطاقة
-  $("card").addEventListener("click",(e)=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.textContent="💗";
-    heart.style.left=e.clientX+"px";
-    heart.style.top=e.clientY+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),1200);
-  });
+  // ===== قلوب الكارد (تجاهل الأزرار والشيت) =====
+  if(card){
+    card.addEventListener("click",(e)=>{
+      if (e.target && e.target.closest("button, .sheet, .sheetOverlay")) return;
 
-  $("replay").addEventListener("click", ()=>{
-    burst();
-    showToast("يلا نعيد ✨");
-  });
+      const heart=document.createElement("div");
+      heart.className="heart";
+      heart.textContent="💗";
+      heart.style.left=e.clientX+"px";
+      heart.style.top=e.clientY+"px";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),1200);
+    });
+  }
 
-  $("copyLink").addEventListener("click", async ()=>{
-    try{
-      await navigator.clipboard.writeText(location.href);
-      showToast("تم نسخ الرابط ✅");
-    }catch{
-      prompt("انسخي الرابط:", location.href);
-    }
-  });
+  // ===== أزرار actions =====
+  const replay = $("replay");
+  if(replay){
+    replay.addEventListener("click", ()=>{
+      burst();
+      showToast("يلا نعيد ✨");
+    });
+  }
 
-  // ===== الأسئلة + زر يهرب =====
+  const copyLink = $("copyLink");
+  if(copyLink){
+    copyLink.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        showToast("تم نسخ الرابط ✅");
+      }catch{
+        prompt("انسخي الرابط:", location.href);
+      }
+    });
+  }
+
+  // ===== Quiz (مع سؤال عمر كتابي فقط) =====
   const steps = [
     { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
     { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
-    { q: "🔪 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
-    { q: "شو هااااا بتحبي عمر ولا لا 😾؟", btn: { type:"escape", text:"ما بعرف" } },
+
+    // ✅ سؤال العمر (إدخال)
+    { q: "😶 يا زينة كم عمرك؟", btn: { type:"age" } },
+
+    { q: "🔥 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
+    { q: "😾 شو هااااا بتحبي عمر ولا لا؟", btn: { type:"escape", text:"ما بعرف" } },
     { q: "لو بتحبي عمر اضغطي على القلب 💗", btn: { type:"heart" } }
   ];
 
@@ -548,13 +766,16 @@
   const answerArea = $("answerArea");
 
   function renderStep(){
+    if(!qText || !qSmall || !answerArea) return;
+
     const s = steps[stepIndex];
     qText.textContent = s.q;
 
+    // زر عادي
     if(s.btn.type === "normal"){
       qSmall.textContent = "اضغطي الزر عشان نكمل…";
       answerArea.innerHTML = `<button class="btn primary qBtn" id="qBtn">${s.btn.text}</button>`;
-      $("qBtn").addEventListener("click", ()=>{
+      $("qBtn")?.addEventListener("click", ()=>{
         burst();
         stepIndex++;
         renderStep();
@@ -562,6 +783,70 @@
       return;
     }
 
+    // ✅ العمر (إدخال المستخدم)
+    if(s.btn.type === "age"){
+      const normalizeDigits = (str)=> (str||"").trim().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+
+      qSmall.textContent = "اكتبي عمرك (20 أو ٢٠) عشان نكمل ✨";
+      answerArea.innerHTML = `
+        <div style="display:grid; gap:10px; justify-items:center;">
+          <input id="ageInput"
+                 inputmode="numeric"
+                 placeholder="مثلاً: 20"
+                 style="
+                   width:min(320px,92%);
+                   padding:12px 14px;
+                   border-radius:14px;
+                   border:1px solid var(--border);
+                   font-weight:900;
+                   text-align:center;
+                   outline:none;
+                   background:#fff;">
+          <button class="btn primary qBtn" id="ageBtn">تم ✅</button>
+          <div id="ageMsg"
+               style="font-weight:900; opacity:0; transform:translateY(6px); transition:.25s ease; text-align:center;">
+          </div>
+        </div>
+      `;
+
+      const ageInput = $("ageInput");
+      const ageBtn   = $("ageBtn");
+      const ageMsg   = $("ageMsg");
+
+      function showMsg(text, ok=false){
+        if(!ageMsg) return;
+        ageMsg.textContent = text;
+        ageMsg.style.opacity = "1";
+        ageMsg.style.transform = "translateY(0)";
+        ageMsg.style.color = ok ? "var(--accent)" : "#b00020";
+      }
+
+      function checkAge(){
+        const val = normalizeDigits(ageInput?.value || "");
+        if(val === "20"){
+          beep("heart");
+          burst();
+          showMsg("اوووه ماشاءالله القمر كبر اليووووم 😭💗", true);
+          setTimeout(()=>{
+            stepIndex++;
+            renderStep();
+          }, 900);
+        }else{
+          beep("escape");
+          showMsg("العمر غير صحيح حاولي مره اخرى يا شطورة 🫰🏻", false);
+          ageInput?.focus();
+          try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){}
+        }
+      }
+
+      ageBtn?.addEventListener("click", checkAge);
+      ageInput?.addEventListener("keydown", (e)=>{ if(e.key === "Enter") checkAge(); });
+
+      setTimeout(()=> ageInput?.focus(), 60);
+      return;
+    }
+
+    // زر يهرب
     if(s.btn.type === "escape"){
       qSmall.textContent = "اضغطيه إذا تقدري 😼 (الزر بيهرب!)";
       answerArea.innerHTML = `
@@ -573,11 +858,11 @@
 
       const moveArea = $("moveArea");
       const escapeBtn = $("escapeBtn");
+      if(!moveArea || !escapeBtn) return;
 
       function randomMove(){
         const area = moveArea.getBoundingClientRect();
         const btn  = escapeBtn.getBoundingClientRect();
-
         const maxX = Math.max(0, area.width - btn.width);
         const maxY = Math.max(0, area.height - btn.height);
 
@@ -612,115 +897,285 @@
       }
 
       escapeBtn.addEventListener("mouseenter", doEscape);
-      escapeBtn.addEventListener("touchstart", (e)=>{
-        e.preventDefault();
-        doEscape();
-      }, {passive:false});
-      escapeBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-        doEscape();
-      });
+      escapeBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); doEscape(); }, {passive:false});
+      escapeBtn.addEventListener("click", (e)=>{ e.preventDefault(); doEscape(); });
 
       setTimeout(randomMove, 200);
       return;
     }
 
+    // القلب
     if(s.btn.type === "heart"){
-      qSmall.textContent = "هذا آخر شي… اضغطي القلب عشان تطلع المفاجاة ✨";
+      qSmall.textContent = "هذا آخر شي… اضغطي القلب عشان تطلع المفاجأة ✨";
       answerArea.innerHTML = `
         <div class="heartBtn" id="heartBtn" role="button" aria-label="زر قلب">
           <span class="heartIcon">💗</span>
           <span>اضغطي على القلب</span>
         </div>
       `;
-      $("heartBtn").addEventListener("click", ()=>{
+      $("heartBtn")?.addEventListener("click", ()=>{
         beep("heart");
         burst();
-        $("quizBox").style.display = "none";
-        const box = $("giftBox");
-        box.style.display = "block";
-        $("giftText").textContent = "";
-        typeWriter($("giftText"), message, 12);
+        const quizBox = $("quizBox");
+        const giftBox = $("giftBox");
+        const giftText = $("giftText");
+        if(quizBox) quizBox.style.display = "none";
+        if(giftBox) giftBox.style.display = "block";
+        if(giftText) typeWriter(giftText, message, 12);
         showToast("وصلتي للتهنئة 💖");
-        box.scrollIntoView({behavior:"smooth", block:"start"});
+        giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
       });
       return;
     }
   }
-
   renderStep();
 
-  // ===== Fade Slider Logic =====
+  // ===== Slider =====
   const slider = $("fadeSlider");
-  const slides = Array.from(slider.querySelectorAll(".fadeSlide"));
-  const dotsEl = $("dots");
-  let idx = 0;
-  let timer = null;
+  if(slider){
+    const slides = Array.from(slider.querySelectorAll(".fadeSlide"));
+    const dotsEl = $("dots");
+    let idx = 0;
+    let timer = null;
 
-  function buildDots(){
-    dotsEl.innerHTML = "";
-    slides.forEach((_, i)=>{
-      const d = document.createElement("div");
-      d.className = "dot" + (i===0 ? " active" : "");
-      d.addEventListener("click", ()=> goTo(i, true));
-      dotsEl.appendChild(d);
+    function buildDots(){
+      if(!dotsEl) return;
+      dotsEl.innerHTML = "";
+      slides.forEach((_, i)=>{
+        const d = document.createElement("div");
+        d.className = "dot" + (i===0 ? " active" : "");
+        d.addEventListener("click", ()=> goTo(i, true));
+        dotsEl.appendChild(d);
+      });
+    }
+    function updateDots(){
+      if(!dotsEl) return;
+      const dots = Array.from(dotsEl.children);
+      dots.forEach((d,i)=> d.classList.toggle("active", i===idx));
+    }
+    function show(i){
+      if(!slides.length) return;
+      slides[idx].classList.remove("active");
+      idx = (i + slides.length) % slides.length;
+      slides[idx].classList.add("active");
+      updateDots();
+    }
+    function goTo(i, user=false){
+      show(i);
+      if(user) restartAuto();
+    }
+    function next(){ show(idx + 1); }
+    function startAuto(){ timer = setInterval(next, 2800); }
+    function stopAuto(){ clearInterval(timer); timer = null; }
+    function restartAuto(){ stopAuto(); startAuto(); }
+
+    buildDots();
+    if(slides.length > 1) startAuto();
+
+    let startX = 0, deltaX = 0, dragging = false;
+    slider.addEventListener("touchstart", (e)=>{
+      dragging = true;
+      startX = e.touches[0].clientX;
+      deltaX = 0;
+      stopAuto();
+    }, {passive:true});
+
+    slider.addEventListener("touchmove", (e)=>{
+      if(!dragging) return;
+      deltaX = e.touches[0].clientX - startX;
+    }, {passive:true});
+
+    slider.addEventListener("touchend", ()=>{
+      if(!dragging) return;
+      dragging = false;
+
+      if(deltaX > 45) goTo(idx - 1, true);
+      else if(deltaX < -45) goTo(idx + 1, true);
+      else restartAuto();
+
+      deltaX = 0;
+      try{ if(navigator.vibrate) navigator.vibrate(8); }catch(e){}
+    }, {passive:true});
+  }
+
+  // ===== Tilt + Reveal =====
+  if(card){
+    card.addEventListener("mousemove", (e)=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      const rx = (-y * 6).toFixed(2);
+      const ry = (x * 8).toFixed(2);
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
+    card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg)"; });
   }
 
-  function updateDots(){
-    const dots = Array.from(dotsEl.children);
-    dots.forEach((d,i)=> d.classList.toggle("active", i===idx));
+  const els = document.querySelectorAll(".badges, .title, .sub, .fadeSlider, .actions, .quiz, .gift, .hint");
+  els.forEach(el=> el.classList.add("reveal"));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add("show"); });
+  }, {threshold: 0.12});
+  els.forEach(el=> io.observe(el));
+
+  // ===== فقاعات =====
+  (function bubbles(){
+    const icons = ["✨","💗","🎀","⭐️","🌸"];
+    setInterval(()=>{
+      const b = document.createElement("div");
+      b.className = "bubble";
+      b.textContent = icons[(Math.random()*icons.length)|0];
+      b.style.left = Math.random()*100 + "vw";
+      b.style.setProperty("--drift", (Math.random()*120 - 60) + "px");
+      b.style.animationDuration = (7 + Math.random()*6).toFixed(2) + "s";
+      b.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
+      document.body.appendChild(b);
+      setTimeout(()=> b.remove(), 14000);
+    }, 650);
+  })();
+
+  // ===== Themes =====
+  const THEMES = [
+    { id:"pink",     name:"وردي",       bg1:"#ffb6d5", bg2:"#ffd6ea", accent:"#ff4fa3", accent2:"#ff7fc3", border:"#ffd1e7" },
+    { id:"purple",   name:"بنفسجي",     bg1:"#cbb7ff", bg2:"#f2d7ff", accent:"#7b4dff", accent2:"#b27cff", border:"#e4d5ff" },
+    { id:"sky",      name:"أزرق سماوي", bg1:"#a9e9ff", bg2:"#e3fbff", accent:"#00a8ff", accent2:"#6bd6ff", border:"#bfefff" },
+    { id:"roseGold", name:"روز قولد",   bg1:"#ffd0c7", bg2:"#fff1e8", accent:"#ff6a7a", accent2:"#ffb08a", border:"#ffe0d7" },
+    { id:"mint",     name:"نعناعي",     bg1:"#bff7e6", bg2:"#eafff8", accent:"#00c2a8", accent2:"#67e6d2", border:"#c9fff0" },
+    { id:"nightBlue",name:"ليلي أزرق",  bg1:"#2b3a67", bg2:"#1b1d3a", accent:"#5da9ff", accent2:"#9b7dff", border:"#3d4a86" }
+  ];
+
+  function applyTheme(t){
+    const r = document.documentElement.style;
+    r.setProperty("--bg1", t.bg1);
+    r.setProperty("--bg2", t.bg2);
+    r.setProperty("--accent", t.accent);
+    r.setProperty("--accent2", t.accent2);
+    r.setProperty("--border", t.border);
+
+    if(t.id === "nightBlue") document.body.classList.add("dark");
+
+    localStorage.setItem("theme_id", t.id);
+    showToast("تم اختيار ثيم: " + t.name + " ✅");
   }
 
-  function show(i){
-    slides[idx].classList.remove("active");
-    idx = (i + slides.length) % slides.length;
-    slides[idx].classList.add("active");
-    updateDots();
+  const overlay = $("sheetOverlay");
+  const sheet   = $("themeSheet");
+  const openBtn = $("openThemes");
+  const openTop = $("openThemesTop");
+  const closeBtn= $("closeThemes");
+  const themeGrid = $("themeGrid");
+
+  function openSheet(){
+    if(!overlay || !sheet) return;
+    overlay.classList.add("show");
+    sheet.classList.add("show");
+  }
+  function closeSheet(){
+    if(!overlay || !sheet) return;
+    overlay.classList.remove("show");
+    sheet.classList.remove("show");
   }
 
-  function goTo(i, user=false){
-    show(i);
-    if(user) restartAuto();
+  openBtn?.addEventListener("click", openSheet);
+  openTop?.addEventListener("click", openSheet);
+  closeBtn?.addEventListener("click", closeSheet);
+  overlay?.addEventListener("click", closeSheet);
+
+  if(sheet){
+    let startY=0, curY=0, dragging=false;
+    sheet.addEventListener("touchstart", (e)=>{ dragging=true; startY=e.touches[0].clientY; curY=0; }, {passive:true});
+    sheet.addEventListener("touchmove", (e)=>{
+      if(!dragging) return;
+      curY = Math.max(0, e.touches[0].clientY - startY);
+      sheet.style.transform = `translateX(-50%) translateY(${curY}px)`;
+    }, {passive:true});
+    sheet.addEventListener("touchend", ()=>{
+      dragging=false;
+      if(curY > 90){ sheet.style.transform=""; closeSheet(); return; }
+      sheet.style.transform="";
+    }, {passive:true});
   }
 
-  function next(){ show(idx + 1); }
-  function startAuto(){ timer = setInterval(next, 2800); }
-  function stopAuto(){ clearInterval(timer); timer = null; }
-  function restartAuto(){ stopAuto(); startAuto(); }
+  if(themeGrid){
+    themeGrid.innerHTML = "";
+    THEMES.forEach(t=>{
+      const btn = document.createElement("button");
+      btn.className = "themeBtn";
+      btn.type = "button";
+      btn.innerHTML = `
+        <div class="themeSwatch" style="background: linear-gradient(135deg, ${t.bg1}, ${t.bg2});"></div>
+        <div class="themeName">${t.name}</div>
+      `;
+      btn.addEventListener("click", ()=> applyTheme(t));
+      themeGrid.appendChild(btn);
+    });
 
-  buildDots();
-  startAuto();
+    const saved = localStorage.getItem("theme_id");
+    const found = THEMES.find(x=>x.id===saved);
+    if(found) applyTheme(found);
+  }
 
-  // Swipe للجوال
-  let startX = 0, deltaX = 0, dragging = false;
+  // ===== Particles =====
+  (function particles(){
+    const c = $("particles");
+    if(!c) return;
+    const ctx = c.getContext("2d", { alpha:true });
+    if(!ctx) return;
 
-  slider.addEventListener("touchstart", (e)=>{
-    dragging = true;
-    startX = e.touches[0].clientX;
-    deltaX = 0;
-    stopAuto();
-  }, {passive:true});
+    let w=0,h=0,dpr=1;
+    function resize(){
+      dpr = window.devicePixelRatio || 1;
+      w = c.width = Math.floor(window.innerWidth * dpr);
+      h = c.height = Math.floor(window.innerHeight * dpr);
+      c.style.width = window.innerWidth + "px";
+      c.style.height = window.innerHeight + "px";
+    }
+    window.addEventListener("resize", resize);
+    resize();
 
-  slider.addEventListener("touchmove", (e)=>{
-    if(!dragging) return;
-    deltaX = e.touches[0].clientX - startX;
-  }, {passive:true});
+    const shapes = ["✨","💗","⭐️","🎀","🌸"];
+    const N = 34;
+    const ps = Array.from({length:N}, ()=>({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      r: (10 + Math.random()*18) * dpr,
+      s: (0.25 + Math.random()*0.7) * dpr,
+      a: 0.45 + Math.random()*0.35,
+      t: shapes[(Math.random()*shapes.length)|0],
+      drift: (Math.random()*0.6 - 0.3) * dpr
+    }));
 
-  slider.addEventListener("touchend", ()=>{
-    if(!dragging) return;
-    dragging = false;
+    let mx = 0, my = 0;
+    window.addEventListener("mousemove", (e)=>{
+      mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, {passive:true});
 
-    if(deltaX > 45) goTo(idx - 1, true);
-    else if(deltaX < -45) goTo(idx + 1, true);
-    else restartAuto();
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(const p of ps){
+        p.y -= p.s;
+        p.x += p.drift;
 
-    deltaX = 0;
-  }, {passive:true});
+        const px = p.x + mx * 16 * dpr;
+        const py = p.y + my * 10 * dpr;
 
-  slider.addEventListener("mouseenter", stopAuto);
-  slider.addEventListener("mouseleave", startAuto);
+        if(p.y < -60*dpr){ p.y = h + 60*dpr; p.x = Math.random()*w; }
+        if(p.x < -60*dpr) p.x = w + 60*dpr;
+        if(p.x > w + 60*dpr) p.x = -60*dpr;
+
+        ctx.globalAlpha = p.a;
+        ctx.font = `${p.r}px system-ui, Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(p.t, px, py);
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+});
 </script>
-
 </body>
 </html>
