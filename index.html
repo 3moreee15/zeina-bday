@@ -97,7 +97,8 @@
 
   /* ===== الكارد ===== */
   .card{
-    width: min(92vw, 720px);
+    width: 92%;
+    max-width: 720px;
     background: var(--glass);
     padding: clamp(14px, 2.2vw, 22px);
     border-radius: 22px;
@@ -183,7 +184,7 @@
 
   /* ===== Slider ===== */
   .fadeSlider{
-    width: min(72vw, 210px);
+    width: min(210px, 72%);
     aspect-ratio: 1 / 1;
     border-radius:22px;
     overflow:hidden;
@@ -396,7 +397,8 @@
     position:fixed; left:50%;
     bottom: calc(10px + env(safe-area-inset-bottom));
     transform: translateX(-50%) translateY(120%);
-    width: min(92vw, 520px);
+    width: 92%;
+    max-width: 520px;
     background: rgba(255,255,255,.88);
     border: 1px solid rgba(255,255,255,.55);
     border-radius: 22px;
@@ -451,8 +453,9 @@
   @media (max-width: 520px){
     .btn{ font-size:16px; padding:14px 16px; border-radius:16px; }
     .pillBtn{ padding:12px 14px; }
-    .card{ width: min(94vw, 720px); }
-    .fadeSlider{ width: min(82vw, 240px); }
+    .card{ width: 94%;
+    max-width: 720px; }
+    .fadeSlider{ width: min(240px, 82%); }
     .qText{ font-size: 17px; }
   }
 
@@ -523,7 +526,7 @@
   .waveWrap{ opacity: .55 !important; }
 
   /* 3) Fix flicker على الجوال: نلغي البلور (الزجاج) لأنه يسبب وميض */
-  @media (max-width: 700px){
+  @media (hover: none) and (pointer: coarse){
     .card{
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
@@ -616,6 +619,76 @@
     transform: scale(1);
     background: linear-gradient(135deg, #fff, #ffe8f3);
   }
+}
+
+/* ✅ تثبيت عرض الصفحة لمنع تحرّك المحتوى يمين/يسار عند تبديل الوضع */
+html{ scrollbar-gutter: stable; }
+body{ overflow-y: scroll; }
+
+/* ✅ خلي نص أزرار الأعلى واضح في الوضع الداكن */
+body.dark .pillBtn{
+  color:#f7eaf1 !important;
+}
+body.dark .pillBtn:active{
+  color:#ffffff !important;
+}
+
+/* ✅ Mobile Lite Mode: يمنع وميض/اختفاء كروم أندرويد */
+@media (hover: none) and (pointer: coarse){
+  /* وقف الطبقات الثقيلة */
+  #particles,
+  .aurora,
+  .sparkle,
+  .bgNoise{
+    display:none !important;
+  }
+
+  /* خفّف الشبكة والموجة */
+  .bgGrid{ opacity:.10 !important; }
+  .waveWrap{ opacity:.45 !important; }
+
+  /* خفف الظلال عشان الأداء */
+  .card{ box-shadow: 0 14px 40px rgba(0,0,0,.12) !important; }
+
+  /* امنع الـ GPU flicker */
+  .card, .quiz, .gift{
+    transform: none !important;
+    will-change: auto !important;
+  }
+}
+
+/* ✅ إصلاح أزرار الأعلى في الوضع الداكن (النص كان يختفي لأن الخلفية فاتحة) */
+body.dark .pillBtn{
+  background: rgba(20,14,22,.78) !important;
+  color: #f7eaf1 !important;
+  border-color: rgba(255,255,255,.14) !important;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.35),
+    0 0 18px rgba(255,79,163,.16);
+}
+body.dark .topControls{ mix-blend-mode: normal !important; }
+body.dark .pillBtn *{ color: inherit !important; }
+
+/* ✅ منع "قفزة" المحتوى بالجوال عند تبديل الوضع (sticky + reflow) */
+@media (hover: none) and (pointer: coarse){
+  .topControls{ position: relative !important; top:auto !important; }
+  .pillBtn{ transition: none !important; }
+}
+
+/* ✅ تثبيت القياسات ومنع اهتزاز العرض عند تبديل الوضع */
+html{ scrollbar-gutter: stable both-edges; }
+body{ overflow-y: scroll; }
+
+/* ✅ منع أي اهتزاز/تحرك لحظي عند تبديل الوضع (تجميد انتقالات/تحويلات لمدة بسيطة) */
+body.themeSwitching *{
+  transition: none !important;
+}
+body.themeSwitching .card,
+body.themeSwitching .quiz,
+body.themeSwitching .gift,
+body.themeSwitching .topControls{
+  transform: none !important;
+  animation: none !important;
 }
 
 </style>
@@ -824,9 +897,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleTheme = $("toggleTheme");
   if(toggleTheme){
     toggleTheme.addEventListener("click", ()=>{
+      const y = window.scrollY;
+      // freeze layout to prevent tiny jumps on some browsers
+      document.body.classList.add("themeSwitching");
+      (document.activeElement && document.activeElement.blur) ? document.activeElement.blur() : null;
+
       document.body.classList.toggle("dark");
       showToast(document.body.classList.contains("dark") ? "وضع داكن 🌙" : "وضع فاتح ☀️");
-    });
+
+      // restore scroll + unfreeze after repaint
+      requestAnimationFrame(()=>{
+        window.scrollTo(0, y);
+        setTimeout(()=>document.body.classList.remove("themeSwitching"), 220);
+      });
+});
   }
 
   // ===== Typewriter =====
@@ -1195,6 +1279,7 @@ beep("heart");
 
   // ===== فقاعات (خففناها) =====
   (function bubbles(){
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // ✅ وقف الفقاعات على الجوال
     const icons = ["✨","💗","🎀"];
     setInterval(()=>{
       const b = document.createElement("div");
@@ -1292,6 +1377,8 @@ beep("heart");
 
   // ===== Particles (خففنا العدد) =====
   (function particles(){
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return; // ✅ وقف particles على الجوال
+
     const c = $("particles");
     if(!c) return;
     const ctx = c.getContext("2d", { alpha:true });
