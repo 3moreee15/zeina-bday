@@ -490,6 +490,77 @@
     border-color: rgba(255,255,255,.10);
   }
   body.dark .sheetTitle{ opacity:1; }
+
+  /* =========================
+     ✅ إضافات جديدة مجمعة
+     ========================= */
+
+  /* 1) ترتيب الطبقات: الخلفيات تحت، المحتوى فوق */
+  #particles, .bgGrid, .bgNoise, .aurora, .sparkle, .waveWrap{
+    z-index: 0 !important;
+    pointer-events: none !important;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  .card{
+    z-index: 5 !important;
+    isolation: isolate;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .quiz, .gift, .topControls, .toast{
+    position: relative;
+    z-index: 6 !important;
+  }
+
+  /* 2) تخفيف عام للمؤثرات (لابتوب + جوال) */
+  #particles{ opacity: .45 !important; }
+  .aurora{ opacity: .40 !important; filter: blur(30px) saturate(1.05) !important; }
+  .sparkle{ opacity: .35 !important; }
+  .bgGrid{ opacity: .18 !important; }
+  .bgNoise{ opacity: .10 !important; }
+  .waveWrap{ opacity: .55 !important; }
+
+  /* 3) Fix flicker على الجوال: نلغي البلور (الزجاج) لأنه يسبب وميض */
+  @media (max-width: 700px){
+    .card{
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background: rgba(255,255,255,.94) !important;
+    }
+    .card::before{ display:none !important; } /* لمعان */
+  }
+
+  /* 4) زر القلب بالداكن + Glow وردي */
+  body.dark .heartBtn{
+    background: rgba(20, 14, 22, .78) !important;
+    border-color: rgba(255,255,255,.14) !important;
+    color: #f7eaf1 !important;
+    box-shadow:
+      0 12px 28px rgba(0,0,0,.35),
+      0 0 0 1px rgba(255,79,163,.18),
+      0 0 22px rgba(255,79,163,.35); /* ✅ glow */
+  }
+  body.dark .heartBtn:hover{
+    box-shadow:
+      0 16px 34px rgba(0,0,0,.38),
+      0 0 0 1px rgba(255,79,163,.22),
+      0 0 30px rgba(255,79,163,.45); /* glow أقوى */
+  }
+  body.dark .heartIcon{
+    box-shadow:
+      0 10px 18px rgba(0,0,0,.35),
+      0 0 18px rgba(255,79,163,.35); /* glow للأيقونة */
+  }
+
+  /* نصوص الأسئلة في الدارك */
+  body.dark .quiz .qText,
+  body.dark .quiz .qSmall{
+    color:#f7eaf1 !important;
+    opacity:1;
+  }
+  body.dark .quiz .qSmall{ opacity:.85; }
 </style>
 </head>
 
@@ -614,7 +685,7 @@ document.addEventListener("DOMContentLoaded", () => {
 وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
 `;
 
-  // ===== صوت (مع resume مضمون) =====
+  // ===== صوت =====
   let soundOn = true;
   let audioCtx = null;
 
@@ -688,13 +759,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Confetti =====
   function burst(){
-    const symbols=["💗","✨","🎀","🌸","🎂","💞","⭐️"];
-    for(let i=0;i<28;i++){
+    const symbols=["💗","✨","🎀","🌸","🎂","💞"];
+    for(let i=0;i<20;i++){  // ✅ خففنا العدد
       const s=document.createElement("div");
       s.className="confetti";
       s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
       s.style.left=Math.random()*100+"vw";
-      s.style.fontSize=(14+Math.random()*18)+"px";
+      s.style.fontSize=(14+Math.random()*16)+"px";
       s.style.opacity=0.95;
       document.body.appendChild(s);
 
@@ -709,7 +780,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== قلوب الكارد (تجاهل الأزرار والشيت) =====
+  // ===== قلوب الكارد =====
   if(card){
     card.addEventListener("click",(e)=>{
       if (e.target && e.target.closest("button, .sheet, .sheetOverlay")) return;
@@ -725,34 +796,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== أزرار actions =====
-  const replay = $("replay");
-  if(replay){
-    replay.addEventListener("click", ()=>{
-      burst();
-      showToast("يلا نعيد ✨");
-    });
-  }
+  $("replay")?.addEventListener("click", ()=>{
+    burst();
+    showToast("يلا نعيد ✨");
+  });
 
-  const copyLink = $("copyLink");
-  if(copyLink){
-    copyLink.addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(location.href);
-        showToast("تم نسخ الرابط ✅");
-      }catch{
-        prompt("انسخي الرابط:", location.href);
-      }
-    });
-  }
+  $("copyLink")?.addEventListener("click", async ()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      showToast("تم نسخ الرابط ✅");
+    }catch{
+      prompt("انسخي الرابط:", location.href);
+    }
+  });
 
-  // ===== Quiz (مع سؤال عمر كتابي فقط + بدون تلميح + رسالة 5 ثواني) =====
+  // ===== Quiz (سؤال عمر كتابي فقط) =====
   const steps = [
     { q: "🤨 انتي زينة؟", btn: { type:"normal", text:"اي زينة" } },
     { q: "🧐 عندي الك سؤال", btn: { type:"normal", text:"اي شو هو؟" } },
-
-    // ✅ سؤال العمر (إدخال)
     { q: "😶 يا زينة كم عمرك؟", btn: { type:"age" } },
-
     { q: "🔥 بتحبي عمر ولا لا؟", btn: { type:"normal", text:"هاااااا؟" } },
     { q: "😾 شو هااااا بتحبي عمر ولا لا؟", btn: { type:"escape", text:"ما بعرف" } },
     { q: "لو بتحبي عمر اضغطي على القلب 💗", btn: { type:"heart" } }
@@ -783,12 +845,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // ✅ العمر (بدون تلميح) + رسالة 5 ثواني
+    // ✅ العمر: بدون تلميح + رسالة 5 ثواني
     if(s.btn.type === "age"){
       const normalizeDigits = (str)=> (str||"").trim().replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
       let successLocked = false;
 
-      qSmall.textContent = "…";
+      qSmall.textContent = ""; // ✅ بدون أي تلميح
 
       answerArea.innerHTML = `
         <div style="display:grid; gap:10px; justify-items:center;">
@@ -1022,9 +1084,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const y = (e.clientY - r.top) / r.height - 0.5;
       const rx = (-y * 6).toFixed(2);
       const ry = (x * 8).toFixed(2);
-      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
     });
-    card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg)"; });
+    card.addEventListener("mouseleave", ()=>{ card.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)"; });
   }
 
   const els = document.querySelectorAll(".badges, .title, .sub, .fadeSlider, .actions, .quiz, .gift, .hint");
@@ -1034,20 +1096,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }, {threshold: 0.12});
   els.forEach(el=> io.observe(el));
 
-  // ===== فقاعات =====
+  // ===== فقاعات (خففناها) =====
   (function bubbles(){
-    const icons = ["✨","💗","🎀","⭐️","🌸"];
+    const icons = ["✨","💗","🎀"];
     setInterval(()=>{
       const b = document.createElement("div");
       b.className = "bubble";
       b.textContent = icons[(Math.random()*icons.length)|0];
       b.style.left = Math.random()*100 + "vw";
       b.style.setProperty("--drift", (Math.random()*120 - 60) + "px");
-      b.style.animationDuration = (7 + Math.random()*6).toFixed(2) + "s";
-      b.style.fontSize = (14 + Math.random()*18).toFixed(0) + "px";
+      b.style.animationDuration = (7 + Math.random()*5).toFixed(2) + "s";
+      b.style.fontSize = (14 + Math.random()*16).toFixed(0) + "px";
       document.body.appendChild(b);
-      setTimeout(()=> b.remove(), 14000);
-    }, 650);
+      setTimeout(()=> b.remove(), 9000);
+    }, 1400); // ✅ كان 650
   })();
 
   // ===== Themes =====
@@ -1131,7 +1193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(found) applyTheme(found);
   }
 
-  // ===== Particles =====
+  // ===== Particles (خففنا العدد) =====
   (function particles(){
     const c = $("particles");
     if(!c) return;
@@ -1149,14 +1211,14 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", resize);
     resize();
 
-    const shapes = ["✨","💗","⭐️","🎀","🌸"];
-    const N = 34;
+    const shapes = ["✨","💗","🎀"]; // ✅ أقل
+    const N = window.innerWidth < 700 ? 16 : 22; // ✅ أقل من 34
     const ps = Array.from({length:N}, ()=>({
       x: Math.random()*w,
       y: Math.random()*h,
-      r: (10 + Math.random()*18) * dpr,
-      s: (0.25 + Math.random()*0.7) * dpr,
-      a: 0.45 + Math.random()*0.35,
+      r: (10 + Math.random()*16) * dpr,
+      s: (0.25 + Math.random()*0.6) * dpr,
+      a: 0.38 + Math.random()*0.28,
       t: shapes[(Math.random()*shapes.length)|0],
       drift: (Math.random()*0.6 - 0.3) * dpr
     }));
@@ -1173,8 +1235,8 @@ document.addEventListener("DOMContentLoaded", () => {
         p.y -= p.s;
         p.x += p.drift;
 
-        const px = p.x + mx * 16 * dpr;
-        const py = p.y + my * 10 * dpr;
+        const px = p.x + mx * 12 * dpr;
+        const py = p.y + my * 8 * dpr;
 
         if(p.y < -60*dpr){ p.y = h + 60*dpr; p.x = Math.random()*w; }
         if(p.x < -60*dpr) p.x = w + 60*dpr;
