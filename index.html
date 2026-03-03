@@ -990,7 +990,7 @@ document.addEventListener("DOMContentLoaded", () => {
           successLocked = true;
           ageBtn.disabled = true;
           ageBtn.style.opacity = "0.7";
-          sfx(\"ok\");
+          sfx("ok");
           burst();
           showMsg("اوووه ماشاءالله القمر كبر اليووووم 😭💗", true);
 
@@ -999,7 +999,7 @@ document.addEventListener("DOMContentLoaded", () => {
             renderStep();
           }, 5000);
         }else{
-          sfx(\"no\");
+          sfx("no");
           showMsg("العمر غير صحيح حاولي مره اخرى يا شطورة 🫰🏻", false);
           ageInput?.focus();
           try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){}
@@ -1043,7 +1043,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function doEscape(){
         escapeTries++;
-        sfx(\"no\");
+        sfx("no");
           burst();
 
         escapeBtn.classList.remove("shake");
