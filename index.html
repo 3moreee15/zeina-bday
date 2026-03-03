@@ -305,6 +305,15 @@
     align-items:center;
     flex-wrap:wrap;
   }
+  .ageInput.inputError{
+    border-color: #ff4757 !important;
+    animation: inputShake .3s ease;
+  }
+  @keyframes inputShake{
+    0%,100%{ transform: translateX(0); }
+    25%{ transform: translateX(-6px); }
+    75%{ transform: translateX(6px); }
+  }
   .ageInput{
     width: 100%;
     padding: 12px 14px;
@@ -588,35 +597,39 @@
     margin-top: 4px;
   }
   .audioBar{
-    height: 8px;
-    background: #ffd1e7;
+    height: 5px;
+    background: rgba(0,0,0,.18);
     border-radius: 999px;
     cursor: pointer;
     position: relative;
     overflow: visible;
+    margin: 10px 0;
   }
   .audioBarFill{
-    height: 100%;
+    display: block;
+    height: 5px;
     width: 0%;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    background: #111;
     transition: width .25s linear;
     pointer-events: none;
-    position: relative;
+    position: absolute;
+    top: 0; left: 0;
   }
   .audioBarFill::after{
     content: "";
     position: absolute;
-    right: -7px;
+    right: -9px;
     top: 50%;
     transform: translateY(-50%);
-    width: 14px; height: 14px;
+    width: 18px; height: 18px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 2px 8px rgba(255,79,163,.5);
+    background: #111;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #111, 0 2px 8px rgba(0,0,0,.4);
     transition: transform .12s ease;
   }
-  .audioBar:hover .audioBarFill::after{ transform: translateY(-50%) scale(1.25); }
+  .audioBar:hover .audioBarFill::after{ transform: translateY(-50%) scale(1.2); }
   .audioControls{
     display: flex; align-items: center; justify-content: center; gap: 14px;
   }
@@ -1179,9 +1192,9 @@
         </div>
         <!-- أزرار التحكم تحت -->
         <div class="audioControls">
-          <button class="audioSkipBtn" id="audioBackBtn" title="رجوع 10 ثواني">&#9664;&#9664;</button>
+          <button class="audioSkipBtn" id="audioBackBtn" title="رجوع 5 ثواني">&#9664;&#9664;</button>
           <button class="audioPlayBtn" id="audioPlayBtn">▶️</button>
-          <button class="audioSkipBtn" id="audioFwdBtn" title="تقدم 10 ثواني">&#9654;&#9654;</button>
+          <button class="audioSkipBtn" id="audioFwdBtn" title="تقدم 5 ثواني">&#9654;&#9654;</button>
         </div>
         <audio id="halaAudio" src="zeina.mp3" preload="metadata"></audio>
       </div>
@@ -1647,20 +1660,32 @@ document.addEventListener("DOMContentLoaded", () => {
         .trim();
 
       function checkAge(){
-        const v = normalizeDigits(ageInput?.value);
+        const raw = ageInput?.value || "";
+        const v = normalizeDigits(raw).trim();
+        // كلمة عمر أو عموري — تفاعل خاص
+        const isAgeWord = /^(عمر[ي]?|عموري)$/i.test(raw.trim());
+        // أي جملة أو كلام آخر — لا تفاعل، بس اكس
+        const isOtherText = !isAgeWord && /[a-zA-Zا-ي]/.test(v);
         if(v === "20"){
           burst();
-          // ✅ مدة رسالة النجاح: 5 ثواني
           showAgePopup("success", "🎉", "اووووووه القمر عرف حاله شطوووووووورة 🫰🏻💞", 2200);
           setTimeout(()=>{ stepIndex++; renderStep(); }, 2200);
-        }else{
+        }else if(isAgeWord){
           beep("escape");
-          // ✅ مدة رسالة الخطأ: 5 ثواني
-          showAgePopup("error", "😼", "خطأ! احد بينسى عمره؟", 2500);
+          showAgePopup("error", "😼", "هو منطقيا صح بس لازم عمرك الرقمي 🥸", 2500);
+          if(ageInput){ ageInput.value = ""; setTimeout(()=> ageInput.focus(), 300); }
+        }else if(isOtherText){
+          // جملة عشوائية — اكس بدون popup
           if(ageInput){
+            ageInput.classList.add("inputError");
+            setTimeout(()=> ageInput.classList.remove("inputError"), 600);
             ageInput.value = "";
             setTimeout(()=> ageInput.focus(), 300);
           }
+        }else{
+          beep("escape");
+          showAgePopup("error", "😼", "خطأ! احد بينسى عمره؟ 😼", 2500);
+          if(ageInput){ ageInput.value = ""; setTimeout(()=> ageInput.focus(), 300); }
         }
       }
 
@@ -2318,4 +2343,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
