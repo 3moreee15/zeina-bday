@@ -377,6 +377,46 @@
     z-index:7;
   }
 
+  /* ===== رسالة العمر في المنتصف ===== */
+  .agePopup{
+    position:fixed; inset:0; z-index:99998;
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:none;
+  }
+  .agePopupBox{
+    padding: 28px 36px;
+    border-radius: 28px;
+    text-align:center;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 950;
+    line-height: 1.6;
+    max-width: min(88vw, 400px);
+    border: 2px solid rgba(255,255,255,.6);
+    box-shadow: 0 24px 60px rgba(0,0,0,.18);
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform .3s cubic-bezier(.2,.9,.2,1), opacity .3s ease;
+  }
+  .agePopupBox.show{
+    transform: scale(1);
+    opacity: 1;
+  }
+  .agePopupBox.success{
+    background: linear-gradient(135deg, #d4f5e2, #eafff5);
+    color: #1a6b3a;
+    border-color: #52b788;
+  }
+  .agePopupBox.error{
+    background: linear-gradient(135deg, #ffe0e0, #fff0f0);
+    color: #c0392b;
+    border-color: #ff6b6b;
+  }
+  .agePopupEmoji{
+    font-size: clamp(36px, 8vw, 54px);
+    display:block;
+    margin-bottom: 10px;
+  }
+
   /* ===== رسالة إعادة التحميل ===== */
   .reloadOverlay{
     position:fixed; inset:0; z-index:99999;
@@ -896,6 +936,14 @@
 
   </div>
 
+  <!-- popup العمر -->
+  <div class="agePopup" id="agePopup">
+    <div class="agePopupBox" id="agePopupBox">
+      <span class="agePopupEmoji" id="agePopupEmoji"></span>
+      <div id="agePopupText"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast">تم ✅</div>
 
   <!-- overlay إعادة التحميل -->
@@ -949,8 +997,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
 وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
+وتكون بداية عشريناتك بداية قوة وثقة وإنجازات تخليني أفتخر فيك أكثر وأكثر 💞
 يا رب تكون سنة نضج أجمل، نجاح أكبر، وأحلام تتحقق قدام عيونك 🎂💖
-وكل سنة تكبري قدامي وأقول الحمدلله إنك بحياتيييييي 🫡✨
+وكل سنة تكبرين قدامي وأقول الحمدلله إنك بحياتييييييييي 🫡✨
 `;
 
   // ===== صوت =====
@@ -1233,6 +1282,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const qSmall = $("qSmall");
   const answerArea = $("answerArea");
 
+  // ===== popup العمر =====
+  function showAgePopup(type, emoji, text, dur){
+    const popup = document.getElementById("agePopup");
+    const box   = document.getElementById("agePopupBox");
+    const em    = document.getElementById("agePopupEmoji");
+    const tx    = document.getElementById("agePopupText");
+    if(!popup || !box) return;
+
+    em.textContent = emoji;
+    tx.textContent = text;
+    box.className  = "agePopupBox " + type;
+
+    // أظهر
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=> box.classList.add("show"));
+    });
+
+    // أخفي بعد المدة
+    clearTimeout(showAgePopup._t);
+    showAgePopup._t = setTimeout(()=>{
+      box.classList.remove("show");
+    }, dur - 300);
+  }
+
   // ===== مطر القلوب =====
   function heartRain(){
     const symbols = ["💗","💖","💞","💓","❤️","🩷","💕"];
@@ -1300,16 +1373,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if(v === "20"){
           burst();
           // ✅ مدة رسالة النجاح: 5 ثواني
-          showToast("اووووووه القمر عرف حاله شطوووووووورة 🫰🏻💞", 5000);
-          stepIndex++;
-          renderStep();
+          showAgePopup("success", "🎉", "اووووووه القمر عرف حاله شطوووووووورة 🫰🏻💞", 2200);
+          setTimeout(()=>{ stepIndex++; renderStep(); }, 2200);
         }else{
           beep("escape");
           // ✅ مدة رسالة الخطأ: 5 ثواني
-          showToast("خطأ احد بينسى عمره؟😼", 5000);
+          showAgePopup("error", "😼", "خطأ! احد بينسى عمره؟", 2500);
           if(ageInput){
             ageInput.value = "";
-            ageInput.focus();
+            setTimeout(()=> ageInput.focus(), 300);
           }
         }
       }
@@ -1887,4 +1959,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
