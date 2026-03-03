@@ -377,6 +377,70 @@
     z-index:7;
   }
 
+  /* ===== رسالة إعادة التحميل ===== */
+  .reloadOverlay{
+    position:fixed; inset:0; z-index:99999;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(255,182,213,.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .35s ease;
+  }
+  .reloadOverlay.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .reloadBox{
+    background: rgba(255,255,255,.92);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px 40px;
+    text-align:center;
+    box-shadow: 0 24px 60px rgba(255,79,163,.22);
+    transform: scale(.85);
+    transition: transform .35s cubic-bezier(.2,.9,.2,1);
+    max-width: min(88vw, 360px);
+  }
+  .reloadOverlay.show .reloadBox{
+    transform: scale(1);
+  }
+  .reloadEmoji{
+    font-size: 48px;
+    display:block;
+    margin-bottom: 12px;
+    animation: spinBounce 1s ease-in-out infinite alternate;
+  }
+  @keyframes spinBounce{
+    0%{ transform: rotate(-10deg) scale(1); }
+    100%{ transform: rotate(10deg) scale(1.12); }
+  }
+  .reloadText{
+    font-size: 20px;
+    font-weight: 950;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .reloadSub{
+    font-size: 13px;
+    opacity: .7;
+    margin-bottom: 18px;
+  }
+  .reloadBar{
+    height: 5px;
+    border-radius: 999px;
+    background: #ffd1e7;
+    overflow:hidden;
+  }
+  .reloadBarFill{
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 5s linear;
+  }
+
   .toast{
     position:fixed;
     bottom:16px; left:50%;
@@ -814,6 +878,16 @@
 
   <div class="toast" id="toast">تم ✅</div>
 
+  <!-- overlay إعادة التحميل -->
+  <div class="reloadOverlay" id="reloadOverlay">
+    <div class="reloadBox">
+      <span class="reloadEmoji">🔄</span>
+      <div class="reloadText">يلا نعيد من أول! ✨</div>
+      <div class="reloadSub">الصفحة راح تتحدث بعد ثوان...</div>
+      <div class="reloadBar"><div class="reloadBarFill" id="reloadBarFill"></div></div>
+    </div>
+  </div>
+
   <button class="fabTheme" id="openThemes">🎨 ثيمات</button>
 
   <div class="sheetOverlay" id="sheetOverlay"></div>
@@ -911,7 +985,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const start = t + delays[i];
         g.gain.setValueAtTime(0.0001, start);
-        g.gain.exponentialRampToValueAtTime(0.22, start + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.09, start + 0.02);
         g.gain.exponentialRampToValueAtTime(0.0001, start + 0.11);
 
         o.connect(g);
@@ -1021,8 +1095,76 @@ document.addEventListener("DOMContentLoaded", () => {
   const replay = $("replay");
   if(replay){
     replay.addEventListener("click", ()=>{
-      burst();
-      showToast("يلا نعيد ✨");
+      // صوت يدوم 5 ثواني كاملة
+      ensureAudio();
+      if(soundOn){
+        try{
+          const t = audioCtx.currentTime;
+          const totalDur = 5.0;
+
+          // نغمات تتكرر طول 5 ثواني
+          const melody = [523,659,784,1047,880,784,659,523,659,784,1047,880,784,659,523,784,1047,880,659,784];
+          const step = totalDur / melody.length;
+
+          melody.forEach((freq, i)=>{
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = i % 3 === 0 ? "sine" : i % 3 === 1 ? "triangle" : "sine";
+            o.frequency.value = freq;
+            const s = t + i * step;
+            const dur = step * 0.85;
+            g.gain.setValueAtTime(0.0001, s);
+            g.gain.exponentialRampToValueAtTime(0.05, s + 0.02);
+            g.gain.exponentialRampToValueAtTime(0.0001, s + dur);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(s); o.stop(s + dur + 0.02);
+          });
+
+          // طبقة ثانية — نبضات قلب خفيفة طوال المدة
+          for(let i = 0; i < 10; i++){
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = "sine";
+            o.frequency.value = 330;
+            const s = t + i * 0.5 + 0.15;
+            g.gain.setValueAtTime(0.0001, s);
+            g.gain.exponentialRampToValueAtTime(0.05, s + 0.04);
+            g.gain.exponentialRampToValueAtTime(0.0001, s + 0.18);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(s); o.stop(s + 0.2);
+          }
+
+          // نهاية درامية في الثانية الأخيرة
+          [523, 659, 784, 1047].forEach((freq, i)=>{
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = "sine";
+            o.frequency.value = freq;
+            const s = t + 4.0 + i * 0.2;
+            g.gain.setValueAtTime(0.0001, s);
+            g.gain.exponentialRampToValueAtTime(0.09, s + 0.03);
+            g.gain.exponentialRampToValueAtTime(0.0001, s + 0.25);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(s); o.stop(s + 0.28);
+          });
+
+        }catch(e){}
+      }
+
+      // أظهر الـ overlay
+      const overlay = $("reloadOverlay");
+      const bar     = $("reloadBarFill");
+      if(overlay){ overlay.classList.add("show"); }
+
+      // شغّل شريط التقدم
+      requestAnimationFrame(()=>{
+        requestAnimationFrame(()=>{
+          if(bar) bar.style.width = "100%";
+        });
+      });
+
+      // بعد 5 ثواني أعد التحميل
+      setTimeout(()=> location.reload(), 5000);
     });
   }
 
@@ -1201,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         randomMove();
 
-        if(escapeTries >= 2){
+        if(escapeTries >= 5){
           qSmall.textContent = "خلاص خلاص… استسلمت 🫢 اضغطيه مرّة أخيرة";
           escapeBtn.textContent = "طيب… كملي 😼";
           // نوقف كل المستمعين ونكمل فوراً على أول ضغطة
