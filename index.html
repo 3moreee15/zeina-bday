@@ -653,7 +653,7 @@
 
   .themeGrid{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap:10px;
     padding: 10px 14px 14px;
   }
@@ -1534,12 +1534,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Themes =====
   const THEMES = [
-    { id:"pink",     name:"وردي",       bg1:"#ffb6d5", bg2:"#ffd6ea", accent:"#ff4fa3", accent2:"#ff7fc3", border:"#ffd1e7" },
-    { id:"purple",   name:"بنفسجي",     bg1:"#cbb7ff", bg2:"#f2d7ff", accent:"#7b4dff", accent2:"#b27cff", border:"#e4d5ff" },
-    { id:"sky",      name:"أزرق سماوي", bg1:"#a9e9ff", bg2:"#e3fbff", accent:"#00a8ff", accent2:"#6bd6ff", border:"#bfefff" },
-    { id:"roseGold", name:"روز قولد",   bg1:"#ffd0c7", bg2:"#fff1e8", accent:"#ff6a7a", accent2:"#ffb08a", border:"#ffe0d7" },
-    { id:"mint",     name:"نعناعي",     bg1:"#bff7e6", bg2:"#eafff8", accent:"#00c2a8", accent2:"#67e6d2", border:"#c9fff0" },
-    { id:"nightBlue",name:"ليلي أزرق",  bg1:"#2b3a67", bg2:"#1b1d3a", accent:"#5da9ff", accent2:"#9b7dff", border:"#3d4a86" }
+    { id:"pink",      name:"وردي",        bg1:"#ffb6d5", bg2:"#ffd6ea", accent:"#ff4fa3", accent2:"#ff7fc3", border:"#ffd1e7" },
+    { id:"purple",    name:"بنفسجي",      bg1:"#cbb7ff", bg2:"#f2d7ff", accent:"#7b4dff", accent2:"#b27cff", border:"#e4d5ff" },
+    { id:"sky",       name:"سماوي",       bg1:"#a9e9ff", bg2:"#e3fbff", accent:"#00a8ff", accent2:"#6bd6ff", border:"#bfefff" },
+    { id:"roseGold",  name:"روز قولد",    bg1:"#ffd0c7", bg2:"#fff1e8", accent:"#ff6a7a", accent2:"#ffb08a", border:"#ffe0d7" },
+    { id:"mint",      name:"نعناعي",      bg1:"#bff7e6", bg2:"#eafff8", accent:"#00c2a8", accent2:"#67e6d2", border:"#c9fff0" },
+    { id:"nightBlue", name:"ليلي أزرق",   bg1:"#2b3a67", bg2:"#1b1d3a", accent:"#5da9ff", accent2:"#9b7dff", border:"#3d4a86" },
+    { id:"lavender",  name:"لافندر",      bg1:"#e8d5f5", bg2:"#f5eaff", accent:"#9b59b6", accent2:"#c39bd3", border:"#dfc5f0" },
+    { id:"coral",     name:"كورال",       bg1:"#ffb3a7", bg2:"#ffe5e0", accent:"#ff4757", accent2:"#ff6b81", border:"#ffd0cc" },
+    { id:"gold",      name:"ذهبي",        bg1:"#ffeaa0", bg2:"#fff8d6", accent:"#f0a500", accent2:"#f7c948", border:"#ffe57a" },
+    { id:"emerald",   name:"زمردي",       bg1:"#a8e6c1", bg2:"#d4f5e2", accent:"#00b050", accent2:"#00d068", border:"#b8f0cc" },
+    { id:"peach",     name:"خوخي",        bg1:"#ffd6a5", bg2:"#fff0dc", accent:"#ff8c42", accent2:"#ffb347", border:"#ffe4b8" },
+    { id:"nightPink", name:"وردي داكن",   bg1:"#3d1a2e", bg2:"#1e0d18", accent:"#ff4fa3", accent2:"#ff7fc3", border:"#5a2542" },
+    { id:"ocean",     name:"أزرق عميق",   bg1:"#0a2a4a", bg2:"#0d1b2a", accent:"#00b4d8", accent2:"#48cae4", border:"#1a3a5c" },
+    { id:"cherry",    name:"كرزي",        bg1:"#ffc4c4", bg2:"#ffe0e0", accent:"#e63946", accent2:"#ff6b6b", border:"#ffd0d0" },
+    { id:"lilac",     name:"ليلكي",       bg1:"#d8b4fe", bg2:"#ede9fe", accent:"#8b5cf6", accent2:"#a78bfa", border:"#ddd6fe" },
+    { id:"sand",      name:"رملي",        bg1:"#e8d5b7", bg2:"#f5ebe0", accent:"#b5835a", accent2:"#d4a574", border:"#e8d5b7" },
+    { id:"iceBlue",   name:"أزرق جليدي",  bg1:"#cce7ff", bg2:"#e8f4ff", accent:"#2196f3", accent2:"#64b5f6", border:"#b3d9ff" },
+    { id:"sunset",    name:"غروب",         bg1:"#ffb347", bg2:"#ff6b6b", accent:"#ff4500", accent2:"#ff7043", border:"#ffccaa" },
+    { id:"forest",    name:"غابة",         bg1:"#a8d5a2", bg2:"#e8f5e3", accent:"#2d6a4f", accent2:"#52b788", border:"#b7e4c7" },
+    { id:"galaxy",    name:"مجرة",         bg1:"#1a0533", bg2:"#0d0221", accent:"#bd00ff", accent2:"#9b00e8", border:"#3d0066" },
   ];
 
   function applyTheme(t){
