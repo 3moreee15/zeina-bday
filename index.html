@@ -1210,7 +1210,18 @@
       <div class="audioPlayer" id="audioPlayer">
         <div class="audioTitle">
           <div class="audioTitleIcon">🎵</div>
-          <span>تشغيل الأنشودة</span>
+          <span id="audioTrackLabel">أنشودة 1</span>
+          <button id="audioSwitchBtn" style="
+            margin-right: auto;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1.5px solid var(--border);
+            background: rgba(255,255,255,.8);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+          ">🔀 تبديل</button>
           <div class="audioWaves paused" id="audioWaves">
             <div class="audioWave"></div>
             <div class="audioWave"></div>
@@ -1238,6 +1249,7 @@
           <button class="audioSkipBtn" id="audioFwdBtn" title="تقدم 5 ثواني">&#9654;&#9654;</button>
         </div>
         <audio id="halaAudio" src="zeina.mp3" preload="metadata"></audio>
+        <audio id="halaAudio2" src="zeina2.mp3" preload="metadata"></audio>
       </div>
 
     </div>
@@ -2372,14 +2384,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== مشغل الأنشودة =====
   (function initAudio(){
-    const audio    = document.getElementById("halaAudio");
+    let audio      = document.getElementById("halaAudio");
+    const audio2   = document.getElementById("halaAudio2");
     const playBtn  = document.getElementById("audioPlayBtn");
     const barFill  = document.getElementById("audioBarFill");
     const barWrap  = document.getElementById("audioBarWrap");
     const curTime  = document.getElementById("audioCurrentTime");
     const durEl    = document.getElementById("audioDuration");
     const waves    = document.getElementById("audioWaves");
+    const switchBtn= document.getElementById("audioSwitchBtn");
+    const trackLbl = document.getElementById("audioTrackLabel");
+    let trackNum   = 1;
     if(!audio || !playBtn) return;
+
+    function switchTrack(){
+      const wasPlaying = !audio.paused;
+      audio.pause();
+      trackNum = trackNum === 1 ? 2 : 1;
+      audio = trackNum === 1 ? document.getElementById("halaAudio") : audio2;
+      trackLbl.textContent = "أنشودة " + trackNum;
+      barFill.style.width = "0%";
+      curTime.textContent = "0:00";
+      durEl.textContent = audio.duration ? fmt(audio.duration) : "0:00";
+      playBtn.textContent = "▶️";
+      playBtn.classList.remove("playing");
+      waves.classList.add("paused");
+      if(wasPlaying){
+        audio.currentTime = 0;
+        audio.play().then(()=>{
+          playBtn.textContent = "⏸️";
+          playBtn.classList.add("playing");
+          waves.classList.remove("paused");
+        }).catch(()=>{});
+      }
+    }
+    if(switchBtn) switchBtn.addEventListener("click", switchTrack);
 
     function fmt(s){
       const m = Math.floor(s/60);
@@ -2388,7 +2427,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     audio.addEventListener("loadedmetadata", ()=>{
-      durEl.textContent = fmt(audio.duration);
+      if(trackNum === 1) durEl.textContent = fmt(audio.duration);
+    });
+    if(audio2) audio2.addEventListener("loadedmetadata", ()=>{
+      if(trackNum === 2) durEl.textContent = fmt(audio2.duration);
     });
 
     audio.addEventListener("timeupdate", ()=>{
