@@ -605,27 +605,27 @@
 
   /* ===== مشغل الأنشودة ===== */
   .audioPlayer{
-    margin: 16px 0 8px;
+    margin: 10px 0 6px;
     background: linear-gradient(135deg, #fff0f7, #ffe8f5);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 16px 18px;
+    border-radius: 14px;
+    padding: 9px 12px;
     box-shadow: var(--shadow2);
     direction: rtl;
   }
   .audioTitle{
-    display: flex; align-items: center; gap: 8px;
-    font-weight: 950; font-size: 14px;
+    display: flex; align-items: center; gap: 6px;
+    font-weight: 950; font-size: 11px;
     color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .audioTitleIcon{
-    width: 32px; height: 32px;
+    width: 24px; height: 24px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-radius: 50%;
     display: grid; place-items: center;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(255,79,163,.3);
+    font-size: 11px;
+    box-shadow: 0 3px 8px rgba(255,79,163,.3);
     animation: glowPulse 2.5s ease-in-out infinite;
   }
   .audioProgress{
@@ -634,8 +634,8 @@
   }
   .audioTimes{
     display: flex; justify-content: space-between;
-    font-size: 11px; font-weight: 900; opacity: .7;
-    margin-top: 4px;
+    font-size: 9px; font-weight: 900; opacity: .7;
+    margin-top: 3px;
   }
   .audioBar{
     height: 5px;
@@ -675,28 +675,28 @@
     display: flex; align-items: center; justify-content: center; gap: 14px;
   }
   .audioSkipBtn{
-    width: 36px; height: 36px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     border: 1.5px solid var(--border);
     background: rgba(255,255,255,.8);
     color: var(--accent);
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 950;
     cursor: pointer;
     display: grid; place-items: center;
     transition: transform .12s ease, background .12s ease;
-    box-shadow: 0 3px 10px rgba(255,79,163,.12);
+    box-shadow: 0 2px 6px rgba(255,79,163,.12);
   }
   .audioSkipBtn:active{ transform: scale(.91); background: #ffe8f3; }
   .audioPlayBtn{
-    width: 52px; height: 52px;
+    width: 36px; height: 36px;
     border-radius: 50%;
     border: none;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #fff;
-    font-size: 20px;
+    font-size: 14px;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(255,79,163,.35);
+    box-shadow: 0 4px 12px rgba(255,79,163,.35);
     display: grid; place-items: center;
     transition: transform .12s ease, box-shadow .12s ease;
   }
@@ -706,22 +706,22 @@
     animation: glowPulse 1.2s ease-in-out infinite;
   }
   .audioWaves{
-    display: flex; align-items: center; gap: 3px;
-    height: 24px; margin-right: auto;
+    display: flex; align-items: center; gap: 2px;
+    height: 16px; margin-right: auto;
   }
   .audioWave{
-    width: 3px; border-radius: 999px;
+    width: 2px; border-radius: 999px;
     background: linear-gradient(to top, var(--accent), var(--accent2));
     opacity: .5;
     animation: wavePulse 1s ease-in-out infinite;
   }
-  .audioWave:nth-child(1){ animation-delay:0s;    height:8px; }
-  .audioWave:nth-child(2){ animation-delay:0.1s;  height:16px; }
-  .audioWave:nth-child(3){ animation-delay:0.2s;  height:22px; }
-  .audioWave:nth-child(4){ animation-delay:0.3s;  height:14px; }
-  .audioWave:nth-child(5){ animation-delay:0.4s;  height:20px; }
-  .audioWave:nth-child(6){ animation-delay:0.2s;  height:10px; }
-  .audioWave:nth-child(7){ animation-delay:0.15s; height:18px; }
+  .audioWave:nth-child(1){ animation-delay:0s;    height:5px; }
+  .audioWave:nth-child(2){ animation-delay:0.1s;  height:10px; }
+  .audioWave:nth-child(3){ animation-delay:0.2s;  height:14px; }
+  .audioWave:nth-child(4){ animation-delay:0.3s;  height:9px; }
+  .audioWave:nth-child(5){ animation-delay:0.4s;  height:12px; }
+  .audioWave:nth-child(6){ animation-delay:0.2s;  height:7px; }
+  .audioWave:nth-child(7){ animation-delay:0.15s; height:11px; }
   .audioWaves.paused .audioWave{ animation-play-state: paused; opacity:.3; }
   @keyframes wavePulse{
     0%,100%{ transform: scaleY(1); opacity:.5; }
@@ -762,11 +762,11 @@
 
   /* ===== مشغل الأنشودة ===== */
   .audioPlayer{
-    margin: 16px 0 8px;
+    margin: 10px 0 6px;
     background: linear-gradient(135deg, #fff0f7, #ffe8f5);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 16px 18px;
+    border-radius: 14px;
+    padding: 9px 12px;
     box-shadow: var(--shadow2);
     direction: rtl;
   }
@@ -777,12 +777,12 @@
     margin-bottom: 14px;
   }
   .audioTitleIcon{
-    width: 32px; height: 32px;
+    width: 24px; height: 24px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     border-radius: 50%;
     display: grid; place-items: center;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(255,79,163,.3);
+    font-size: 11px;
+    box-shadow: 0 3px 8px rgba(255,79,163,.3);
     animation: glowPulse 2.5s ease-in-out infinite;
   }
   .audioControls{
@@ -1255,6 +1255,9 @@
     </div>
 
     <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨ واضغطي داخل البطاقة تطلع قلوب 💗</p>
+
+    <!-- زر الفيديو الثاني -->
+    <button class="shareBtn" id="video2Btn" style="margin-top:10px; background: linear-gradient(135deg,#b27cff,#7b4dff); border:none; color:#fff;">🎬 شوفي فيديو ثاني 💜</button>
 
     <!-- ساعة العمر — تطلع دايماً -->
     <div class="ageClock" style="opacity:1;transform:none">
@@ -2383,8 +2386,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   // ===== مشغل الأنشودة =====
-  (function initAudio(){
-    let audio      = document.getElementById("halaAudio");
+  (function initAudio(){{
+    const audio1   = document.getElementById("halaAudio");
     const audio2   = document.getElementById("halaAudio2");
     const playBtn  = document.getElementById("audioPlayBtn");
     const barFill  = document.getElementById("audioBarFill");
@@ -2394,104 +2397,105 @@ document.addEventListener("DOMContentLoaded", () => {
     const waves    = document.getElementById("audioWaves");
     const switchBtn= document.getElementById("audioSwitchBtn");
     const trackLbl = document.getElementById("audioTrackLabel");
-    let trackNum   = 1;
-    if(!audio || !playBtn) return;
+    const backBtn  = document.getElementById("audioBackBtn");
+    const fwdBtn   = document.getElementById("audioFwdBtn");
+    if(!audio1 || !playBtn) return;
 
-    function switchTrack(){
-      const wasPlaying = !audio.paused;
-      audio.pause();
-      trackNum = trackNum === 1 ? 2 : 1;
-      audio = trackNum === 1 ? document.getElementById("halaAudio") : audio2;
-      trackLbl.textContent = "أنشودة " + trackNum;
-      barFill.style.width = "0%";
-      curTime.textContent = "0:00";
-      durEl.textContent = audio.duration ? fmt(audio.duration) : "0:00";
-      playBtn.textContent = "▶️";
-      playBtn.classList.remove("playing");
-      waves.classList.add("paused");
-      if(wasPlaying){
-        audio.currentTime = 0;
-        audio.play().then(()=>{
-          playBtn.textContent = "⏸️";
-          playBtn.classList.add("playing");
-          waves.classList.remove("paused");
-        }).catch(()=>{});
-      }
-    }
-    if(switchBtn) switchBtn.addEventListener("click", switchTrack);
+    let currentAudio = audio1;
+    let trackNum = 1;
 
-    function fmt(s){
+    function fmt(s){{
       const m = Math.floor(s/60);
       const sec = Math.floor(s%60);
       return m + ":" + String(sec).padStart(2,"0");
-    }
+    }}
 
-    audio.addEventListener("loadedmetadata", ()=>{
-      if(trackNum === 1) durEl.textContent = fmt(audio.duration);
-    });
-    if(audio2) audio2.addEventListener("loadedmetadata", ()=>{
-      if(trackNum === 2) durEl.textContent = fmt(audio2.duration);
-    });
-
-    audio.addEventListener("timeupdate", ()=>{
-      if(!audio.duration) return;
-      const pct = (audio.currentTime / audio.duration) * 100;
+    function onTimeUpdate(){{
+      if(!currentAudio.duration) return;
+      const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
       barFill.style.width = pct + "%";
-      curTime.textContent = fmt(audio.currentTime);
-    });
+      curTime.textContent = fmt(currentAudio.currentTime);
+    }}
 
-    audio.addEventListener("ended", ()=>{
+    function onEnded(){{
       playBtn.textContent = "▶️";
       playBtn.classList.remove("playing");
       waves.classList.add("paused");
-
-    // أزرار تخطي ±10 ثواني
-    const backBtn = document.getElementById("audioBackBtn");
-    const fwdBtn  = document.getElementById("audioFwdBtn");
-    if(backBtn) backBtn.addEventListener("click", ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 5); });
-    if(fwdBtn)  fwdBtn.addEventListener("click",  ()=>{ audio.currentTime = Math.min(audio.duration||0, audio.currentTime + 5); });
       barFill.style.width = "0%";
       curTime.textContent = "0:00";
-    });
+    }}
 
-    playBtn.addEventListener("click", ()=>{
-      if(audio.paused){
-        audio.play();
+    function onMeta(){{
+      durEl.textContent = fmt(currentAudio.duration);
+    }}
+
+    function attachListeners(a){{
+      a.addEventListener("timeupdate", onTimeUpdate);
+      a.addEventListener("ended", onEnded);
+      a.addEventListener("loadedmetadata", onMeta);
+    }}
+
+    function detachListeners(a){{
+      a.removeEventListener("timeupdate", onTimeUpdate);
+      a.removeEventListener("ended", onEnded);
+      a.removeEventListener("loadedmetadata", onMeta);
+    }}
+
+    attachListeners(audio1);
+    if(audio2) attachListeners(audio2);
+
+    // تبديل الأنشودة
+    if(switchBtn) switchBtn.addEventListener("click", ()=>{{
+      const wasPlaying = !currentAudio.paused;
+      currentAudio.pause();
+      trackNum = trackNum === 1 ? 2 : 1;
+      currentAudio = trackNum === 1 ? audio1 : audio2;
+      trackLbl.textContent = "أنشودة " + trackNum;
+      barFill.style.width = "0%";
+      curTime.textContent = "0:00";
+      durEl.textContent = currentAudio.duration ? fmt(currentAudio.duration) : "0:00";
+      playBtn.textContent = "▶️";
+      playBtn.classList.remove("playing");
+      waves.classList.add("paused");
+      if(wasPlaying){{
+        currentAudio.currentTime = 0;
+        currentAudio.play().then(()=>{{
+          playBtn.textContent = "⏸️";
+          playBtn.classList.add("playing");
+          waves.classList.remove("paused");
+        }}).catch(()=>{{}});
+      }}
+    }});
+
+    // تشغيل/إيقاف
+    playBtn.addEventListener("click", ()=>{{
+      if(currentAudio.paused){{
+        currentAudio.play();
         playBtn.textContent = "⏸️";
         playBtn.classList.add("playing");
         waves.classList.remove("paused");
-      } else {
-        audio.pause();
+      }} else {{
+        currentAudio.pause();
         playBtn.textContent = "▶️";
         playBtn.classList.remove("playing");
         waves.classList.add("paused");
+      }}
+    }});
 
-    // أزرار تخطي ±10 ثواني
-    const backBtn = document.getElementById("audioBackBtn");
-    const fwdBtn  = document.getElementById("audioFwdBtn");
-    if(backBtn) backBtn.addEventListener("click", ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 5); });
-    if(fwdBtn)  fwdBtn.addEventListener("click",  ()=>{ audio.currentTime = Math.min(audio.duration||0, audio.currentTime + 5); });
-      }
-    });
-
-    // اضغط على الشريط للتنقل
-    barWrap.addEventListener("click", (e)=>{
-      if(!audio.duration) return;
+    // الشريط
+    if(barWrap) barWrap.addEventListener("click", (e)=>{{
+      if(!currentAudio.duration) return;
       const rect = barWrap.getBoundingClientRect();
       const pct  = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = pct * audio.duration;
-    });
+      currentAudio.currentTime = pct * currentAudio.duration;
+    }});
 
-    // الأنشودة لا تشتغل تلقائياً — الشخص يبدأها بنفسه
+    // أزرار التخطي
+    if(backBtn) backBtn.addEventListener("click", ()=>{{ currentAudio.currentTime = Math.max(0, currentAudio.currentTime - 5); }});
+    if(fwdBtn)  fwdBtn.addEventListener("click",  ()=>{{ currentAudio.currentTime = Math.min(currentAudio.duration||0, currentAudio.currentTime + 5); }});
+
     waves.classList.add("paused");
-
-    // أزرار تخطي ±10 ثواني
-    const backBtn = document.getElementById("audioBackBtn");
-    const fwdBtn  = document.getElementById("audioFwdBtn");
-    if(backBtn) backBtn.addEventListener("click", ()=>{ audio.currentTime = Math.max(0, audio.currentTime - 5); });
-    if(fwdBtn)  fwdBtn.addEventListener("click",  ()=>{ audio.currentTime = Math.min(audio.duration||0, audio.currentTime + 5); });
-  })();
-
+  }})();
 });
 </script>
 </body>
