@@ -233,31 +233,28 @@
 
   /* ===== Quiz ===== */
   .quiz{
-    margin-top:8px;
+    margin-top:14px;
     text-align:center;
     background:#fff;
     border:1px solid var(--border);
-    border-radius:12px;
-    padding:28px 10px 10px;
+    border-radius:18px;
+    padding:44px 14px 14px;
     position:relative;
     overflow:hidden;
     box-shadow: var(--shadow2);
-    max-width: min(92%, 340px);
-    margin-left: auto;
-    margin-right: auto;
   }
   .quizTag{
-    position:absolute; top:8px; left:10px;
+    position:absolute; top:12px; left:14px;
     background:linear-gradient(135deg,var(--accent),var(--accent2));
     color:#fff;
-    padding:4px 8px; border-radius:999px;
+    padding:6px 10px; border-radius:999px;
     font-weight:900;
-    box-shadow:0 6px 12px rgba(255,79,163,.22);
-    font-size:11px;
+    box-shadow:0 10px 18px rgba(255,79,163,.22);
+    font-size:12px;
   }
-  .qText{ font-weight:950; line-height:1.7; margin:6px 0 8px; font-size: clamp(13px, 2vw, 16px); }
-  .qSmall{ font-size:11px; opacity:.75; margin:0 0 8px; }
-  .qBtn{ width:min(260px, 92%); margin:0 auto; }
+  .qText{ font-weight:950; line-height:1.9; margin:8px 0 10px; font-size: clamp(15px, 2vw, 18px); }
+  .qSmall{ font-size:12px; opacity:.75; margin:0 0 12px; }
+  .qBtn{ width:min(320px, 92%); margin:0 auto; }
 
   .moveArea{ position:relative; height:74px; margin-top:2px; }
   .movingBtn{ position:absolute; left:50%; top:10px; width:min(320px, 92%); transition: left 0.35s cubic-bezier(.2,.9,.2,1), top 0.35s cubic-bezier(.2,.9,.2,1); }
@@ -608,13 +605,16 @@
 
   /* ===== مشغل الأنشودة ===== */
   .audioPlayer{
-    margin: 10px 0 6px;
+    margin: 8px 0 4px;
     background: linear-gradient(135deg, #fff0f7, #ffe8f5);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 9px 12px;
+    border-radius: 12px;
+    padding: 7px 10px;
     box-shadow: var(--shadow2);
     direction: rtl;
+    max-width: min(95%, 320px);
+    margin-left: auto;
+    margin-right: auto;
   }
   .audioTitle{
     display: flex; align-items: center; gap: 6px;
@@ -765,13 +765,16 @@
 
   /* ===== مشغل الأنشودة ===== */
   .audioPlayer{
-    margin: 10px 0 6px;
+    margin: 8px 0 4px;
     background: linear-gradient(135deg, #fff0f7, #ffe8f5);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 9px 12px;
+    border-radius: 12px;
+    padding: 7px 10px;
     box-shadow: var(--shadow2);
     direction: rtl;
+    max-width: min(95%, 320px);
+    margin-left: auto;
+    margin-right: auto;
   }
   .audioTitle{
     display: flex; align-items: center; gap: 8px;
@@ -1187,6 +1190,8 @@
 
     <div class="actions">
       <button class="btn secondary" id="replay">عيدي الحركات ✨</button>
+      <button class="btn secondary" id="replayVideo1Btn">🔁 إعادة الفيديو</button>
+      <button class="btn secondary" id="video2BtnTop">🎬 فيديو ثاني</button>
       <button class="btn secondary" id="copyLink">انسخي الرابط</button>
     </div>
 
@@ -2384,6 +2389,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if(closeBtn2) closeBtn2.addEventListener("click", closeVideo2);
     if(overlay2)  overlay2.addEventListener("click", (e)=>{ if(e.target === overlay2) closeVideo2(); });
     if(video2Btn) video2Btn.addEventListener("click", openVideo2);
+    document.querySelectorAll("#replayVideo1Btn").forEach(b=> b.addEventListener("click", openVideo));
+    document.querySelectorAll("#video2BtnTop").forEach(b=> b.addEventListener("click", openVideo2));
     const replayV1 = document.getElementById("replayVideo1Btn");
     if(replayV1) replayV1.addEventListener("click", openVideo);
   })();
