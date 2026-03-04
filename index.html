@@ -426,6 +426,47 @@
     margin-bottom: 10px;
   }
 
+  /* ===== popup الفيديو ===== */
+  .videoOverlay{
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 99990;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
+  }
+  .videoOverlay.show{
+    opacity: 1; pointer-events: auto;
+  }
+  .videoBox{
+    position: relative;
+    width: min(88vw, 480px);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,.6);
+    transform: scale(.85);
+    transition: transform .35s cubic-bezier(.2,.9,.2,1);
+  }
+  .videoOverlay.show .videoBox{
+    transform: scale(1);
+  }
+  .videoBox video{
+    width: 100%; display: block;
+    border-radius: 22px;
+  }
+  .videoCloseBtn{
+    position: absolute; top: 10px; left: 10px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: grid; place-items: center;
+    z-index: 2;
+  }
+
   /* ===== رسالة إعادة التحميل ===== */
   .reloadOverlay{
     position:fixed; inset:0; z-index:99999;
@@ -1232,6 +1273,22 @@
     </div>
   </div>
 
+  <!-- popup الفيديو -->
+  <div class="videoOverlay" id="videoOverlay">
+    <div class="videoBox portrait">
+      <button class="videoCloseBtn" id="videoCloseBtn">✕</button>
+      <video id="celebVideo" src="zeina1.mp4" playsinline></video>
+    </div>
+  </div>
+
+  <!-- popup الفيديو الثاني -->
+  <div class="videoOverlay" id="videoOverlay2">
+    <div class="videoBox square">
+      <button class="videoCloseBtn" id="videoCloseBtn2">✕</button>
+      <video id="celebVideo2" src="zeina2.mp4" playsinline></video>
+    </div>
+  </div>
+
   <div class="toast" id="toast">تم ✅</div>
 
   <!-- overlay إعادة التحميل -->
@@ -1285,12 +1342,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 وأتمنى ربي يحقق لك كل أمنياتك وحدة وحدة بدون ما ينقصها شي 🤍✨
 وأتمنى ضحكتك تبقى عالية مثل اليوم وكل أيامك تكون مليانة راحة واطمئنان 🌸
-وتكون بداية عشريناتك بداية قوة وثقة وإنجازات تخليني أفتخر فيك أكثر وأكثر 💞
 يا رب تكون سنة نضج أجمل، نجاح أكبر، وأحلام تتحقق قدام عيونك 🎂💖
-وكل سنة تكبرين قدامي وأقول الحمدلله إنك بحياتييييييييي 🫡✨
-
-ويديمك اليييييي ويخليييك اليييي حبوبتييييييييي معشوقتيييييي دلوعتييييييييي قمرييييييي لووووففف يوووووو اتمنى كل حياتك دايما تكون سعادة وفرح متل ما بتسوي لي والله يجعل ايامك كلها فرح ياربببب وتكوني مبسوطة بكل حياتك
-واهمممم شي انك مهندستي انا بسسسسس
+وكل سنة تكبرين قدامي وأقول الحمدلله إنك في حياتي 🌷✨
 `;
 
   // ===== صوت =====
@@ -2259,7 +2312,65 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-    // ===== مشغل الأنشودة =====
+    // ===== popup الفيديو =====
+  (function initVideoPopup(){
+    // --- فيديو 1: يشتغل تلقائي عند التهنئة ---
+    const overlay  = document.getElementById("videoOverlay");
+    const video    = document.getElementById("celebVideo");
+    const closeBtn = document.getElementById("videoCloseBtn");
+
+    function openVideo(){
+      if(!overlay || !video) return;
+      overlay.classList.add("show");
+      video.currentTime = 0;
+      video.play().catch(()=>{});
+    }
+    function closeVideo(){
+      if(!overlay || !video) return;
+      overlay.classList.remove("show");
+      video.pause();
+      video.currentTime = 0;
+    }
+    if(video) video.addEventListener("ended", closeVideo);
+    if(closeBtn) closeBtn.addEventListener("click", closeVideo);
+    if(overlay) overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeVideo(); });
+
+    const giftBox = document.getElementById("giftBox");
+    if(giftBox){
+      const obs = new MutationObserver(()=>{
+        if(giftBox.style.display && giftBox.style.display !== "none"){
+          setTimeout(openVideo, 400);
+          obs.disconnect();
+        }
+      });
+      obs.observe(giftBox, { attributes:true, attributeFilter:["style"] });
+    }
+
+    // --- فيديو 2: يشتغل بزر ---
+    const overlay2  = document.getElementById("videoOverlay2");
+    const video2    = document.getElementById("celebVideo2");
+    const closeBtn2 = document.getElementById("videoCloseBtn2");
+    const video2Btn = document.getElementById("video2Btn");
+
+    function openVideo2(){
+      if(!overlay2 || !video2) return;
+      overlay2.classList.add("show");
+      video2.currentTime = 0;
+      video2.play().catch(()=>{});
+    }
+    function closeVideo2(){
+      if(!overlay2 || !video2) return;
+      overlay2.classList.remove("show");
+      video2.pause();
+      video2.currentTime = 0;
+    }
+    if(video2)    video2.addEventListener("ended", closeVideo2);
+    if(closeBtn2) closeBtn2.addEventListener("click", closeVideo2);
+    if(overlay2)  overlay2.addEventListener("click", (e)=>{ if(e.target === overlay2) closeVideo2(); });
+    if(video2Btn) video2Btn.addEventListener("click", openVideo2);
+  })();
+
+  // ===== مشغل الأنشودة =====
   (function initAudio(){
     const audio    = document.getElementById("halaAudio");
     const playBtn  = document.getElementById("audioPlayBtn");
