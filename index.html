@@ -2647,8 +2647,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateBadge = $("dateBadge");
   if(dateBadge){
     const now = new Date();
-    const fmt = new Intl.DateTimeFormat("ar-SA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
-    dateBadge.textContent = "📅 " + fmt.format(now);
+    const getH = (unit) => parseInt(
+      new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {[unit]:"numeric"}).format(now)
+    );
+    const hijriMonths = ["محرم","صفر","ربيع الأول","ربيع الثاني","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
+    const hd = getH("day"), hm = getH("month"), hy = getH("year");
+    const dayName = new Intl.DateTimeFormat("ar-SA", { weekday:"long" }).format(now);
+    dateBadge.textContent = "📅 " + dayName + " " + hd + " " + hijriMonths[hm-1] + " " + hy + " هـ";
   }
 
   // ===== الرسالة =====
@@ -3808,6 +3813,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
-
-
