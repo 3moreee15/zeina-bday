@@ -233,15 +233,16 @@
 
   /* ===== Quiz ===== */
   .quiz{
-    margin-top:14px;
+    margin-top:18px;
     text-align:center;
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:44px 14px 14px;
+    background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,248,252,.97));
+    border:1px solid rgba(123,154,214,.35);
+    border-radius:24px;
+    padding:44px 16px 18px;
     position:relative;
     overflow:hidden;
-    box-shadow: var(--shadow2);
+    box-shadow: 0 22px 40px rgba(64,87,145,.14);
+    color:#25314d;
   }
   .quizTag{
     position:absolute; top:12px; left:14px;
@@ -252,9 +253,29 @@
     box-shadow:0 10px 18px rgba(255,79,163,.22);
     font-size:12px;
   }
-  .qText{ font-weight:950; line-height:1.9; margin:8px 0 10px; font-size: clamp(15px, 2vw, 18px); }
-  .qSmall{ font-size:12px; opacity:.75; margin:0 0 12px; }
-  .qBtn{ width:min(320px, 92%); margin:0 auto; }
+  .qText{
+    font-weight:950;
+    line-height:1.9;
+    margin:10px 0 10px;
+    font-size: clamp(18px, 2.6vw, 24px);
+    color:#25314d;
+    text-shadow:none;
+    opacity:1;
+  }
+  .qSmall{
+    font-size:14px;
+    opacity:1;
+    margin:0 0 14px;
+    color:#66708d;
+    font-weight:800;
+  }
+  .qBtn{
+    width:min(340px, 94%);
+    margin:0 auto;
+    min-height:72px;
+    font-size:20px;
+    box-shadow: 0 18px 32px rgba(135,118,240,.24);
+  }
 
   .moveArea{ position:relative; height:74px; margin-top:2px; }
   .movingBtn{ position:absolute; left:50%; top:10px; width:min(320px, 92%); transition: left 0.35s cubic-bezier(.2,.9,.2,1), top 0.35s cubic-bezier(.2,.9,.2,1); }
@@ -295,6 +316,693 @@
     box-shadow: none !important;
   }
 
+  /* ===== بناء البيت بالبداية ===== */
+  .buildIntro{
+    margin-top: 14px;
+    background:
+      radial-gradient(circle at top right, rgba(80,190,255,.16), transparent 38%),
+      linear-gradient(135deg, #0f2746, #16355f 58%, #102845);
+    border: 1px solid rgba(144,214,255,.24);
+    border-radius: 24px;
+    padding: 18px 14px 18px;
+    box-shadow: 0 20px 50px rgba(4,18,34,.34);
+    position: relative;
+    overflow: hidden;
+    color:#e9f6ff;
+  }
+  .buildIntro::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity:.55;
+    pointer-events:none;
+  }
+  .buildIntro::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, rgba(255,255,255,.05), transparent 28%, transparent 72%, rgba(255,255,255,.04));
+    pointer-events:none;
+  }
+  .buildTag{
+    display:inline-flex;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(117,216,255,.14);
+    border:1px solid rgba(146,227,255,.28);
+    color:#dff6ff;
+    font-weight:900;
+    font-size:12px;
+    box-shadow:0 10px 18px rgba(0,0,0,.12);
+    margin-bottom:8px;
+    position:relative;
+    z-index:1;
+  }
+  .buildTitle{
+    font-size: clamp(18px, 2.4vw, 22px);
+    font-weight: 950;
+    position:relative;
+    z-index:1;
+    color:#f5fbff;
+    letter-spacing:.2px;
+  }
+  .buildSub{
+    margin:8px auto 12px;
+    max-width: 540px;
+    line-height:1.95;
+    font-size: 13px;
+    color:rgba(233,246,255,.86);
+    position:relative;
+    z-index:1;
+  }
+  .architectLine{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:4px 0 12px;
+  }
+  .architectChip{
+    padding:7px 12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(167,228,255,.18);
+    color:#dcf4ff;
+    font-size:12px;
+    font-weight:900;
+    backdrop-filter: blur(4px);
+  }
+  .blueprintWrap{
+    position:relative;
+    z-index:1;
+    background:
+      linear-gradient(160deg, rgba(7,25,48,.94), rgba(15,45,78,.92)),
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,.06), transparent 34%);
+    border: 1px solid rgba(156,226,255,.20);
+    border-radius: 26px;
+    padding: 14px 12px 16px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      inset 0 -18px 40px rgba(0,0,0,.18),
+      0 22px 36px rgba(0,0,0,.18);
+    perspective: 1400px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+  }
+  .blueprintWrap::after{
+    content:"";
+    position:absolute;
+    inset:auto 12% 8px;
+    height:30px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(0,0,0,.30), transparent 72%);
+    filter: blur(10px);
+    opacity:.7;
+    pointer-events:none;
+  }
+  .blueprintHouse{
+    width:100%;
+    max-width: 430px;
+    display:block;
+    margin: 0 auto;
+    overflow: visible;
+    transform: rotateX(var(--rx,18deg)) rotateY(var(--ry,-16deg)) translateZ(var(--tz,8px)) scale(var(--hs,1.02));
+    transform-style: preserve-3d;
+    transform-origin: 50% 56%;
+    filter: drop-shadow(0 34px 36px rgba(0,0,0,.24));
+    transition: transform .22s ease, filter .22s ease;
+    will-change: transform;
+  }
+  .blueprintWrap.tilting .blueprintHouse{
+    filter: drop-shadow(0 34px 36px rgba(0,0,0,.26));
+  }
+  .house3dPlane{
+    opacity:.42;
+    stroke:none;
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .house3dBaseFront{ fill: rgba(190,238,255,.10); }
+  .house3dBaseSide{ fill: rgba(117,205,255,.16); }
+  .house3dBaseTop{ fill: rgba(214,247,255,.12); }
+  .house3dRoofMain{ fill: rgba(253,208,234,.14); }
+  .house3dRoofSide{ fill: rgba(154,223,255,.14); }
+  .pieceFace, .pieceSide3d{
+    opacity:.14;
+    transition: opacity .45s ease .05s, transform .45s ease, filter .45s ease;
+    stroke:none;
+  }
+  .pieceFace{ fill: rgba(214,247,255,.12); }
+  .pieceSide3d{ fill: rgba(117,205,255,.18); }
+  .roofFace{ fill: rgba(253,208,234,.16); }
+  .roofSide3d{ fill: rgba(147,218,255,.18); }
+  .doorFace{ fill: rgba(255,218,236,.16); }
+  .doorSide3d{ fill: rgba(117,205,255,.16); }
+  .windowFace{ fill: rgba(227,248,255,.12); }
+  .windowSide3d{ fill: rgba(114,204,255,.18); }
+  .chimneyFace{ fill: rgba(252,223,239,.14); }
+  .chimneySide3d{ fill: rgba(107,197,248,.17); }
+  .stairsFace{ fill: rgba(215,244,255,.14); }
+  .stairsSide3d{ fill: rgba(103,193,245,.18); }
+  .heartFace{ fill: rgba(255,214,237,.20); }
+  .buildPiece.done .pieceFace,
+  .buildPiece.done .pieceSide3d{
+    opacity:1;
+    filter: drop-shadow(0 10px 18px rgba(145,237,255,.18));
+  }
+  .guideText{
+    fill:#9ee8ff;
+    opacity:.82;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.5px;
+  }
+  .measureLine{
+    stroke: rgba(158,232,255,.52);
+    stroke-width: 1.8;
+    stroke-dasharray: 5 5;
+  }
+  .houseBase, .houseRoofGuide, .windowGuide, .doorGuide, .stairsGuide, .chimneyGuide, .heartGuide{
+    fill:none;
+    stroke: rgba(142,220,255,.28);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 8 10;
+  }
+  .houseBase{
+    fill: rgba(255,255,255,.03);
+    stroke-dasharray: 10 12;
+  }
+  .windowLight{
+    fill: rgba(255,226,147,.0);
+    transition: fill .45s ease, filter .45s ease, opacity .45s ease;
+    opacity:.1;
+  }
+  .buildIntro.lit .windowLight{
+    fill: rgba(255,228,158,.85);
+    filter: drop-shadow(0 0 12px rgba(255,211,92,.55));
+    opacity:1;
+  }
+  .buildPiece{
+    cursor:pointer;
+    opacity:.55;
+    transition: transform .22s ease, opacity .22s ease, filter .22s ease;
+    transform-origin: center;
+  }
+  .buildPiece:hover{ transform: translateY(-2px) scale(1.02); }
+  .buildPiece.done{
+    opacity:1;
+    cursor:default;
+    filter: drop-shadow(0 10px 18px rgba(95,211,255,.16));
+  }
+  .buildPiece.locked{ pointer-events:none; }
+  .pieceShape, .pieceInner{
+    fill:none;
+    stroke:url(#houseStroke);
+    stroke-width: 9.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    opacity:.96;
+    transition: stroke-dashoffset .8s cubic-bezier(.2,.9,.2,1), opacity .25s ease, filter .35s ease, stroke .35s ease;
+  }
+  .buildPiece.done .pieceShape,
+  .buildPiece.done .pieceInner{
+    stroke-dashoffset:0;
+    stroke:url(#houseStrokeActive);
+    filter: drop-shadow(0 0 10px rgba(161,239,255,.36));
+  }
+  .heartFinal{
+    opacity:0;
+    transform: scale(.75);
+    transform-origin:center;
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .buildIntro.doneStage .heartFinal{
+    opacity:1;
+    transform: scale(1);
+  }
+  .hitArea{
+    fill: transparent;
+    stroke: transparent;
+    pointer-events: all;
+  }
+  .clickTag{
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .clickTagRect{
+    fill: rgba(10,33,58,.90);
+    stroke: rgba(173,237,255,.96);
+    stroke-width: 2.4;
+    rx: 12;
+    ry: 12;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,.18));
+    transition: fill .25s ease, stroke .25s ease, opacity .25s ease, transform .25s ease;
+  }
+  .clickTagText{
+    fill: #eaffff;
+    font-size: 14px;
+    font-weight: 900;
+    dominant-baseline: middle;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .buildPiece.done .clickTag{
+    opacity:0;
+    animation:none;
+  }
+  .buildPiece:not(.done):active .clickTagRect,
+  .buildPiece:not(.done):hover .clickTagRect{
+    fill: rgba(26,61,98,.96);
+    stroke: #dff8ff;
+  }
+  @keyframes pulseNode{
+    0%,100%{ transform: scale(1); opacity:.92; }
+    50%{ transform: scale(1.14); opacity:.48; }
+  }
+  .buildProgress{
+    position:relative;
+    z-index:1;
+    margin-top: 12px;
+  }
+  .buildProgressTop{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    font-size:12px;
+    font-weight:900;
+    color:#dcf4ff;
+    margin-bottom:6px;
+  }
+  .buildBar{
+    height:10px;
+    border-radius:999px;
+    background:rgba(255,255,255,.10);
+    overflow:hidden;
+    border:1px solid rgba(167,228,255,.16);
+  }
+  .buildBarFill{
+    height:100%;
+    width:20%;
+    border-radius:999px;
+    background:linear-gradient(90deg, #91edff, #ffd7ef);
+    box-shadow:0 0 16px rgba(145,237,255,.35);
+    transition: width .45s ease;
+  }
+  .buildStatus{
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 900;
+    color:#e9f6ff;
+    position:relative;
+    z-index:1;
+  }
+  .pieceNote{
+    display:block;
+    width:min(88%, 320px);
+    margin:12px auto 0;
+    background:rgba(7,20,39,.92);
+    border:1px solid rgba(166,228,255,.24);
+    color:#eff9ff;
+    padding:10px 14px;
+    border-radius:16px;
+    box-shadow:0 18px 40px rgba(0,0,0,.25);
+    font-size:13px;
+    font-weight:900;
+    opacity:0;
+    pointer-events:none;
+    z-index:2;
+    transition: opacity .28s ease, transform .28s ease;
+    text-align:center;
+    transform: translateY(8px) scale(.98);
+  }
+  .pieceNote.show{
+    opacity:1;
+    transform: translateY(0) scale(1);
+  }
+  .dust{
+    position:absolute;
+    width:8px; height:8px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(185,234,255,.95), rgba(185,234,255,.18));
+    pointer-events:none;
+    z-index:3;
+    animation: dustFloat 800ms ease forwards;
+  }
+  @keyframes dustFloat{
+    from{ transform: translate(0,0) scale(.4); opacity:1; }
+    to{ transform: translate(var(--dx), var(--dy)) scale(1.25); opacity:0; }
+  }
+  
+.buildFinalMessage{
+  margin-top:16px;
+  position:relative;
+  z-index:1;
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:10px;
+  text-align:center;
+  color:#f6fbff;
+  opacity:0;
+  transform: translateY(8px) scale(.96);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.buildFinalMessage.show{
+  opacity:1;
+  transform: translateY(0) scale(1);
+}
+.buildFinalMain{
+  font-size:18px;
+  font-weight:950;
+}
+.buildFinalSub{
+  font-size:22px;
+  font-weight:950;
+  color:#ffd5eb;
+  text-shadow:0 0 18px rgba(255,182,214,.2);
+}
+.projectDoneCard{
+  width:min(100%, 420px);
+  background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.26);
+  border-radius:22px;
+  padding:16px 16px 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.projectDoneHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:12px;
+}
+.projectDoneTag{
+  padding:7px 11px;
+  border-radius:999px;
+  background: rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+.projectDoneCheck{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background: linear-gradient(135deg, #66e3a9, #9df0c7);
+  color:#0f5132;
+  font-size:18px;
+  box-shadow:0 10px 24px rgba(102,227,169,.28);
+  font-weight:900;
+}
+.projectDoneTitle{
+  font-size:20px;
+  font-weight:950;
+  margin-bottom:5px;
+  color:#fff;
+}
+.projectDoneSubtitle{
+  font-size:13px;
+  line-height:1.8;
+  color:rgba(255,255,255,.88);
+  margin-bottom:12px;
+}
+.projectDoneMeta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  text-align:right;
+}
+.projectDoneItem{
+  background: rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:16px;
+  padding:10px 12px;
+}
+.projectDoneLabel{
+  display:block;
+  font-size:11px;
+  opacity:.72;
+  margin-bottom:4px;
+  color:rgba(255,255,255,.8);
+}
+.projectDoneValue{
+  display:block;
+  font-size:14px;
+  font-weight:900;
+  color:#fff;
+}
+.projectDoneFooter{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px dashed rgba(255,255,255,.18);
+  font-size:13px;
+  line-height:1.8;
+  color:#ffe7f3;
+  font-weight:800;
+}
+.projectDoneCard.popIn{
+  animation: projectCardPop .45s cubic-bezier(.2,.9,.2,1) both;
+}
+@keyframes projectCardPop{
+  from{ opacity:0; transform: translateY(10px) scale(.94); }
+  to{ opacity:1; transform: translateY(0) scale(1); }
+}
+.buildIntro.done{
+  animation: buildGlowOut .8s ease forwards;
+}
+
+  /* ===== Engineering extras ===== */
+  .analysisOverlay{
+    position:absolute; inset:0; z-index:30;
+    background: linear-gradient(180deg, rgba(8,24,49,.95), rgba(18,41,76,.92));
+    border-radius: 22px;
+    border:1px solid rgba(255,255,255,.12);
+    display:flex; align-items:center; justify-content:center;
+    padding:18px;
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .analysisOverlay.hide{
+    opacity:0; pointer-events:none; transform: scale(.985);
+  }
+  .analysisCard{
+    width:min(100%, 520px);
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow: 0 24px 60px rgba(0,0,0,.22);
+    border-radius: 24px;
+    padding: 18px 16px;
+    color:#eaf7ff;
+    text-align:right;
+    backdrop-filter: blur(10px);
+  }
+  .analysisKicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:900;
+    padding:8px 12px; border-radius:999px;
+    background: rgba(158,232,255,.12);
+    border:1px solid rgba(158,232,255,.22);
+    color:#b8efff;
+    margin-bottom:12px;
+  }
+  .analysisTitle{
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 950;
+    margin-bottom: 8px;
+  }
+  .analysisSub{
+    line-height:1.9; opacity:.9; font-size:14px;
+    margin-bottom:14px;
+  }
+  .analysisList{ display:grid; gap:10px; margin-bottom:14px; }
+  .analysisStep{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px; border-radius:16px;
+    background: rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .analysisStep .stepDot{
+    width:12px; height:12px; border-radius:50%;
+    background: rgba(255,255,255,.25);
+    box-shadow: 0 0 0 6px rgba(255,255,255,.03);
+    flex:0 0 auto;
+  }
+  .analysisStep.active{
+    background: rgba(158,232,255,.10);
+    border-color: rgba(158,232,255,.3);
+    transform: translateY(-1px);
+  }
+  .analysisStep.active .stepDot{
+    background:#9ee8ff;
+    box-shadow: 0 0 0 8px rgba(158,232,255,.08), 0 0 18px rgba(158,232,255,.45);
+  }
+  .analysisStep.done{
+    background: rgba(121,255,196,.10);
+    border-color: rgba(121,255,196,.26);
+  }
+  .analysisStep.done .stepDot{
+    background:#79ffc4;
+    box-shadow: 0 0 0 8px rgba(121,255,196,.07), 0 0 18px rgba(121,255,196,.35);
+  }
+  .analysisFoot{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-size:12px; opacity:.9;
+  }
+  .analysisMiniBar{
+    flex:1; min-width:160px; height:7px; border-radius:999px; overflow:hidden;
+    background: rgba(255,255,255,.12);
+  }
+  .analysisMiniBarFill{
+    width:0%; height:100%;
+    border-radius:999px;
+    background: linear-gradient(90deg, #9ee8ff, #79ffc4, #ffd4ed);
+    transition: width .45s ease;
+  }
+
+  .customStudio{
+    margin: 14px 0 10px;
+    background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,248,252,.95));
+    border:1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px;
+    text-align:right;
+    box-shadow: 0 18px 42px rgba(0,0,0,.10);
+  }
+  .customHead{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .customTitle{ font-weight:950; font-size:15px; }
+  .customSub{ font-size:12px; opacity:.75; }
+  .customRow{ margin-top:8px; }
+  .customLabel{ font-size:12px; font-weight:900; opacity:.76; margin-bottom:6px; display:block; }
+  .chipWrap{ display:flex; gap:8px; flex-wrap:wrap; }
+  .selectChip{
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    border-radius:999px;
+    padding:8px 12px;
+    font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+    transition: transform .14s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .selectChip:hover{ transform: translateY(-1px); }
+  .selectChip.active{
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#fff;
+    border-color: transparent;
+    box-shadow: 0 10px 24px rgba(255,79,163,.22);
+  }
+  .designPlaque{
+    display:block;
+    width:min(88%, 320px);
+    margin:14px auto 0;
+    padding:10px 14px;
+    border-radius:18px;
+    background: rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.14);
+    color:#dff7ff;
+    text-align:center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.14);
+  }
+  .designPlaqueSmall{ font-size:10px; letter-spacing:.12em; opacity:.72; display:block; margin-bottom:2px; }
+  .designPlaqueName{ font-size:14px; font-weight:950; display:block; }
+  .designPlaqueRole{ font-size:11px; opacity:.82; }
+
+  @media (max-width: 640px){
+    .pieceNote{
+      width:min(90%, 300px);
+      margin-top:10px;
+      padding:9px 12px;
+      font-size:12px;
+    }
+    .designPlaque{
+      width:min(88%, 290px);
+      padding:8px 10px;
+      margin:12px auto 0;
+    }
+    .designPlaqueSmall{ font-size:9px; }
+    .designPlaqueName{ font-size:13px; }
+    .designPlaqueRole{ font-size:10px; }
+  }
+
+
+  .buildIntro.prepHidden .blueprintWrap,
+  .buildIntro.prepHidden .buildProgress,
+  .buildIntro.prepHidden .buildStatus,
+  .buildIntro.prepHidden .buildFinalMessage,
+  .buildIntro.prepHidden .buildSub,
+  .buildIntro.prepHidden .architectLine,
+  .buildIntro.prepHidden .buildTag,
+  .buildIntro.prepHidden .buildTitle{
+    visibility:hidden;
+  }
+  .miniHint{
+    margin-top:8px; font-size:12px; opacity:.78; line-height:1.7;
+  }
+  .easterPin{
+    position:absolute; left:18px; bottom:14px; z-index:5;
+    width:28px; height:28px; border-radius:50%;
+    display:grid; place-items:center;
+    background: rgba(255,255,255,.08);
+    border:1px dashed rgba(255,255,255,.16);
+    color:#dff7ff; cursor:pointer;
+    font-size:13px; opacity:.38;
+    transition: opacity .2s ease, transform .2s ease, background .2s ease;
+  }
+  .easterPin:hover{ opacity:.9; transform: scale(1.06); background: rgba(255,255,255,.14); }
+
+  .blueprintWrap.zooming .blueprintHouse{
+    animation: zoomHouseIn .9s cubic-bezier(.2,.9,.2,1) forwards;
+  }
+  @keyframes zoomHouseIn{
+    0%{ transform: perspective(1200px) rotateX(var(--rx,16deg)) rotateY(var(--ry,-12deg)) translateZ(var(--tz,0px)) scale(var(--hs,1)); }
+    55%{ transform: perspective(1200px) rotateX(8deg) rotateY(-2deg) translateZ(25px) scale(1.12); }
+    100%{ transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1.22); opacity:.15; filter: blur(2px); }
+  }
+
+  .windowStyle-cross .windowGuide{ opacity:1; }
+  .windowStyle-arch .windowFace,
+  .windowStyle-arch .pieceFace.windowFace,
+  .windowStyle-arch .windowLight{ rx: 22px; }
+  .doorStyle-arch .doorFace{ filter: drop-shadow(0 10px 18px rgba(0,0,0,.16)); }
+  .doorStyle-arch .pieceShape{ stroke-linejoin: round; }
+  .theme-concrete{ --accent:#e48caf; --accent2:#c56d91; --bg1:#e7dde3; --bg2:#f7eef2; --text:#46393f; }
+  .theme-nightblue{ --accent:#7ea7ff; --accent2:#9b7cff; --bg1:#17233e; --bg2:#2b2746; --text:#eef4ff; --border:#365187; }
+  .theme-nightblue .customStudio,
+  .theme-nightblue .quiz,
+  .theme-nightblue .gift,
+  .theme-nightblue .card{ color:#eef4ff; }
+  .theme-nightblue .customStudio{ background: linear-gradient(135deg, rgba(18,33,61,.9), rgba(38,39,74,.92)); }
+  .theme-nightblue .selectChip{ background: rgba(255,255,255,.08); color:#eef4ff; border-color: rgba(255,255,255,.12); }
+  .theme-nightblue .pieceNote{ color:#eef4ff; background: rgba(0,0,0,.45); border-color: rgba(255,255,255,.12); }
+
+  .buildIntro.done{
+    animation: buildGlowOut .8s ease forwards;
+  }
+  @keyframes buildGlowOut{
+    0%{ transform: scale(1); opacity:1; }
+    100%{ transform: scale(.98); opacity:0; }
+  }
   /* input age */
   .ageWrap{
     width:min(320px, 92%);
@@ -2371,6 +3079,36 @@
     color: #f7eaf1;
     border-color: rgba(255,255,255,.15);
   }
+
+  body.dark .buildIntro{
+    background:
+      radial-gradient(circle at top right, rgba(120,84,255,.14), transparent 38%),
+      linear-gradient(135deg, rgba(14,21,40,.94), rgba(19,29,52,.94));
+    border-color: rgba(255,255,255,.10);
+  }
+  body.dark .blueprintWrap{
+    background: linear-gradient(135deg, rgba(10,16,31,.9), rgba(15,24,42,.9));
+    border-color: rgba(255,255,255,.08);
+  }
+  body.dark .buildTitle,
+  body.dark .buildSub,
+  body.dark .buildStatus,
+  body.dark .buildProgressTop,
+  body.dark .architectChip,
+  body.dark .buildFinalMessage{
+    color:#f7eaf1;
+  }
+  body.dark .houseBase, body.dark .houseRoofGuide, body.dark .windowGuide, body.dark .doorGuide, body.dark .stairsGuide, body.dark .chimneyGuide, body.dark .heartGuide{
+    stroke: rgba(255,255,255,.12);
+  }
+  body.dark .clickNode{
+    fill: rgba(255,255,255,.08);
+    stroke: rgba(214,230,255,.55);
+  }
+  body.dark .pieceNote{
+    background: rgba(11,16,29,.94);
+    border-color: rgba(255,255,255,.12);
+  }
   body.dark .ageInput{
     color: #f7eaf1;
   }
@@ -2485,7 +3223,223 @@
       <button class="btn secondary" id="copyLink">انسخي الرابط</button>
     </div>
 
-    <div class="quiz" id="quizBox">
+    <div class="buildIntro reveal show" id="buildIntro">
+      <div class="buildTag">📐 Blueprint Mode</div>
+      <div class="buildTitle">اختبار بسيط لمهندسة المستقبل 👷‍♀️✨</div>
+      <p class="buildSub">هذا بيت ناقص ومو مكتمل… اضغطي على الأجزاء الناقصة، وكل لمسة تبني تفصيلة جديدة. ولما يكتمل البناء، يفتح لكِ قسم الأسئلة بطريقة ألطف 🌷</p>
+      <div class="architectLine">
+        <span class="architectChip">🏗️ بناء تدريجي</span>
+        <span class="architectChip">📏 مخطط معماري</span>
+        <span class="architectChip">💡 إضاءة بعد الاكتمال</span>
+      </div>
+
+      <div class="analysisOverlay" id="analysisOverlay">
+        <div class="analysisCard">
+          <div class="analysisKicker">🧠 وضع تحليل المهندسة</div>
+          <div class="analysisTitle">نحلل المشروع أول…</div>
+          <div class="analysisSub">قبل ما يبدأ البناء، فيه فحص صغير لطيف: تحليل الهيكل، التوازن، واختيار تفاصيل الواجهة… وبعدها ينفتح المشروع كامل 👷‍♀️✨</div>
+          <div class="analysisList">
+            <div class="analysisStep" data-step="0"><span class="stepDot"></span><span>Analyzing structure…</span></div>
+            <div class="analysisStep" data-step="1"><span class="stepDot"></span><span>Checking stability…</span></div>
+            <div class="analysisStep" data-step="2"><span class="stepDot"></span><span>Reviewing facade details…</span></div>
+            <div class="analysisStep" data-step="3"><span class="stepDot"></span><span>Design approved ✅</span></div>
+          </div>
+          <div class="analysisFoot">
+            <span id="analysisStatusText">جارٍ تجهيز المشروع…</span>
+            <div class="analysisMiniBar"><div class="analysisMiniBarFill" id="analysisMiniBarFill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="customStudio" id="customStudio" style="display:none;">
+        <div class="customHead">
+          <div>
+            <div class="customTitle">Studio Customization</div>
+            <div class="customSub">اختيارات صغيرة تخلي التصميم مخصص لها أكثر 💗</div>
+          </div>
+          <button class="selectChip active" id="applyDesignBtn" type="button">ابدئي التنفيذ ✨</button>
+        </div>
+
+        <div class="customRow">
+          <span class="customLabel">لون المشروع</span>
+          <div class="chipWrap">
+            <button class="selectChip active" type="button" data-theme="pink">Pink Studio</button>
+            <button class="selectChip" type="button" data-theme="concrete">Pink + Concrete</button>
+            <button class="selectChip" type="button" data-theme="nightblue">Night Blueprint</button>
+          </div>
+        </div>
+
+        <div class="customRow">
+          <span class="customLabel">ستايل الباب</span>
+          <div class="chipWrap">
+            <button class="selectChip active" type="button" data-door="classic">Classic Door</button>
+            <button class="selectChip" type="button" data-door="arch">Arch Door</button>
+          </div>
+        </div>
+
+        <div class="customRow">
+          <span class="customLabel">ستايل الشبابيك</span>
+          <div class="chipWrap">
+            <button class="selectChip active" type="button" data-window="cross">Cross Windows</button>
+            <button class="selectChip" type="button" data-window="arch">Soft Windows</button>
+          </div>
+        </div>
+
+        <div class="miniHint">بكذا صار عندها دور فعلي في تكوين التصميم قبل بدء البناء 💫</div>
+      </div>
+
+      <div class="blueprintWrap" id="blueprintWrap">
+        <svg class="blueprintHouse" id="blueprintHouse" viewBox="0 0 360 260" aria-label="بيت ناقص يحتاج إكمال">
+          <defs>
+            <linearGradient id="houseStroke" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9ee8ff"/>
+              <stop offset="60%" stop-color="#d7f4ff"/>
+              <stop offset="100%" stop-color="#ffd4ed"/>
+            </linearGradient>
+            <linearGradient id="houseStrokeActive" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#b7f5ff"/>
+              <stop offset="55%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#ffd9ef"/>
+            </linearGradient>
+          </defs>
+
+          <polygon points="54,92 306,92 326,78 74,78" class="house3dPlane house3dBaseTop"/>
+          <polygon points="306,92 306,224 326,210 326,78" class="house3dPlane house3dBaseSide"/>
+          <polygon points="74,114 180,36 286,114 306,100 200,22 94,100" class="house3dPlane house3dRoofMain"/>
+          <polygon points="286,114 306,100 306,92 286,114 286,114 286,114 306,92 326,78 326,86" class="house3dPlane house3dRoofSide"/>
+
+          <line x1="48" y1="230" x2="312" y2="230" class="measureLine"/>
+          <text x="180" y="247" text-anchor="middle" class="guideText">12.0m</text>
+          <line x1="304" y1="40" x2="304" y2="224" class="measureLine"/>
+          <text x="316" y="138" class="guideText">8.5m</text>
+          <text x="70" y="56" class="guideText">120°</text>
+          <text x="124" y="132" class="guideText">A-01</text>
+
+          <rect x="54" y="92" width="252" height="132" rx="16" class="houseBase"/>
+          <path d="M74 114 L180 36 L286 114" class="houseRoofGuide"/>
+          <line x1="90" y1="170" x2="146" y2="170" class="windowGuide"/>
+          <line x1="118" y1="142" x2="118" y2="198" class="windowGuide"/>
+          <line x1="214" y1="170" x2="270" y2="170" class="windowGuide"/>
+          <line x1="242" y1="142" x2="242" y2="198" class="windowGuide"/>
+          <line x1="180" y1="124" x2="180" y2="224" class="doorGuide"/>
+          <line x1="152" y1="224" x2="122" y2="224" class="stairsGuide"/>
+          <line x1="208" y1="224" x2="238" y2="224" class="stairsGuide"/>
+          <line x1="238" y1="58" x2="262" y2="58" class="chimneyGuide"/>
+          <path d="M170 102 C176 94 184 94 190 102 C194 108 191 114 180 123 C169 114 166 108 170 102 Z" class="heartGuide"/>
+
+          <rect x="90" y="142" width="56" height="56" rx="10" class="windowLight"/>
+          <rect x="214" y="142" width="56" height="56" rx="10" class="windowLight"/>
+
+          <g class="buildPiece done locked" data-order="0" data-clickable="false">
+            <rect x="54" y="92" width="252" height="132" rx="16" class="pieceShape"/>
+          </g>
+
+          <g class="buildPiece" data-order="1" data-label="سقف اليسار" data-note="أول ضلع بالسقف اكتمل… البداية صارت أوضح ✨">
+            <polygon points="74,114 180,36 200,22 94,100" class="pieceFace roofFace"/>
+            <path d="M74 114 L180 36" class="pieceShape"/>
+            <rect x="88" y="34" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="88" y="34" width="60" height="34" rx="12" class="clickTagRect"/><text x="118" y="51" class="clickTagText">١</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="2" data-label="سقف اليمين" data-note="والجهة الثانية من السقف كملت التوازن المعماري 👷‍♀️">
+            <polygon points="180,36 286,114 306,100 200,22" class="pieceFace roofFace"/>
+            <polygon points="286,114 306,100 326,86 306,92" class="pieceSide3d roofSide3d"/>
+            <path d="M180 36 L286 114" class="pieceShape"/>
+            <rect x="212" y="34" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="212" y="34" width="60" height="34" rx="12" class="clickTagRect"/><text x="242" y="51" class="clickTagText">٢</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="3" data-label="إطار الباب" data-note="إطار الباب ثبت… والمدخل صار رسمي 🤍">
+            <path d="M152 224 V150 Q152 136 166 136 H194 Q208 136 208 150 V224 Z" class="pieceFace doorFace"/>
+            <polygon points="208,150 220,142 220,216 208,224" class="pieceSide3d doorSide3d"/>
+            <path d="M152 224 V150 Q152 136 166 136 H194 Q208 136 208 150 V224" class="pieceShape"/>
+            <rect x="20" y="130" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="20" y="130" width="60" height="34" rx="12" class="clickTagRect"/><text x="50" y="147" class="clickTagText">٣</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="4" data-label="تفصيلة الباب" data-note="حتى التفاصيل الصغيرة بالباب لازم تكون على ذوق مهندسة 😌">
+            <line x1="181" y1="150" x2="181" y2="224" class="pieceInner"/>
+            <circle cx="194" cy="184" r="3.5" class="pieceInner"/>
+            <rect x="280" y="130" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="280" y="130" width="60" height="34" rx="12" class="clickTagRect"/><text x="310" y="147" class="clickTagText">٤</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="5" data-label="إطار الشباك اليمين" data-note="الشباك اليمين تركّب… وهنا يدخل النور 🌤️">
+            <rect x="214" y="142" width="56" height="56" rx="10" class="pieceFace windowFace"/>
+            <polygon points="270,142 282,134 282,190 270,198" class="pieceSide3d windowSide3d"/>
+            <rect x="214" y="142" width="56" height="56" rx="10" class="pieceShape"/>
+            <rect x="280" y="170" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="280" y="170" width="60" height="34" rx="12" class="clickTagRect"/><text x="310" y="187" class="clickTagText">٥</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="6" data-label="تقسيم الشباك اليمين" data-note="تقاطعات الشباك عطته شخصية أجمل ✨">
+            <line x1="242" y1="142" x2="242" y2="198" class="pieceInner"/>
+            <line x1="214" y1="170" x2="270" y2="170" class="pieceInner"/>
+            <rect x="280" y="210" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="280" y="210" width="60" height="34" rx="12" class="clickTagRect"/><text x="310" y="227" class="clickTagText">٦</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="7" data-label="إطار الشباك اليسار" data-note="وهنا الشباك الثاني… كأن المكان بدأ يتنفس 💬">
+            <rect x="90" y="142" width="56" height="56" rx="10" class="pieceFace windowFace"/>
+            <polygon points="146,142 158,134 158,190 146,198" class="pieceSide3d windowSide3d"/>
+            <rect x="90" y="142" width="56" height="56" rx="10" class="pieceShape"/>
+            <rect x="20" y="170" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="20" y="170" width="60" height="34" rx="12" class="clickTagRect"/><text x="50" y="187" class="clickTagText">٧</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="8" data-label="تقسيم الشباك اليسار" data-note="والآن تكتمل التفاصيل اللي تطل على أحلى يوم 🤍">
+            <line x1="118" y1="142" x2="118" y2="198" class="pieceInner"/>
+            <line x1="90" y1="170" x2="146" y2="170" class="pieceInner"/>
+            <rect x="20" y="210" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="20" y="210" width="60" height="34" rx="12" class="clickTagRect"/><text x="50" y="227" class="clickTagText">٨</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="9" data-label="المدخنة" data-note="المدخنة ركبت… لمسة كلاسيكية على المخطط 🏡">
+            <rect x="238" y="58" width="24" height="40" rx="6" class="pieceFace chimneyFace"/>
+            <polygon points="262,58 272,52 272,92 262,98" class="pieceSide3d chimneySide3d"/>
+            <rect x="238" y="58" width="24" height="40" rx="6" class="pieceShape"/>
+            <rect x="280" y="58" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="280" y="58" width="60" height="34" rx="12" class="clickTagRect"/><text x="310" y="75" class="clickTagText">٩</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="10" data-label="الدرج العلوي" data-note="أول درجات الدخول اكتملت… قربنا 👣">
+            <polygon points="152,214 208,214 214,210 158,210" class="pieceFace stairsFace"/>
+            <polygon points="164,204 196,204 200,201 168,201" class="pieceFace stairsFace"/>
+            <path d="M152 214 H208 M164 204 H196" class="pieceShape"/>
+            <rect x="92" y="246" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="92" y="246" width="60" height="34" rx="12" class="clickTagRect"/><text x="122" y="263" class="clickTagText">١٠</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="11" data-label="الدرج السفلي" data-note="آخر درجة قبل البداية الحلوة 🌷">
+            <polygon points="140,224 220,224 228,218 148,218" class="pieceFace stairsFace"/>
+            <path d="M140 224 H220" class="pieceShape"/>
+            <rect x="208" y="246" width="60" height="34" rx="12" class="hitArea"/><g class="clickTag"><rect x="208" y="246" width="60" height="34" rx="12" class="clickTagRect"/><text x="238" y="263" class="clickTagText">١١</text></g>
+          </g>
+
+          <g class="buildPiece" data-order="12" data-label="قلب البيت" data-note="تم البناء… وباقي أهم تفصيلة فيه ❤️">
+            <path d="M170 102 C176 94 184 94 190 102 C194 108 191 114 180 123 C169 114 166 108 170 102 Z" class="pieceFace heartFace"/>
+            <path d="M170 102 C176 94 184 94 190 102 C194 108 191 114 180 123 C169 114 166 108 170 102 Z" class="pieceShape"/>
+            <rect x="144" y="282" width="72" height="40" rx="14" class="hitArea hitArea12"/><g class="clickTag clickTag12"><rect x="144" y="282" width="72" height="40" rx="14" class="clickTagRect"/><text x="180" y="302" class="clickTagText">١٢</text></g>
+          </g>
+
+          <g class="heartFinal" id="heartFinal">
+            <path d="M163 96 C171 84 189 84 197 96 C202 104 198 114 180 128 C162 114 158 104 163 96 Z" fill="rgba(255,214,237,.95)"/>
+          </g>
+        </svg>
+<button class="easterPin" id="easterPin" type="button" aria-label="سر صغير">✦</button>
+</div>
+
+      <div class="buildProgress">
+        <div class="buildProgressTop">
+          <span>تقدّم البناء</span>
+          <span id="buildPercent">14%</span>
+        </div>
+        <div class="buildBar"><div class="buildBarFill" id="buildBarFill"></div></div>
+      </div>
+
+      <div class="buildStatus" id="buildStatus">جاهز لبدء التنفيذ ✨</div>
+      <div class="pieceNote" id="pieceNote"></div>
+
+      <div class="designPlaque" id="designPlaque"><span class="designPlaqueSmall">DESIGNED BY</span><span class="designPlaqueName">زينة</span><span class="designPlaqueRole">Lead Engineer ✨</span></div>
+
+      <div class="buildFinalMessage" id="buildFinalMessage">
+        <div class="buildFinalMain">تم البناء…</div>
+        <div class="buildFinalSub">بس ناقص أهم شي</div>
+      </div>
+    </div>
+
+
+    <div class="quiz" id="quizBox" style="display:none;">
       <div class="quizTag">💞 أسئلة</div>
       <div class="qText" id="qText">انتي حلا؟</div>
       <div class="qSmall" id="qSmall">اضغطي الزر عشان نكمل…</div>
@@ -2941,9 +3895,327 @@ document.addEventListener("DOMContentLoaded", () => {
   let stepIndex = 0;
   let escapeTries = 0;
 
+
   const qText = $("qText");
   const qSmall = $("qSmall");
   const answerArea = $("answerArea");
+  const quizBox = $("quizBox");
+  const buildIntro = $("buildIntro");
+  const buildStatus = $("buildStatus");
+
+  function playBuildSound(kind="tap"){
+    try{
+      const ctx = playBuildSound.ctx || (playBuildSound.ctx = new (window.AudioContext || window.webkitAudioContext)());
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      osc.type = kind === "approved" ? "triangle" : (kind === "sketch" ? "sawtooth" : "sine");
+      osc.frequency.value = kind === "approved" ? 880 : (kind === "sketch" ? 240 : 520);
+      filter.type = "lowpass";
+      filter.frequency.value = kind === "approved" ? 1800 : 1100;
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(kind === "approved" ? 0.05 : 0.035, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + (kind === "approved" ? 0.28 : 0.16));
+      osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+      osc.start(now); osc.stop(now + (kind === "approved" ? 0.3 : 0.18));
+    }catch(e){}
+  }
+
+  function setExclusiveActive(button, selector){
+    if(!button) return;
+    document.querySelectorAll(selector).forEach(b=> b.classList.remove('active'));
+    button.classList.add('active');
+  }
+
+  // ===== مقدمة بناء البيت =====
+  function initBuildIntro(){
+    if(!buildIntro || !quizBox) return false;
+    buildIntro.classList.add('prepHidden');
+
+
+    const pieces = Array.from(buildIntro.querySelectorAll('.buildPiece[data-order]'))
+      .sort((a,b)=> Number(a.dataset.order) - Number(b.dataset.order));
+    const clickablePieces = pieces.filter(p => p.dataset.clickable !== "false");
+    const total = clickablePieces.length;
+    let completed = pieces.filter(p => p.classList.contains("done")).length;
+    const buildBarFill = $("buildBarFill");
+    const buildPercent = $("buildPercent");
+    const pieceNote = $("pieceNote");
+    const buildFinalMessage = $("buildFinalMessage");
+    const blueprintWrap = $("blueprintWrap");
+    const blueprintHouse = $("blueprintHouse");
+    const analysisOverlay = $("analysisOverlay");
+    const analysisStatusText = $("analysisStatusText");
+    const analysisMiniBarFill = $("analysisMiniBarFill");
+    const customStudio = $("customStudio");
+    const applyDesignBtn = $("applyDesignBtn");
+    const designPlaque = $("designPlaque");
+    const easterPin = $("easterPin");
+    let selectedTheme = "pink";
+    let selectedDoor = "classic";
+    let selectedWindow = "cross";
+
+
+    const applySelections = ()=>{
+      document.body.classList.remove('theme-concrete','theme-nightblue');
+      buildIntro.classList.remove('doorStyle-arch','windowStyle-arch','windowStyle-cross');
+      if(selectedTheme === 'concrete') document.body.classList.add('theme-concrete');
+      if(selectedTheme === 'nightblue') document.body.classList.add('theme-nightblue');
+      if(selectedDoor === 'arch') buildIntro.classList.add('doorStyle-arch');
+      if(selectedWindow === 'arch') buildIntro.classList.add('windowStyle-arch');
+      else buildIntro.classList.add('windowStyle-cross');
+      if(designPlaque){
+        designPlaque.querySelector('.designPlaqueName').textContent = 'زينة';
+        designPlaque.querySelector('.designPlaqueRole').textContent =
+          selectedTheme === 'nightblue' ? 'Night Blueprint Lead ✨' : 'Lead Engineer ✨';
+      }
+    };
+
+    const runAnalysis = ()=>{
+      if(!analysisOverlay) return;
+      const stepsEls = Array.from(analysisOverlay.querySelectorAll('.analysisStep'));
+      let idx = 0;
+      const labels = [
+        'يتم تحليل الخطوط الإنشائية…',
+        'جارٍ مراجعة التوازن والاستقرار…',
+        'جارٍ فحص تفاصيل الواجهة…',
+        'تمت الموافقة على التصميم ✅'
+      ];
+      const tick = ()=>{
+        stepsEls.forEach((el, i)=>{
+          el.classList.toggle('active', i === idx);
+          if(i < idx) el.classList.add('done');
+        });
+        if(analysisStatusText) analysisStatusText.textContent = labels[idx] || labels[labels.length-1];
+        if(analysisMiniBarFill) analysisMiniBarFill.style.width = `${((idx+1)/stepsEls.length)*100}%`;
+        playBuildSound(idx === stepsEls.length - 1 ? 'approved' : 'sketch');
+        idx++;
+        if(idx < stepsEls.length){
+          setTimeout(tick, 760);
+        }else{
+          setTimeout(()=>{
+            analysisOverlay.classList.add('hide');
+            if(customStudio) customStudio.style.display = 'block';
+          }, 650);
+        }
+      };
+      tick();
+    };
+
+    const updateTilt = (clientX, clientY)=>{
+      if(!blueprintWrap || !blueprintHouse) return;
+      const rect = blueprintWrap.getBoundingClientRect();
+      const px = (clientX - rect.left) / rect.width;
+      const py = (clientY - rect.top) / rect.height;
+      const clamp = (v,min,max)=> Math.max(min, Math.min(max, v));
+      const ry = clamp(-12 + ((px - 0.5) * 22), -24, 2);
+      const rx = clamp(16 + ((0.5 - py) * 18), 6, 26);
+      const hs = 1.01 + Math.abs(px - 0.5) * 0.03 + Math.abs(py - 0.5) * 0.02;
+      blueprintWrap.classList.add('tilting');
+      blueprintHouse.style.setProperty('--rx', `${rx.toFixed(2)}deg`);
+      blueprintHouse.style.setProperty('--ry', `${ry.toFixed(2)}deg`);
+      blueprintHouse.style.setProperty('--tz', '8px');
+      blueprintHouse.style.setProperty('--hs', hs.toFixed(3));
+    };
+
+    const resetTilt = ()=>{
+      if(!blueprintWrap || !blueprintHouse) return;
+      blueprintWrap.classList.remove('tilting');
+      blueprintHouse.style.setProperty('--rx', '16deg');
+      blueprintHouse.style.setProperty('--ry', '-12deg');
+      blueprintHouse.style.setProperty('--tz', '0px');
+      blueprintHouse.style.setProperty('--hs', '1');
+    };
+
+    if(blueprintWrap){
+      blueprintWrap.addEventListener('pointermove', (ev)=> updateTilt(ev.clientX, ev.clientY));
+      blueprintWrap.addEventListener('pointerleave', resetTilt);
+      blueprintWrap.addEventListener('touchmove', (ev)=>{
+        const t = ev.touches && ev.touches[0];
+        if(t) updateTilt(t.clientX, t.clientY);
+      }, {passive:true});
+      blueprintWrap.addEventListener('touchend', resetTilt, {passive:true});
+      blueprintWrap.addEventListener('touchcancel', resetTilt, {passive:true});
+    }
+
+    document.querySelectorAll('[data-theme]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        selectedTheme = btn.dataset.theme;
+        setExclusiveActive(btn, '[data-theme]');
+        applySelections();
+        playBuildSound('tap');
+      });
+    });
+    document.querySelectorAll('[data-door]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        selectedDoor = btn.dataset.door;
+        setExclusiveActive(btn, '[data-door]');
+        applySelections();
+        playBuildSound('tap');
+      });
+    });
+    document.querySelectorAll('[data-window]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        selectedWindow = btn.dataset.window;
+        setExclusiveActive(btn, '[data-window]');
+        applySelections();
+        playBuildSound('tap');
+      });
+    });
+
+    if(applyDesignBtn){
+      applyDesignBtn.addEventListener('click', ()=>{
+        playBuildSound('approved');
+        if(customStudio) customStudio.style.display = 'none';
+        buildIntro.classList.remove('prepHidden');
+        applySelections();
+        showPieceNote('تم اعتماد الاختيارات… ابدئي البناء 👷‍♀️✨');
+      });
+    }
+
+    if(easterPin){
+      easterPin.addEventListener('click', ()=>{
+        showPieceNote('سر صغير: هذا البيت مو بس تصميم… هذا مكان لكِ فيه نور وراحة وأمان 🤍');
+        burst();
+        playBuildSound('approved');
+      });
+    }
+
+    const updateStatus = ()=>{
+      if(buildStatus) buildStatus.textContent = `اكتمل ${completed} من ${total} جزء`;
+      const percent = Math.round((completed / total) * 100);
+      if(buildBarFill) buildBarFill.style.width = `${percent}%`;
+      if(buildPercent) buildPercent.textContent = `${percent}%`;
+    };
+
+    const showPieceNote = (msg)=>{
+      if(!pieceNote || !msg) return;
+      pieceNote.textContent = msg;
+      pieceNote.classList.add('show');
+      clearTimeout(showPieceNote._t);
+      showPieceNote._t = setTimeout(()=> pieceNote.classList.remove('show'), 2200);
+    };
+
+    const spawnDust = (x,y)=>{
+      const host = $("blueprintWrap") || buildIntro;
+      if(!host) return;
+      const r = host.getBoundingClientRect();
+      for(let i=0;i<9;i++){
+        const d = document.createElement('span');
+        d.className = 'dust';
+        d.style.left = `${x - r.left}px`;
+        d.style.top = `${y - r.top}px`;
+        d.style.setProperty('--dx', `${(Math.random()*90)-45}px`);
+        d.style.setProperty('--dy', `${-18 - (Math.random()*60)}px`);
+        d.style.animationDelay = `${Math.random()*100}ms`;
+        host.appendChild(d);
+        setTimeout(()=> d.remove(), 860);
+      }
+    };
+
+    function revealQuiz(){
+      buildIntro.classList.add("done");
+      setTimeout(()=>{
+        buildIntro.style.display = "none";
+        quizBox.style.display = "block";
+        requestAnimationFrame(()=>{
+          quizBox.classList.add("show");
+          renderStep();
+          quizBox.scrollIntoView({behavior:"smooth", block:"center"});
+        });
+      }, 820);
+    }
+
+    function finishBuild(){
+      burst();
+      heartRain();
+      showToast("اكتمل البيت ✨");
+      buildIntro.classList.add("lit", "doneStage");
+      if(blueprintWrap) blueprintWrap.classList.add('zooming');
+      if(buildFinalMessage){
+        buildFinalMessage.classList.add('show');
+        buildFinalMessage.innerHTML = `<div class="buildFinalMain">تم البناء…</div><div class="buildFinalSub">وجاري تجهيز لقطة المشروع النهائية ✨</div>`;
+      }
+      setTimeout(()=>{
+        if(buildFinalMessage){
+          const projectNo = 'A-' + String(new Date().getDate()).padStart(2,'0') + String(new Date().getMonth()+1).padStart(2,'0');
+          buildFinalMessage.innerHTML = `
+            <div class="projectDoneCard popIn">
+              <div class="projectDoneHead">
+                <span class="projectDoneTag">PROJECT COMPLETED</span>
+                <span class="projectDoneCheck">✓</span>
+              </div>
+              <div class="projectDoneTitle">Project completed successfully</div>
+              <div class="projectDoneSubtitle">المخطط اكتمل، والبيت صار جاهز… وباقي يبدأ الجزء الأحلى 🤍</div>
+              <div class="projectDoneMeta">
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Project No.</span>
+                  <span class="projectDoneValue">${projectNo}</span>
+                </div>
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Project Type</span>
+                  <span class="projectDoneValue">Dream House</span>
+                </div>
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Lead Engineer</span>
+                  <span class="projectDoneValue">زينة ✨</span>
+                </div>
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Facade Mode</span>
+                  <span class="projectDoneValue">${selectedTheme === 'nightblue' ? 'Night Blueprint' : (selectedTheme === 'concrete' ? 'Pink + Concrete' : 'Pink Studio')}</span>
+                </div>
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Status</span>
+                  <span class="projectDoneValue">Approved with Love 💗</span>
+                </div>
+                <div class="projectDoneItem">
+                  <span class="projectDoneLabel">Next Step</span>
+                  <span class="projectDoneValue">Start Questions</span>
+                </div>
+              </div>
+              <div class="projectDoneFooter">اكتمل البناء… وإنتِ أجمل تفصيلة فيه 🌷</div>
+            </div>`;
+        }
+        beep("success");
+        playBuildSound('approved');
+      }, 1200);
+      setTimeout(revealQuiz, 8200);
+    }
+
+    applySelections();
+    runAnalysis();
+
+    pieces.forEach((piece, index)=>{
+      if(index === 0){
+        piece.classList.add("done", "locked");
+        return;
+      }
+      const activate = (ev)=>{
+        if(piece.classList.contains("done")) return;
+        const point = ev && ev.touches && ev.touches[0] ? ev.touches[0] : ev;
+        if(point && point.clientX){
+          spawnDust(point.clientX, point.clientY);
+        }
+        beep("heart");
+        playBuildSound("sketch");
+        piece.classList.add("done", "locked");
+        completed++;
+        updateStatus();
+        showPieceNote(piece.dataset.note || piece.dataset.label || "اكتمل جزء جديد ✨");
+        burst();
+        if(completed >= total){
+          setTimeout(finishBuild, 450);
+        }
+      };
+      piece.addEventListener("click", activate);
+      piece.addEventListener("touchstart", activate, {passive:true});
+    });
+
+    updateStatus();
+    return true;
+  }
+
 
   // ===== popup العمر =====
   function showAgePopup(type, emoji, text, dur){
@@ -3172,7 +4444,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  renderStep();
+  const introActive = initBuildIntro();
+  if(!introActive){
+    if(quizBox) quizBox.style.display = "block";
+    renderStep();
+  }
 
   // ===== Slider =====
   const slider = $("fadeSlider");
@@ -3806,5 +5082,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }})();
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var piece12 = document.querySelector('.buildPiece[data-order="12"]');
+  if(!piece12) return;
+  var activate12 = function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    piece12.dispatchEvent(new Event('click', {bubbles:true}));
+  };
+  piece12.querySelectorAll('.hitArea, .clickTagRect, .clickTagText').forEach(function(el){
+    el.style.pointerEvents = 'all';
+    el.addEventListener('click', activate12);
+    el.addEventListener('touchstart', activate12, {passive:false});
+  });
+});
+</script>
+
 </body>
 </html>
+
+<style>
+@media (max-width: 640px){
+  .quiz{
+    padding:46px 14px 16px;
+    border-radius:22px;
+  }
+  .qText{ font-size: 20px; }
+  .qSmall{ font-size: 13px; }
+  .qBtn{ min-height: 68px; font-size: 18px; }
+}
+</style>
