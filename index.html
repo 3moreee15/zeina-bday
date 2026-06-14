@@ -3158,6 +3158,440 @@
   body.dark .ageUnit .ageLabel {
     color: #fff !important;
   }
+
+  /* ===== عداد الزيارات ===== */
+  #visitBadge{ cursor: default; }
+
+  /* ===== الرسالة السرية ===== */
+  .secretSection{
+    margin-top: 14px;
+    background: linear-gradient(160deg, rgba(20,12,22,.94), rgba(36,18,34,.96));
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 26px;
+    padding: 18px 16px 16px;
+    box-shadow: 0 24px 44px rgba(0,0,0,.18);
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .secretSection::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 12% 18%, rgba(255,255,255,.06), transparent 24%),
+                radial-gradient(circle at 85% 12%, rgba(255,79,163,.12), transparent 22%);
+    pointer-events: none;
+  }
+  .secretTitle{
+    font-size: 15px; font-weight: 950;
+    color: #fff4fa; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .secretStep{
+    display: none;
+    position: relative; z-index: 1;
+  }
+  .secretStep.active{ display: block; }
+  .secretQuestionCard{
+    background: linear-gradient(135deg, #ff7fc3, #ff4fa3);
+    color: #fff;
+    border-radius: 18px;
+    padding: 14px 16px;
+    font-weight: 950;
+    font-size: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 12px 28px rgba(255,79,163,.28);
+    animation: msgPop .4s cubic-bezier(.2,.9,.2,1);
+  }
+  @keyframes msgPop{
+    from{ opacity:0; transform: translateY(8px) scale(.96); }
+    to  { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .secretDateRow{
+    display: flex; gap: 8px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .secretSelect{
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    font-weight: 900; font-size: 13px;
+    cursor: pointer;
+    min-width: 90px;
+    backdrop-filter: blur(8px);
+  }
+  .secretSelect option{ color: #333; }
+  .secretConfirmBtn{
+    margin-top: 6px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-weight: 950; font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(255,79,163,.30);
+    transition: transform .12s ease;
+  }
+  .secretConfirmBtn:active{ transform: scale(.97); }
+  .secretErrorMsg{
+    color: #ff8ab7; font-size: 13px; font-weight: 900;
+    min-height: 20px; margin: 6px 0 4px;
+  }
+  .secretRevealBox{
+    display: none;
+    margin-top: 14px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 18px;
+    padding: 16px;
+    font-size: 14px; font-weight: 900;
+    line-height: 2;
+    color: #ffe8f4;
+    text-align: right;
+    white-space: pre-wrap;
+    backdrop-filter: blur(8px);
+  }
+  .secretRevealBox.show{ display: block; }
+  .secretSuccessBanner{
+    background: linear-gradient(135deg, #66e3a9, #9df0c7);
+    color: #0f5132;
+    border-radius: 18px;
+    padding: 14px 16px;
+    font-weight: 950; font-size: 16px;
+    animation: msgPop .4s cubic-bezier(.2,.9,.2,1);
+    margin-bottom: 8px;
+  }
+
+  /* ===== لعبة اصطياد ===== */
+  .gameSection{
+    margin-top: 16px;
+    background: linear-gradient(160deg, rgba(24,14,26,.98), rgba(43,22,40,.98));
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 28px;
+    padding: 16px;
+    box-shadow: 0 24px 44px rgba(0,0,0,.22), 0 0 0 1px rgba(255,255,255,.04) inset;
+    position: relative;
+    overflow: hidden;
+  }
+  .gameSection::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 18%, rgba(255,255,255,.07), transparent 20%),
+                radial-gradient(circle at 82% 14%, rgba(255,79,163,.14), transparent 24%);
+    pointer-events: none;
+  }
+  .gameTitle{
+    font-size: 15px; font-weight: 950;
+    color: #fff4fa; text-align: center;
+    margin-bottom: 12px;
+  }
+  .gameStats{
+    display: flex; justify-content: space-between;
+    font-size: 13px; font-weight: 900;
+    color: #efd0e3; margin-bottom: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,.96); border-radius: 16px;
+    border: 1px solid rgba(255,187,220,.50);
+    box-shadow: 0 8px 18px rgba(255,79,163,.08);
+  }
+  .gameCanvas{
+    width: 100%; height: 320px;
+    background: radial-gradient(circle at top, #fff8fc 0%, #ffeef7 55%, #ffe5f3 100%);
+    border-radius: 20px;
+    border: 2px solid rgba(255,187,220,.55);
+    display: block;
+    touch-action: none;
+    cursor: crosshair;
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.75);
+  }
+  .gameControls{
+    display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
+  }
+  .gameOverlay{
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,.90);
+    border-radius: 20px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; z-index: 10;
+    backdrop-filter: blur(6px);
+  }
+  .gameOverlay.hidden{ display: none; }
+  .gameOverlayTitle{ font-size: 22px; font-weight: 950; color: var(--accent); }
+  .gameOverlayScore{ font-size: 15px; font-weight: 900; opacity: .8; }
+  .gameResultGrid{
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin: 6px 0;
+  }
+  .gameResultBox{
+    background: linear-gradient(135deg, #fff0f7, #fff);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 14px;
+    text-align: center;
+    min-width: 70px;
+  }
+  .gameResultNum{ font-size: 26px; font-weight: 950; color: var(--accent); line-height: 1.1; }
+  .gameResultLbl{ font-size: 10px; font-weight: 900; opacity: .7; }
+
+  body.dark .gameSection{ background: linear-gradient(160deg, rgba(14,8,16,.98), rgba(28,12,26,.98)); }
+  body.dark .gameTitle{ color:#fff5fb !important; }
+  body.dark .gameStats{ background: rgba(255,255,255,.96) !important; }
+  body.dark .gameOverlay{ background: rgba(255,255,255,.88) !important; }
+  body.dark .secretSection{ background: linear-gradient(160deg, rgba(14,8,16,.96), rgba(24,10,22,.96)); }
+
+  /* ===== منطقة المهندسة (Engineer Mode) ===== */
+  .engineerSection{
+    margin-top: 16px;
+    background: linear-gradient(160deg, rgba(24,14,26,.98), rgba(43,22,40,.98));
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 28px;
+    padding: 18px 16px;
+    box-shadow: 0 24px 44px rgba(0,0,0,.22), 0 0 0 1px rgba(255,255,255,.04) inset;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+  .engineerSection::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 18% 16%, rgba(255,255,255,.07), transparent 22%),
+                radial-gradient(circle at 84% 12%, rgba(255,79,163,.14), transparent 24%);
+    pointer-events: none;
+  }
+  .engineerTitle{
+    font-size: 16px; font-weight: 950;
+    color: #fff4fa; text-align: center;
+    margin-bottom: 14px;
+    position: relative; z-index: 1;
+    letter-spacing: .5px;
+  }
+  .engCard{
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 12px;
+    position: relative; z-index: 1;
+    backdrop-filter: blur(6px);
+  }
+  .engCard:last-child{ margin-bottom: 0; }
+  .engCard h3{
+    font-size: 14px; font-weight: 950;
+    color: #ffd9ec; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* عداد المعرفة */
+  .knowCounterBox{
+    text-align: center;
+    font-size: 14px; font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 10px 22px rgba(255,79,163,.25);
+    direction: rtl;
+  }
+  .knowCounterSub{
+    font-size: 11px; opacity: .85; margin-top: 4px; font-weight: 800;
+  }
+
+  /* بطاقة المهندسة */
+  .engineerCardRow{
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .engineerCardImg img{
+    width: 110px; height: 110px;
+    object-fit: cover;
+    border-radius: 18px !important;
+    border: 2px solid rgba(255,255,255,.25);
+    box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    display: block;
+  }
+  .engineerStats{
+    font-size: 13px; font-weight: 900;
+    line-height: 1.95;
+    color: #ffeaf5;
+    flex: 1; min-width: 150px;
+  }
+  .engineerStats b{ color: #ff9bcb; }
+
+  /* Project Progress */
+  .progressList{
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+    margin: 0; padding: 0;
+  }
+  .progressList li{
+    background: rgba(255,255,255,.07);
+    border-radius: 12px;
+    padding: 9px 12px;
+    font-size: 13px; font-weight: 900;
+    color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  /* System Analysis */
+  .analysisBox{
+    background: #0e0712;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    line-height: 2;
+    color: #9cffb0;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+  }
+  .analysisBox .lbl{ color: #ff9bcb; }
+  .analysisBox .ttl{ color: #ffd166; font-weight: 900; }
+
+  /* Blueprint Map */
+  .blueprintFlow{
+    text-align: center;
+    font-size: 13px; font-weight: 950;
+    color: #ffeaf5;
+    background: rgba(255,255,255,.06);
+    border-radius: 12px;
+    padding: 14px 8px;
+    letter-spacing: .5px;
+    direction: rtl;
+  }
+
+  /* Vault */
+  .vaultRow{
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  }
+  .vaultInput{
+    flex: 1; min-width: 140px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.10);
+    color: #fff;
+    font-weight: 900; font-size: 13px;
+    text-align: center;
+  }
+  .vaultInput::placeholder{ color: rgba(255,255,255,.55); }
+  .vaultBtn{
+    padding: 10px 22px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-weight: 950; font-size: 13px;
+    cursor: pointer;
+  }
+  .vaultMsg{
+    margin-top: 8px; text-align: center;
+    font-size: 13px; font-weight: 950;
+    min-height: 18px;
+    color: #9cffb0;
+  }
+  .vaultReveal{
+    display: none;
+    margin-top: 10px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 13px; font-weight: 900;
+    line-height: 1.9;
+    color: #ffe8f4;
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  .vaultReveal.show{ display: block; }
+
+  /* ختم Engineer Approved */
+  .approvedWrap{
+    text-align: center;
+  }
+  .approvedStamp{
+    display: inline-block;
+    border: 3px solid #66e3a9;
+    color: #66e3a9;
+    border-radius: 14px;
+    padding: 10px 22px;
+    font-size: 14px; font-weight: 950;
+    letter-spacing: 1px;
+    text-align: center;
+    transform: rotate(-4deg);
+    box-shadow: 0 0 0 3px rgba(102,227,169,.12);
+  }
+
+  /* Project Progress — شريط الإنجاز */
+  .progressBarWrap{
+    width: 100%; height: 10px;
+    background: rgba(255,255,255,.10);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .progressBarFill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 999px;
+    transition: width 1.4s cubic-bezier(.2,.9,.2,1);
+  }
+  .progressPercent{
+    text-align: center;
+    font-size: 12px; font-weight: 900;
+    color: #ffd9ec;
+    margin-bottom: 10px;
+  }
+  .progressPercent b{ color: #fff; font-size: 13px; }
+  .nextPhaseHint{
+    margin-top: 8px;
+    background: rgba(255,255,255,.07);
+    border-radius: 10px;
+    padding: 9px 10px;
+    font-size: 12px; font-weight: 900;
+    color: #9cffb0;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* System Analysis — أنيميشن الفحص */
+  @keyframes scanPulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  #scanStatus{ color:#ffd166; animation: scanPulse 1s ease-in-out infinite; }
+  .analysisBox .ok{ color:#9cffb0; font-weight: 900; }
+
+  /* Blueprint Map — محطات قابلة للضغط */
+  .bpNode{
+    display: inline-block;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-weight: 950;
+    transition: background .2s, color .2s, transform .15s;
+  }
+  .bpNode:hover, .bpNode.active{
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    transform: scale(1.06);
+  }
+  .bpDetail{
+    margin-top: 10px;
+    background: rgba(255,255,255,.07);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 12.5px; font-weight: 900;
+    color: #ffeaf5;
+    text-align: center;
+    line-height: 1.85;
+    min-height: 40px;
+    direction: rtl;
+  }
 </style>
 </head>
 
@@ -3188,6 +3622,7 @@
 
     <div class="badges">
       <div class="badge">🎀 مفاجأة لزينة</div>
+      <div class="badge" id="visitBadge">👀 ...</div>
       <div class="badge" id="dateBadge">📅 اليوم</div>
     </div>
 
@@ -3449,6 +3884,85 @@
       </div>
     </div>
 
+    <!-- ===== الرسالة السرية ===== -->
+    <div class="secretSection" id="secretSection" style="display:none">
+      <div class="secretTitle">🔐 رسالة سرية — إذا كنتي تعرفي 👀</div>
+
+      <!-- المرحلة الأولى: تاريخ الميلاد -->
+      <div class="secretStep active" id="secretStep1">
+        <div class="secretQuestionCard">شو افضل تاريخ؟ 🤔</div>
+        <div class="secretDateRow">
+          <select class="secretSelect" id="ss1-year"><option value="">السنة</option></select>
+          <select class="secretSelect" id="ss1-month"><option value="">الشهر</option></select>
+          <select class="secretSelect" id="ss1-day"><option value="">اليوم</option></select>
+        </div>
+        <div class="secretErrorMsg" id="ss1-error"></div>
+        <button class="secretConfirmBtn" id="ss1-confirm">كلمة السر الاولى 🤨</button>
+      </div>
+
+      <!-- المرحلة الثانية: التاريخ الثاني -->
+      <div class="secretStep" id="secretStep2">
+        <div class="secretQuestionCard">وشو ثاني تاريخ مهم؟ 🤨</div>
+        <div class="secretDateRow">
+          <select class="secretSelect" id="ss2-year"><option value="">السنة</option></select>
+          <select class="secretSelect" id="ss2-month"><option value="">الشهر</option></select>
+          <select class="secretSelect" id="ss2-day"><option value="">اليوم</option></select>
+        </div>
+        <div class="secretErrorMsg" id="ss2-error"></div>
+        <button class="secretConfirmBtn" id="ss2-confirm">كلمة السر الاولى 🤨</button>
+      </div>
+
+      <!-- الرسالة السرية المكشوفة -->
+      <div class="secretRevealBox" id="secretRevealBox"></div>
+    </div>
+
+    <!-- ===== لعبة الاصطياد ===== -->
+    <div class="gameSection" id="gameSection">
+      <div class="gameTitle">🎯 اصطادي عمر وكنان!</div>
+      <div class="gameStats">
+        <span>⏱️ الوقت: <b id="gameTime">30</b>s</span>
+        <span>🎯 النقاط: <b id="gameScore">0</b></span>
+        <span>🏆 أعلى: <b id="gameHigh">0</b></span>
+      </div>
+      <div style="position:relative">
+        <canvas class="gameCanvas" id="gameCanvas"></canvas>
+        <div class="gameOverlay" id="gameOverlay">
+          <div class="gameOverlayTitle" id="gameOverlayTitle">🎯 اصطادي عمر وكنان!</div>
+          <div class="gameOverlayScore" id="gameOverlayScore">اضغطي على وجوههم قبل ما يختفون 😄</div>
+          <div class="gameResultGrid" id="gameResultGrid" style="display:none">
+            <div class="gameResultBox">
+              <div class="gameResultNum" id="resScore">0</div>
+              <div class="gameResultLbl">نقاطك</div>
+            </div>
+            <div class="gameResultBox">
+              <div class="gameResultNum" id="resHigh">0</div>
+              <div class="gameResultLbl">أعلى نقطة</div>
+            </div>
+            <div class="gameResultBox">
+              <div class="gameResultNum" id="resMissed">0</div>
+              <div class="gameResultLbl">فاتتك</div>
+            </div>
+          </div>
+          <button class="btn primary" id="gameStartBtn" style="width:160px; margin-top:6px;">ابدأي اللعبة 🚀</button>
+        </div>
+      </div>
+      <div class="gameControls">
+        <button id="gameRestartBtn" style="
+          background: none;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          color: var(--accent);
+          font-size: 11px;
+          font-weight: 900;
+          padding: 5px 12px;
+          cursor: pointer;
+          opacity: 0.5;
+          margin: 4px auto 0;
+          display: block;
+        ">↩ إعادة</button>
+      </div>
+    </div>
+
     <div class="gift" id="giftBox">
       <div class="ribbon">💖 تهنئة</div>
       <div class="giftGifs">
@@ -3515,9 +4029,22 @@
     <p class="hint">تلميح: اسحبي على الصورة يمين/يسار للتغيير ✨ واضغطي داخل البطاقة تطلع قلوب 💗</p>
 
 
-    <!-- ساعة العمر — تطلع دايماً -->
+    <!-- عداد العد التنازلي لعيد ميلاد زينة القادم -->
     <div class="ageClock" style="opacity:1;transform:none">
-      <div class="ageClockTitle">⏱️ عمر زينة بالضبط من لحظة ميلادها</div>
+      <div class="ageClockTitle">⏳ الوقت المتبقي على عيد ميلاد زينة (20 أكتوبر 2026)</div>
+      <div class="ageClockGrid" id="countdownGrid">
+        <div class="ageUnit"><div class="ageNum" id="cd-y">0</div><div class="ageLabel">سنة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="cd-mo">0</div><div class="ageLabel">شهر</div></div>
+        <div class="ageUnit"><div class="ageNum" id="cd-d">0</div><div class="ageLabel">يوم</div></div>
+        <div class="ageUnit"><div class="ageNum" id="cd-h">0</div><div class="ageLabel">ساعة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="cd-m">0</div><div class="ageLabel">دقيقة</div></div>
+        <div class="ageUnit"><div class="ageNum" id="cd-s">0</div><div class="ageLabel">ثانية</div></div>
+      </div>
+    </div>
+
+    <!-- عداد عمر زينة بالضبط من لحظة ميلادها -->
+    <div class="ageClock" style="opacity:1;transform:none; margin-top:10px;">
+      <div class="ageClockTitle">🎂 عمر زينة بالضبط من لحظة ميلادها (20 أكتوبر 2006)</div>
       <div class="ageClockGrid" id="ageClockGrid">
         <div class="ageUnit"><div class="ageNum" id="ac-y">0</div><div class="ageLabel">سنة</div></div>
         <div class="ageUnit"><div class="ageNum" id="ac-mo">0</div><div class="ageLabel">شهر</div></div>
@@ -3531,6 +4058,80 @@
     <!-- زر توليد الصورة — يطلع دايماً -->
     <button class="shareBtn" id="shareBtn">📸 ولّدي صورة التهنئة وشاركيها</button>
     <canvas id="shareCanvas"></canvas>
+
+    <!-- ===== Engineer Mode — وضع المهندسة زينة ===== -->
+    <div class="engineerSection" id="engineerSection">
+      <div class="engineerTitle">🛠️ Engineer Mode — ملف المهندسة زينة</div>
+
+      <!-- عداد المعرفة -->
+      <div class="engCard">
+        <h3>⏳ عداد المعرفة</h3>
+        <div class="knowCounterBox">
+          <div id="knowCounter">...</div>
+          <div class="knowCounterSub">من تاريخ 2025/11/1 وإلى الآن</div>
+        </div>
+      </div>
+
+      <!-- بطاقة المهندسة بالصورة -->
+      <div class="engCard">
+        <h3>🪪 Engineer Card</h3>
+        <div class="engineerCardRow">
+          <div class="engineerCardImg"><img src="zeinakid.jpg" style="width:180px;border-radius:20px;"></div>
+          <div class="engineerStats">
+            <div>الاسم: <b>زينة محمد</b></div>
+            <div>التخصص: <b>هندسة</b></div>
+            <div>الدقة: <b>100%</b></div>
+            <div>الإبداع: <b>∞</b></div>
+            <div>الجمال: <b>∞</b></div>
+            <div>حبي الك: <b>∞</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Progress -->
+      <div class="engCard">
+        <h3>🏗️ Project Progress</h3>
+        <div class="progressBarWrap"><div class="progressBarFill" id="progressBarFill"></div></div>
+        <div class="progressPercent">نسبة الإنجاز: <b id="progressPercentVal">75%</b></div>
+        <ul class="progressList">
+          <li><span>مرحلة التعارف</span><span>✅</span></li>
+          <li><span>مرحلة الفهم</span><span>✅</span></li>
+          <li><span>مرحلة الذكريات</span><span>⏳</span></li>
+          <li id="nextPhaseItem"><span>المرحلة القادمة</span><span id="nextPhaseIcon">🔒</span></li>
+        </ul>
+        <div class="nextPhaseHint" id="nextPhaseHint" style="display:none;"></div>
+      </div>
+
+      <!-- System Analysis -->
+      <div class="engCard">
+        <h3>🔍 System Analysis</h3>
+        <pre class="analysisBox" id="analysisBox"><span class="ttl">[ SYSTEM ANALYSIS ]</span>
+<span id="scanStatus">⏳ جارِ تحليل البيانات...</span></pre>
+      </div>
+
+      <!-- Blueprint Map -->
+      <div class="engCard">
+        <h3>🗺️ Blueprint Map</h3>
+        <div class="blueprintFlow" id="blueprintFlow"><span class="bpNode" data-key="start">بداية</span> ⟵ <span class="bpNode" data-key="know">معرفة</span> ⟵ <span class="bpNode" data-key="moments">مواقف</span> ⟵ <span class="bpNode" data-key="memories">ذكريات</span> ⟵ <span class="bpNode" data-key="future">مستقبل</span></div>
+        <div class="bpDetail" id="bpDetail">👆 اضغطي على أي محطة لتعرفي تفاصيلها</div>
+      </div>
+
+      <!-- Vault -->
+      <div class="engCard">
+        <h3>🔒 Restricted Engineer Access</h3>
+        <div class="vaultRow">
+          <input class="vaultInput" id="vaultPass" type="text" placeholder="ادخل كلمة السر">
+          <button class="vaultBtn" id="vaultBtn">فتح</button>
+        </div>
+        <div class="vaultMsg" id="vaultMsg"></div>
+        <div class="vaultReveal" id="vaultReveal"></div>
+      </div>
+
+      <!-- ختم Engineer Approved -->
+      <div class="engCard approvedWrap">
+        <div class="approvedStamp">✅ Approved by Engineer Zeina</div>
+      </div>
+    </div>
 
   </div>
 
@@ -3601,13 +4202,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const dateBadge = $("dateBadge");
   if(dateBadge){
     const now = new Date();
-    const getH = (unit) => parseInt(
-      new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {[unit]:"numeric"}).format(now)
-    );
-    const hijriMonths = ["محرم","صفر","ربيع الأول","ربيع الثاني","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
-    const hd = getH("day"), hm = getH("month"), hy = getH("year");
     const dayName = new Intl.DateTimeFormat("ar-SA", { weekday:"long" }).format(now);
-    dateBadge.textContent = "📅 " + dayName + " " + hd + " " + hijriMonths[hm-1] + " " + hy + " هـ";
+    const gregMonths = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+    const gd = now.getDate(), gm = now.getMonth(), gy = now.getFullYear();
+    dateBadge.textContent = "📅 " + dayName + " " + gd + " " + gregMonths[gm] + " " + gy;
   }
 
   // ===== الرسالة =====
@@ -4430,13 +5028,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
           setTimeout(()=>{
             const quizBox = $("quizBox");
-            const giftBox = $("giftBox");
-            const giftText = $("giftText");
+            const secretSection = document.getElementById("secretSection");
             if(quizBox) quizBox.style.display = "none";
-            if(giftBox) giftBox.style.display = "block";
-            if(giftText) typeWriter(giftText, message, 3);
-            showToast("وصلتي للتهنئة 💖");
-            giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
+            if(secretSection){
+              secretSection.style.display = "block";
+              showToast("قبل التهنئة... في رسالة سرية 🤫");
+              setTimeout(()=> secretSection.scrollIntoView({behavior:"smooth", block:"start"}), 300);
+            } else {
+              const giftBox = $("giftBox");
+              const giftText = $("giftText");
+              if(giftBox) giftBox.style.display = "block";
+              if(giftText) typeWriter(giftText, message, 3);
+              showToast("وصلتي للتهنئة 💖");
+              giftBox?.scrollIntoView({behavior:"smooth", block:"start"});
+            }
           }, 1800);
         });
       }
@@ -4712,50 +5317,51 @@ document.addEventListener("DOMContentLoaded", () => {
     draw();
   })();
 
-  // ===== ساعة العمر =====
-  // ===== ساعة العمر (بالتقويم الهجري) =====
+  // ===== عداد العمر إلى 20 أكتوبر =====
   (function ageClock(){
-    // تاريخ ميلاد زينة: 27 رمضان 1427 هـ
-    const BIRTH_H = { y:1427, m:9, d:27 };
-
-    function getHijriNow(){
-      const now = new Date();
-      const fmt = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
-        year:"numeric", month:"numeric", day:"numeric"
-      });
-      const parts = fmt.formatToParts(now);
-      const p = {};
-      parts.forEach(x => p[x.type] = parseInt(x.value));
-      return { y:p.year, m:p.month, d:p.day, _date:now };
-    }
+    const BIRTH  = new Date("2006-10-20T00:00:00");
+    const TARGET = new Date(2026, 9, 20, 0, 0, 0); // 20 أكتوبر 2026
 
     function pad(n){ return String(Math.max(0,n)).padStart(2,"0"); }
+    const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=pad(v); };
 
     function tick(){
-      const hNow = getHijriNow();
-      const now  = hNow._date;
+      const now = new Date();
 
-      let years  = hNow.y - BIRTH_H.y;
-      let months = hNow.m - BIRTH_H.m;
-      let days   = hNow.d - BIRTH_H.d;
+      // ===== 1) العد التنازلي لعيد ميلاد زينة القادم =====
+      const diff = TARGET - now;
+      if(diff <= 0){
+        set("cd-y",0); set("cd-mo",0); set("cd-d",0);
+        set("cd-h",0); set("cd-m",0); set("cd-s",0);
+        const titles = document.querySelectorAll(".ageClockTitle");
+        if(titles[0]) titles[0].textContent = "🎉 اليوم عيد ميلاد زينة!";
+      } else {
+        const totalSecs = Math.floor(diff / 1000);
+        set("cd-s",  totalSecs % 60);
+        set("cd-m",  Math.floor(totalSecs / 60) % 60);
+        set("cd-h",  Math.floor(totalSecs / 3600) % 24);
+        set("cd-d",  Math.floor(totalSecs / 86400) % 30);
+        set("cd-mo", Math.floor(totalSecs / (86400 * 30)) % 12);
+        set("cd-y",  Math.floor(totalSecs / (86400 * 365)));
+      }
 
-      if(days   < 0){ months--; days += 30; }
+      // ===== 2) عمر زينة بالضبط من لحظة ميلادها =====
+      let years  = now.getFullYear() - BIRTH.getFullYear();
+      let months = now.getMonth()    - BIRTH.getMonth();
+      let days   = now.getDate()     - BIRTH.getDate();
+      if(days   < 0){ months--; const prev = new Date(now.getFullYear(), now.getMonth(), 0); days += prev.getDate(); }
       if(months < 0){ years--;  months += 12; }
 
-      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const todayMs = now - startOfDay;
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const todayMs = now - startOfToday;
       const HR=3600000, MIN=60000, S=1000;
-      const hours = Math.floor(todayMs / HR);
-      const mins  = Math.floor((todayMs % HR)  / MIN);
-      const secs  = Math.floor((todayMs % MIN) / S);
 
-      const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=pad(v); };
       set("ac-y",  years);
       set("ac-mo", months);
       set("ac-d",  days);
-      set("ac-h",  hours);
-      set("ac-m",  mins);
-      set("ac-s",  secs);
+      set("ac-h",  Math.floor(todayMs / HR));
+      set("ac-m",  Math.floor((todayMs % HR) / MIN));
+      set("ac-s",  Math.floor((todayMs % MIN) / S));
     }
 
     tick();
@@ -4839,19 +5445,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.moveTo(cx+40,210); ctx.lineTo(cx+cw-40,210);
         ctx.strokeStyle=lg; ctx.lineWidth=1.5; ctx.stroke();
 
-        // العمر
-        // حساب العمر بالهجري عشان يطابق ساعة العمر
+        // العمر — ميلادي (20 أكتوبر 2006)
         const now2 = new Date();
-        const fmtH = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
-          year:"numeric", month:"numeric", day:"numeric"
-        });
-        const partsH = fmtH.formatToParts(now2);
-        const pH = {};
-        partsH.forEach(x => pH[x.type] = parseInt(x.value));
-        const BIRTH_H2 = { y:1427, m:9, d:27 };
-        let yrs2 = pH.year - BIRTH_H2.y;
-        let mo2  = pH.month - BIRTH_H2.m;
-        let d2   = pH.day   - BIRTH_H2.d;
+        const BIRTH_G = new Date("2006-10-20T00:00:00");
+        let yrs2 = now2.getFullYear() - BIRTH_G.getFullYear();
+        let mo2  = now2.getMonth()    - BIRTH_G.getMonth();
+        let d2   = now2.getDate()     - BIRTH_G.getDate();
         if(d2  < 0){ mo2--; }
         if(mo2 < 0){ yrs2--; }
 
@@ -5080,6 +5679,441 @@ document.addEventListener("DOMContentLoaded", () => {
 
     waves.classList.add("paused");
   }})();
+
+
+  // ===== عداد الزيارات =====
+  (function visitCounter(){
+    const badge = document.getElementById("visitBadge");
+    let count = 0;
+    try{ count = parseInt(localStorage.getItem("zeina_visits") || "0"); } catch(e){}
+    count++;
+    try{ localStorage.setItem("zeina_visits", count); } catch(e){}
+    if(badge) badge.textContent = "👀 " + count + (count === 1 ? " زيارة" : " زيارة");
+  })();
+
+  // ===== الرسالة السرية =====
+  (function initSecret(){
+    const secretSection  = document.getElementById("secretSection");
+    const secretReveal   = document.getElementById("secretRevealBox");
+    const step1          = document.getElementById("secretStep1");
+    const step2          = document.getElementById("secretStep2");
+    const err1           = document.getElementById("ss1-error");
+    const err2           = document.getElementById("ss2-error");
+
+    if(!secretSection) return;
+
+    // الرسالة السرية اللي تظهر لما تعرف التواريخ
+    const secretMsg = `يا زينة لو عرفتي هالتواريخ بتعرفي قديش أنتي مهمة كتييير عندي 💗
+
+تاريخ ميلادك كان أحلى يوم وُجدتي فيه بالدنيا…
+وتاريخ ما عرفتك كان أحلى يوم وُجدتي بحياتي 🌸
+
+بحبك كتير يا زوزيييي 🥸💞`;
+
+    function fillYear(sel, minY, maxY){
+      for(let y = maxY; y >= minY; y--){
+        const o = document.createElement("option");
+        o.value = y; o.textContent = y;
+        sel.appendChild(o);
+      }
+    }
+    function fillMonth(sel){
+      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      months.forEach((m, i)=>{
+        const o = document.createElement("option");
+        o.value = i + 1; o.textContent = m;
+        sel.appendChild(o);
+      });
+    }
+    function fillDay(sel){
+      for(let d = 1; d <= 31; d++){
+        const o = document.createElement("option");
+        o.value = d; o.textContent = d;
+        sel.appendChild(o);
+      }
+    }
+
+    fillYear(document.getElementById("ss1-year"), 2000, 2030);
+    fillMonth(document.getElementById("ss1-month"));
+    fillDay(document.getElementById("ss1-day"));
+
+    fillYear(document.getElementById("ss2-year"), 2000, 2030);
+    fillMonth(document.getElementById("ss2-month"));
+    fillDay(document.getElementById("ss2-day"));
+
+    // تأكيد المرحلة الأولى — كلمة السر: 2006/10/20
+    document.getElementById("ss1-confirm").addEventListener("click", ()=>{
+      const y = document.getElementById("ss1-year").value;
+      const m = document.getElementById("ss1-month").value;
+      const d = document.getElementById("ss1-day").value;
+      if(!y || !m || !d){ err1.textContent = "اختاري التاريخ كامل 🙏"; return; }
+      const correct = (+y === 2006 && +m === 10 && +d === 20);
+      if(correct){
+        err1.textContent = "";
+        beep("heart");
+        burst();
+        step1.classList.remove("active");
+        step2.classList.add("active");
+        step2.scrollIntoView({behavior:"smooth", block:"center"});
+      } else {
+        beep("escape");
+        err1.textContent = "اهمممم تاريخخخ كيف تنسيييه!! 😤";
+        const card = document.querySelector("#secretStep1 .secretQuestionCard");
+        if(card){ card.style.animation = "none"; void card.offsetWidth; card.style.animation = ""; }
+        setTimeout(()=> err1.textContent = "", 2800);
+      }
+    });
+
+    // تأكيد المرحلة الثانية — كلمة السر: 2025/11/1
+    document.getElementById("ss2-confirm").addEventListener("click", ()=>{
+      const y = document.getElementById("ss2-year").value;
+      const m = document.getElementById("ss2-month").value;
+      const d = document.getElementById("ss2-day").value;
+      if(!y || !m || !d){ err2.textContent = "اختاري التاريخ كامل 🙏"; return; }
+      const correct = (+y === 2025 && +m === 11 && +d === 1);
+      if(correct){
+        err2.textContent = "";
+        beep("heart");
+        playPartyPop();
+        burst();
+        heartRain();
+        step2.innerHTML = `<div class="secretSuccessBanner">شطورتييييييي عرفتيييي التواريييخ 🥳🥳</div>`;
+        step2.classList.add("active");
+        setTimeout(()=>{
+          secretReveal.classList.add("show");
+          secretReveal.scrollIntoView({behavior:"smooth", block:"start"});
+          secretReveal.classList.add("typed");
+          secretReveal.textContent = "";
+          let i = 0;
+          const iv = setInterval(()=>{
+            secretReveal.textContent += secretMsg[i] ?? "";
+            i++;
+            if(i > secretMsg.length){
+              clearInterval(iv);
+              setTimeout(()=> secretReveal.classList.remove("typed"), 600);
+              // بعد الرسالة — افتح التهنئة
+              setTimeout(()=>{
+                const giftBox = document.getElementById("giftBox");
+                const giftText = document.getElementById("giftText");
+                if(giftBox){
+                  giftBox.style.display = "block";
+                  if(giftText) typeWriter(giftText, message, 3);
+                  showToast("وصلتي للتهنئة 💖", 2000);
+                  setTimeout(()=> giftBox.scrollIntoView({behavior:"smooth", block:"start"}), 200);
+                }
+              }, 2800);
+            }
+          }, 14);
+        }, 1000);
+      } else {
+        beep("escape");
+        err2.textContent = "كيف تنسي التاريخ اللي عرفتك فيه 😞";
+        const card = document.querySelector("#secretStep2 .secretQuestionCard");
+        if(card){ card.style.animation = "none"; void card.offsetWidth; card.style.animation = ""; }
+        setTimeout(()=> err2.textContent = "", 2800);
+      }
+    });
+
+  })();
+
+  // ===== لعبة اصطياد عمر وكنان =====
+  (function initGame(){
+    const canvas   = document.getElementById("gameCanvas");
+    const overlay  = document.getElementById("gameOverlay");
+    const startBtn = document.getElementById("gameStartBtn");
+    const restartBtn = document.getElementById("gameRestartBtn");
+    const scoreEl  = document.getElementById("gameScore");
+    const timeEl   = document.getElementById("gameTime");
+    const highEl   = document.getElementById("gameHigh");
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    const IMGS = [];
+    let loadedCount = 0;
+    for(let i = 1; i <= 8; i++){
+      const img = new Image();
+      img.onload  = () => loadedCount++;
+      img.onerror = () => loadedCount++;
+      img.src = `game${i}.png`;
+      IMGS.push(img);
+    }
+    function imgsReady(){ return loadedCount >= 8; }
+
+    let targets=[], score=0, timeLeft=30, running=false, animId=null, timerInt=null;
+    let highScore = parseInt(localStorage.getItem("zeina_game_high") || "0");
+    if(highEl) highEl.textContent = highScore;
+
+    function resize(){
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width  = rect.width - 4;
+      canvas.height = 320;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    function randomTarget(){
+      const img = IMGS[Math.floor(Math.random() * IMGS.length)];
+      const size = 55 + Math.random() * 40;
+      return {
+        img,
+        x: Math.random() * (canvas.width  - size),
+        y: Math.random() * (canvas.height - size),
+        size,
+        life: 1800 + Math.random() * 1200,
+        born: performance.now(),
+        hit: false,
+        pop: 0,
+        dx: (Math.random() - .5) * 1.2,
+        dy: (Math.random() - .5) * 1.2,
+      };
+    }
+
+    function spawnTargets(){
+      const count = Math.min(3 + Math.floor((30 - timeLeft) / 8), 6);
+      while(targets.length < count) targets.push(randomTarget());
+    }
+
+    let last = 0;
+    function loop(ts){
+      if(!running) return;
+      const dt = ts - last; last = ts;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      targets = targets.filter(t => {
+        if(t.hit) return t.pop < 1;
+        return ts - t.born < t.life;
+      });
+      spawnTargets();
+      targets.forEach(t => {
+        if(t.hit){
+          t.pop += 0.12;
+          ctx.globalAlpha = Math.max(0, 1 - t.pop);
+          const s = t.size * (1 + t.pop * 0.5);
+          if(t.img.complete && t.img.naturalWidth) ctx.drawImage(t.img, t.x - (s - t.size)/2, t.y - (s - t.size)/2, s, s);
+          ctx.globalAlpha = 1;
+          return;
+        }
+        t.x += t.dx;
+        t.y += t.dy;
+        if(t.x < 0 || t.x + t.size > canvas.width)  t.dx *= -1;
+        if(t.y < 0 || t.y + t.size > canvas.height) t.dy *= -1;
+        const remaining = t.life - (ts - t.born);
+        const pulse = remaining < 600 ? 0.6 + 0.4 * Math.sin(ts * 0.02) : 1;
+        ctx.globalAlpha = Math.min(1, remaining / 300) * pulse;
+        if(t.img.complete && t.img.naturalWidth) ctx.drawImage(t.img, t.x, t.y, t.size, t.size);
+        ctx.globalAlpha = 1;
+      });
+      animId = requestAnimationFrame(loop);
+    }
+
+    function tap(cx, cy){
+      if(!running) return;
+      for(let i = targets.length - 1; i >= 0; i--){
+        const t = targets[i];
+        if(t.hit) continue;
+        if(cx >= t.x && cx <= t.x + t.size && cy >= t.y && cy <= t.y + t.size){
+          t.hit = true;
+          score++;
+          if(scoreEl) scoreEl.textContent = score;
+          burst();
+          break;
+        }
+      }
+    }
+
+    canvas.addEventListener("click", e => {
+      const r = canvas.getBoundingClientRect();
+      tap(e.clientX - r.left, e.clientY - r.top);
+    });
+    canvas.addEventListener("touchstart", e => {
+      e.preventDefault();
+      const r = canvas.getBoundingClientRect();
+      const t = e.touches[0];
+      tap(t.clientX - r.left, t.clientY - r.top);
+    }, {passive: false});
+
+    function startGame(){
+      score = 0; timeLeft = 30; targets = [];
+      if(scoreEl) scoreEl.textContent = 0;
+      if(timeEl)  timeEl.textContent  = 30;
+      running = true;
+      const resGrid = document.getElementById("gameResultGrid");
+      if(resGrid) resGrid.style.display = "none";
+      overlay.classList.add("hidden");
+      last = performance.now();
+      animId = requestAnimationFrame(loop);
+      timerInt = setInterval(()=>{
+        timeLeft--;
+        if(timeEl) timeEl.textContent = timeLeft;
+        if(timeLeft <= 0){
+          clearInterval(timerInt);
+          running = false;
+          cancelAnimationFrame(animId);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const missed = targets.filter(t => !t.hit).length;
+          if(score > highScore){
+            highScore = score;
+            localStorage.setItem("zeina_game_high", highScore);
+            if(highEl) highEl.textContent = highScore;
+          }
+          overlay.classList.remove("hidden");
+          const titleEl   = document.getElementById("gameOverlayTitle");
+          const scoreMsg  = document.getElementById("gameOverlayScore");
+          const resGrid2  = document.getElementById("gameResultGrid");
+          const resScore  = document.getElementById("resScore");
+          const resHigh   = document.getElementById("resHigh");
+          const resMissed = document.getElementById("resMissed");
+          if(titleEl)  titleEl.textContent  = score >= 20 ? "🏆 ممتازة زينة!" : score >= 10 ? "🎉 كتير زين!" : "😅 جربي مرة ثانية!";
+          if(scoreMsg) scoreMsg.textContent = score >= 20 ? "اصطيادج خرافي! 🔥" : score >= 10 ? "مو بطالة! 👏" : "عمر وكنان فلتوا منج 😂";
+          if(resGrid2) resGrid2.style.display = "flex";
+          if(resScore) resScore.textContent  = score;
+          if(resHigh)  resHigh.textContent   = highScore;
+          if(resMissed)resMissed.textContent = missed;
+          if(startBtn) startBtn.textContent = "🔄 العب مرة ثانية";
+        }
+      }, 1000);
+    }
+
+    if(startBtn) startBtn.addEventListener("click", startGame);
+
+    function resetGame(){
+      clearInterval(timerInt);
+      cancelAnimationFrame(animId);
+      running = false; targets = [];
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const resGrid = document.getElementById("gameResultGrid");
+      const titleEl = document.getElementById("gameOverlayTitle");
+      const scoreMsg= document.getElementById("gameOverlayScore");
+      if(resGrid)  resGrid.style.display = "none";
+      if(titleEl)  titleEl.textContent  = "🎯 اصطادي عمر وكنان!";
+      if(scoreMsg) scoreMsg.textContent = "اضغطي على وجوههم قبل ما يختفون 😄";
+      if(startBtn) startBtn.textContent = "ابدأي اللعبة 🚀";
+      overlay.classList.remove("hidden");
+      score = 0; timeLeft = 30;
+      if(scoreEl) scoreEl.textContent = 0;
+      if(timeEl)  timeEl.textContent  = 30;
+    }
+    if(restartBtn) restartBtn.addEventListener("click", resetGame);
+  })();
+
+
+  // ===== Engineer Mode: عداد المعرفة + Progress + Analysis + Blueprint + الخزنة =====
+  (function engineerMode(){
+
+    // ----- عداد المعرفة -----
+    const knowEl = document.getElementById("knowCounter");
+    if(knowEl){
+      const start = new Date("2025-11-01T00:00:00");
+      function updateKnowledge(){
+        const now = new Date();
+        const diff = now - start;
+        const days  = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const mins  = Math.floor((diff / (1000*60)) % 60);
+        knowEl.textContent = days + " يوم | " + hours + " ساعة | " + mins + " دقيقة";
+      }
+      updateKnowledge();
+      setInterval(updateKnowledge, 1000);
+    }
+
+    // ----- Project Progress: أنيميشن شريط التقدم -----
+    const fillEl = document.getElementById("progressBarFill");
+    if(fillEl){
+      setTimeout(()=>{ fillEl.style.width = "75%"; }, 350);
+    }
+
+    // ----- System Analysis: فحص ثم عرض الإحصائيات بشكل بارات -----
+    const analysisBox = document.getElementById("analysisBox");
+    if(analysisBox){
+      setTimeout(()=>{
+        const stats = [
+          { label:"الذكاء",   pct:96  },
+          { label:"الإبداع",  pct:94  },
+          { label:"الصبر",    pct:88  },
+          { label:"العناد",   pct:73  },
+          { label:"التأثير",  pct:100 },
+        ];
+        let html = '<span class="ttl">[ SYSTEM ANALYSIS ]</span>\n';
+        stats.forEach(s=>{
+          const filled = Math.floor(s.pct/10);
+          const bar = "█".repeat(filled) + "░".repeat(10-filled);
+          html += '<span class="lbl">' + s.label + '</span> [' + bar + '] ' + s.pct + '%\n';
+        });
+        html += '<span class="ok">✅ ACCESS GRANTED</span>';
+        analysisBox.innerHTML = html;
+      }, 1300);
+    }
+
+    // ----- Blueprint Map: محطات قابلة للضغط -----
+    const bpDetails = {
+      start:    "🚀 البداية: أول مرة بدأت القصة... من هنا انطلق كل شي.",
+      know:     "🤝 معرفة: من 1 نوفمبر 2025 — صرنا نعرف بعض أكثر يوم بعد يوم.",
+      moments:  "📍 مواقف: كل موقف مرّ فينا زاد من صداقتنا، حتى الصعب منه.",
+      memories: "🎞️ ذكريات: كل لحظة سجلناها صارت جزء من القصة.",
+      future:   "🔭 مستقبل: فصول جديدة من صداقتنا... ذكريات وضحكات أكتر جايّة 🎉",
+    };
+    document.querySelectorAll(".bpNode").forEach(node=>{
+      node.addEventListener("click", ()=>{
+        document.querySelectorAll(".bpNode").forEach(n=> n.classList.remove("active"));
+        node.classList.add("active");
+        const detail = document.getElementById("bpDetail");
+        if(detail) detail.textContent = bpDetails[node.dataset.key] || "";
+      });
+    });
+
+    // ----- Vault -----
+    const vaultBtn    = document.getElementById("vaultBtn");
+    const vaultPass   = document.getElementById("vaultPass");
+    const vaultMsg    = document.getElementById("vaultMsg");
+    const vaultReveal = document.getElementById("vaultReveal");
+    if(vaultBtn){
+      // كلمة السر: My engineer (بدون حساسية لحالة الأحرف أو المسافات)
+      function checkVaultPass(raw){
+        const norm = raw.trim().toLowerCase().replace(/\s+/g, "");
+        return norm === "myengineer";
+      }
+
+      const vaultMsgText = "📂 ملف سري تم فتحه:\nبعد كل التحليلات والأرقام والمعادلات...\nالنتيجة وحدة بس: زينة هي أحلى تفصيلة بهالمشروع 💗🛠️";
+
+      vaultBtn.addEventListener("click", ()=>{
+        const v = vaultPass.value || "";
+        if(checkVaultPass(v)){
+          vaultMsg.textContent = "تم فتح الخزنة ✨";
+          vaultMsg.style.color = "#9cffb0";
+          beep("heart");
+          burst();
+
+          if(vaultReveal && !vaultReveal.classList.contains("show")){
+            vaultReveal.classList.add("show");
+            vaultReveal.textContent = "";
+            let i = 0;
+            const iv = setInterval(()=>{
+              vaultReveal.textContent += vaultMsgText[i] ?? "";
+              i++;
+              if(i > vaultMsgText.length) clearInterval(iv);
+            }, 18);
+          }
+
+          // فتح المرحلة القادمة في Project Progress
+          const nextIcon = document.getElementById("nextPhaseIcon");
+          const nextHint = document.getElementById("nextPhaseHint");
+          if(nextIcon && nextIcon.textContent === "🔒"){
+            nextIcon.textContent = "🔓";
+            if(nextHint){
+              nextHint.style.display = "block";
+              nextHint.textContent = "🔓 تم كشف المرحلة القادمة: ذكريات أكتر وضحكات أكتر... صداقتنا لسه في أحلى أيامها 🎉";
+            }
+          }
+        } else {
+          vaultMsg.textContent = "كلمة المرور خطأ 🔐";
+          vaultMsg.style.color = "#ff9bcb";
+          beep("escape");
+        }
+      });
+      vaultPass.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter") vaultBtn.click();
+      });
+    }
+  })();
 });
 </script>
 
